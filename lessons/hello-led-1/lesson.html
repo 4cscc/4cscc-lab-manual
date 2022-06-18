@@ -299,12 +299,56 @@ title="Print to PDF"
     </ul>
   </div>
 </div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
 
     </div>
 </div>
 
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#parts-list">
+   Parts list
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#wire-phat">
+   Wire pHAT
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#wire-breadboard">
+   Wire breadboard
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#write-a-scratch-3-program">
+   Write a Scratch 3 program
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#write-a-python-3-program">
+   Write a Python 3 program
+  </a>
+ </li>
+</ul>
+
+    </nav>
 </div>
     </div>
     <div class="article row">
@@ -316,6 +360,39 @@ title="Print to PDF"
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#parts-list">
+   Parts list
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#wire-phat">
+   Wire pHAT
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#wire-breadboard">
+   Wire breadboard
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#write-a-scratch-3-program">
+   Write a Scratch 3 program
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#write-a-python-3-program">
+   Write a Python 3 program
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -325,8 +402,48 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="hello-led">
 <h1>Hello LED<a class="headerlink" href="#hello-led" title="Permalink to this headline">#</a></h1>
-<p>In this lesson…</p>
+<p>In this lesson we’ll complete our first physical computing experiments: we’ll
+connect an LED to our Raspberry Pi, and make it blink.</p>
+<section id="parts-list">
+<h2>Parts list<a class="headerlink" href="#parts-list" title="Permalink to this headline">#</a></h2>
+<p>For this exercise you’ll need:</p>
+<ul class="simple">
+<li><p>Raspberry Pi 400 computer</p></li>
+<li><p>Sparkfun Qwiic pHAT Extension</p></li>
+<li><p>One single-color LED</p></li>
+<li><p>Two male-to-female jumper wires (one red and one black if possible)</p></li>
+<li><p>One male-to-male jumper wire (black if possible)</p></li>
+<li><p>One 330 Ohm resistor</p></li>
+</ul>
+</section>
+<section id="wire-phat">
+<h2>Wire pHAT<a class="headerlink" href="#wire-phat" title="Permalink to this headline">#</a></h2>
+<p><img alt="Completed pHAT" src="../../_images/pHAT-1.jpg" /></p>
+</section>
+<section id="wire-breadboard">
+<h2>Wire breadboard<a class="headerlink" href="#wire-breadboard" title="Permalink to this headline">#</a></h2>
 <p><img alt="Completed breadboard" src="../../_images/breadboard-1.jpg" /></p>
+</section>
+<section id="write-a-scratch-3-program">
+<h2>Write a Scratch 3 program<a class="headerlink" href="#write-a-scratch-3-program" title="Permalink to this headline">#</a></h2>
+<p><img alt="Completed Scratch 3 code" src="../../_images/complete-s3-program.jpg" /></p>
+</section>
+<section id="write-a-python-3-program">
+<h2>Write a Python 3 program<a class="headerlink" href="#write-a-python-3-program" title="Permalink to this headline">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gpiozero</span> <span class="kn">import</span> <span class="n">LED</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
+
+<span class="n">led</span> <span class="o">=</span> <span class="n">LED</span><span class="p">(</span><span class="mi">21</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">led</span><span class="o">.</span><span class="n">on</span><span class="p">()</span>
+    <span class="n">sleep</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">led</span><span class="o">.</span><span class="n">off</span><span class="p">()</span>
+    <span class="n">sleep</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><img alt="Completed Python 3 code" src="../../_images/complete-py3-program.jpg" /></p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
