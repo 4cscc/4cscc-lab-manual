@@ -1,6 +1,8 @@
 # Four Corners Science and Computing Club Lab Notebook
 
-Introductory exercises in scientific computing
+Introductory exercises in scientific computing.
+
+This is the source code repository for the Four Corners Science and Computing Club (4CSCC) Lab Notebook. The published book is available at https://gregcaporaso.github.io/4cscc-ln/.
 
 ## Usage
 
