@@ -39,5 +39,3 @@ while True:
     led.off()
     sleep(1.0)
 ```
-
-![Completed Python 3 code](images/complete-py3-program.jpg)
