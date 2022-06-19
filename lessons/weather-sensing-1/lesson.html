@@ -299,12 +299,51 @@ title="Print to PDF"
     </ul>
   </div>
 </div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
 
     </div>
 </div>
 
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#parts-list">
+   Parts list
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#wire-phat-and-sensor">
+   Wire pHAT and sensor
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#write-a-python-3-program">
+   Write a Python 3 program
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dashboard-output">
+   Dashboard output
+  </a>
+ </li>
+</ul>
+
+    </nav>
 </div>
     </div>
     <div class="article row">
@@ -316,6 +355,34 @@ title="Print to PDF"
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#parts-list">
+   Parts list
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#wire-phat-and-sensor">
+   Wire pHAT and sensor
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#write-a-python-3-program">
+   Write a Python 3 program
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dashboard-output">
+   Dashboard output
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -325,7 +392,129 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="weather-sensing">
 <h1>Weather sensing<a class="headerlink" href="#weather-sensing" title="Permalink to this headline">#</a></h1>
-<p>In this lesson…</p>
+<p>In this lesson we’ll collect temperature, humidity, and air pressure data from
+a sensor and post it to an online dashboard.</p>
+<section id="parts-list">
+<h2>Parts list<a class="headerlink" href="#parts-list" title="Permalink to this headline">#</a></h2>
+<p>For this exercise you’ll need:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.sparkfun.com/products/17377">Raspberry Pi 400</a> computer</p></li>
+<li><p>Sparkfun <a class="reference external" href="https://www.sparkfun.com/products/17512">Qwiic pHAT Extension</a></p></li>
+<li><p>Sparkfun <a class="reference external" href="https://www.sparkfun.com/products/15440">BME280 Atmospheric Sensor</a></p></li>
+<li><p>Sparkfun <a class="reference external" href="https://www.sparkfun.com/products/14429">Qwiic cable (500mm)</a></p></li>
+<li><p><a class="reference external" href="https://www.initialstate.com/">Initial State</a> access and bucket keys</p></li>
+<li><p>An internet connection</p></li>
+</ul>
+<p>If you haven’t used Initial State before, start with their <a class="reference external" href="https://support.initialstate.com/hc/en-us/categories/360000428291-Using-Initial-State"><em>Getting Started</em> documentation</a>.</p>
+</section>
+<section id="wire-phat-and-sensor">
+<h2>Wire pHAT and sensor<a class="headerlink" href="#wire-phat-and-sensor" title="Permalink to this headline">#</a></h2>
+<p><img alt="Completed pHAT" src="../../_images/pHAT-11.jpg" /></p>
+</section>
+<section id="write-a-python-3-program">
+<h2>Write a Python 3 program<a class="headerlink" href="#write-a-python-3-program" title="Permalink to this headline">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">qwiic_bme280</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span><span class="p">,</span> <span class="n">time</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">urllib.request</span>
+<span class="kn">import</span> <span class="nn">urllib.parse</span>
+<span class="kn">import</span> <span class="nn">socket</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+<span class="n">hostname</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">gethostname</span><span class="p">()</span>
+
+<span class="c1"># The following values should be added from your Initial State account.</span>
+<span class="c1"># See https://www.initialstate.com/</span>
+<span class="n">access_key</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span> <span class="c1"># EDIT: Add your Initial State API endpoint access key</span>
+<span class="n">bucket_key</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>  <span class="c1"># EDIT: Add your Initial State API endpoint bucket key</span>
+<span class="n">inst_api_endpoint</span> <span class="o">=</span> <span class="s2">&quot;https://groker.init.st/api/events?accessKey=</span><span class="si">%s</span><span class="s2">&amp;bucketKey=</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">access_key</span><span class="p">,</span> <span class="n">bucket_key</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">report_string_inst</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">inst_api_endpoint</span> <span class="o">+</span> <span class="s1">&#39;&amp;</span><span class="si">%s</span><span class="s1">=</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">report_status</span><span class="p">(</span><span class="n">value</span><span class="p">,</span><span class="n">quiet</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">quiet</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="n">report_string_inst</span><span class="p">(</span><span class="s2">&quot;status&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">report_tph_inst</span><span class="p">(</span><span class="n">sensor</span><span class="p">):</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">sensor</span><span class="o">.</span><span class="n">temperature_fahrenheit</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">sensor</span><span class="o">.</span><span class="n">pressure</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">sensor</span><span class="o">.</span><span class="n">humidity</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
+
+        <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">inst_api_endpoint</span> <span class="o">+</span>\
+                               <span class="s2">&quot;&amp;tempF=</span><span class="si">%1.2f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">t</span> <span class="o">+</span>\
+                               <span class="s2">&quot;&amp;pressure=</span><span class="si">%1.2f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">p</span> <span class="o">+</span>\
+                               <span class="s2">&quot;&amp;humidity=</span><span class="si">%1.2f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">h</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">warmup_sensor</span><span class="p">(</span><span class="n">sensor</span><span class="p">,</span> <span class="n">reporting_frequency</span><span class="p">,</span> <span class="n">warmup_time</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">warmup_time</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">current_time</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+        <span class="n">runtime</span> <span class="o">=</span> <span class="n">current_time</span> <span class="o">-</span> <span class="n">start_time</span>
+        <span class="k">if</span> <span class="n">runtime</span> <span class="o">&lt;</span> <span class="n">warmup_time</span><span class="p">:</span>
+            <span class="n">remaining_warmup_time_s</span> <span class="o">=</span> <span class="n">warmup_time</span> <span class="o">-</span> <span class="n">runtime</span>
+            <span class="n">remaining_warmup_time_m</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">remaining_warmup_time_s</span> <span class="o">/</span> <span class="mi">60</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">remaining_warmup_time_m</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">unit</span> <span class="o">=</span> <span class="s2">&quot;minute&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">unit</span> <span class="o">=</span> <span class="s2">&quot;minutes&quot;</span>
+            <span class="n">report_status</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> warming up (about </span><span class="si">%d</span><span class="s2"> </span><span class="si">%s</span><span class="s2"> left).&quot;</span> <span class="o">%</span>
+                            <span class="p">(</span><span class="n">hostname</span><span class="p">,</span> <span class="n">remaining_warmup_time_m</span><span class="p">,</span> <span class="n">unit</span><span class="p">))</span>
+            <span class="n">sleep</span><span class="p">(</span><span class="n">reporting_frequency</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span>
+
+
+<span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">reporting_frequency</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">warmup_time</span><span class="o">=</span><span class="mi">60</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Atomospheric sensor (BME280) on </span><span class="si">%s</span><span class="s2">:</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">hostname</span><span class="p">)</span>
+    <span class="n">sensor</span> <span class="o">=</span> <span class="n">qwiic_bme280</span><span class="o">.</span><span class="n">QwiicBme280</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">sensor</span><span class="o">.</span><span class="n">is_connected</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;BME280 device not detected. Is it connected?&quot;</span><span class="p">,</span> \
+            <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="n">sensor</span><span class="o">.</span><span class="n">begin</span><span class="p">()</span>
+    <span class="n">report_status</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> online.&quot;</span> <span class="o">%</span> <span class="n">hostname</span><span class="p">)</span>
+
+    <span class="c1"># The first reading from this sensor is noise, so collect and ignore</span>
+    <span class="c1"># data.</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">sensor</span><span class="o">.</span><span class="n">temperature_fahrenheit</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">sensor</span><span class="o">.</span><span class="n">pressure</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">sensor</span><span class="o">.</span><span class="n">humidity</span>
+
+    <span class="n">warmup_sensor</span><span class="p">(</span><span class="n">sensor</span><span class="p">,</span> <span class="n">reporting_frequency</span><span class="p">,</span> <span class="n">warmup_time</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">sleep</span><span class="p">(</span><span class="n">reporting_frequency</span><span class="p">)</span>
+            <span class="n">report_tph_inst</span><span class="p">(</span><span class="n">sensor</span><span class="p">)</span>
+            <span class="n">report_status</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> reporting.&quot;</span> <span class="o">%</span> <span class="n">hostname</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">KeyboardInterrupt</span><span class="p">,</span> <span class="ne">SystemExit</span><span class="p">):</span>
+        <span class="n">report_status</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> offline.&quot;</span> <span class="o">%</span> <span class="n">hostname</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="dashboard-output">
+<h2>Dashboard output<a class="headerlink" href="#dashboard-output" title="Permalink to this headline">#</a></h2>
+<p><img alt="Completed dashboard" src="../../_images/dashboard-1.jpg" /></p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
