@@ -8,5 +8,6 @@ chapters:
 - file: lessons/multicolor-led-1/lesson.md
 - file: lessons/pm-sensing-1/lesson.md
 - file: lessons/weather-sensing-1/lesson.md
+- file: lessons/voc-sensing-1/lesson.md
 - file: markdown
 - file: notebooks
