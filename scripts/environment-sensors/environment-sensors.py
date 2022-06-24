@@ -181,9 +181,6 @@ class EnvironmentSensors:
         if self._report_to_terminal: self._report_status_terminal(message)
 
 
-        sleep(self._reporting_frequency)
-
-
         try:
             while True:
                 data = {}
