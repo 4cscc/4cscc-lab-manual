@@ -6,7 +6,6 @@
 
 from time import sleep, time
 import sys
-from tkinter import FALSE
 import urllib.request
 import urllib.parse
 import urllib.error
@@ -42,12 +41,11 @@ def _urlopen(url, retries=10, delay=6, error_tolerant=True):
             return
         except urllib.error.URLError as err:
             current_delay = delay * i
-            print('URL request failed. Trying again in %d seconds.'\
-                  % current_delay)
-            print('Error message:')
-            print(err)
-            print()
+            print('Request of URL failed: %s' % url)
+            print('Trying again in %d seconds.' % current_delay)
+            print('HTTP error code: %s %s' % (err.code, err.reason))
             sleep(current_delay)
+
     if not error_tolerant:
         raise urllib.error.URLError
     else:
@@ -57,8 +55,10 @@ def _urlopen(url, retries=10, delay=6, error_tolerant=True):
 
 def _report_status_inst(value, debug=False):
     url_components = [inst_api_endpoint]
-    parameter = '%s-status=%s' % (hostname, value)
-    url_components.append(urllib.parse.quote(parameter))
+    parameter = '%s-status=%s' % \
+        (urllib.parse.quote(hostname),
+         urllib.parse.quote(value))
+    url_components.append(parameter)
     url = '&'.join(url_components)
     if debug:
         print('Requesting URL: %s' % url)
@@ -68,8 +68,11 @@ def _report_status_inst(value, debug=False):
 def _report_data_inst(data, debug=False):
     url_components = [inst_api_endpoint]
     for key, value in data.items():
-        parameter = '%s-%s=%1.2f' % (hostname, key, value)
-        url_components.append(urllib.parse.quote(parameter))
+        parameter = '%s-%s=%1.2f' % \
+            (urllib.parse.quote(hostname),
+             urllib.parse.quote(key),
+             value)
+        url_components.append(parameter)
     url = '&'.join(url_components)
     if debug:
         print('Requesting URL: %s' % url)
@@ -80,7 +83,7 @@ def _report_status_terminal(value):
 
 def _report_data_terminal(data):
     for key, value in data.items():
-        print('%s: %1.2f %s' % (key.titlecase(), value, UNITS[key]))
+        print('%s: %1.2f %s' % (key.title(), value, UNITS[key]))
 
 def _warmup_tph_sensor(sensor, reporting_frequency, warmup_time,
                        report_to_inst, report_to_terminal, debug):
@@ -115,8 +118,15 @@ def _warmup_tph_sensor(sensor, reporting_frequency, warmup_time,
             return
 
 
-def run(reporting_frequency=10, warmup_time=60,
-        report_to_inst=True, report_to_terminal=True, debug=FALSE):
+def run(warmup_time=60, report_to_inst=False, report_to_terminal=True, debug=False):
+
+    if report_to_inst:
+        reporting_frequency = 60
+    elif report_to_terminal:
+        reporting_frequency = 5
+    else:
+        print("Not reporting to Initial State or terminal, so there's nothing to do.")
+        return
 
     message = "Starting atomospheric sensor (BME280) on %s." % hostname
     if report_to_inst: _report_status_inst(message, debug)
@@ -128,7 +138,8 @@ def run(reporting_frequency=10, warmup_time=60,
         if report_to_terminal: _report_status_terminal(message)
         return
     tph_sensor.begin()
-    _warmup_tph_sensor(tph_sensor, reporting_frequency, warmup_time)
+    _warmup_tph_sensor(tph_sensor, reporting_frequency, warmup_time,
+                       report_to_inst, report_to_terminal, debug)
 
 
     message = "Starting air quality sensor (SGP30) on %s." % hostname
@@ -160,9 +171,7 @@ def run(reporting_frequency=10, warmup_time=60,
             if report_to_inst: _report_data_inst(data, debug)
             if report_to_terminal: _report_data_terminal(data)
 
-            message = "%s reporting." % hostname
-            if report_to_inst: _report_status_inst(message, debug)
-            if report_to_terminal: _report_status_terminal(message)
+            if report_to_terminal: print('')
 
             sleep(reporting_frequency)
 
@@ -177,4 +186,4 @@ def run(reporting_frequency=10, warmup_time=60,
 if __name__ == "__main__":
     run(report_to_inst=False,
         report_to_terminal=True,
-        debug=FALSE)
+        debug=False)

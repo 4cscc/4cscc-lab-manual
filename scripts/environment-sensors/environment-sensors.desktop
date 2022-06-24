@@ -1,0 +1,8 @@
+# Copy this file to ~/.local/share/applications/ to add launch icon
+# to Start menu
+[Desktop Entry]
+Name=Environment Sensor
+Exec=/home/pi/code/4cscc-ln/scripts/environment-sensors/environment-sensors.py
+Terminal=true
+Type=Application
+X-KeepTerminal=true
