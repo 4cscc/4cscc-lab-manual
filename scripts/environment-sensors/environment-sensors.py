@@ -19,7 +19,7 @@ import sgp30
 class EnvironmentSensors:
 
     _units = {'tempF': 'degrees Fahrenheit',
-              'humidity': '%% relative humdity',
+              'humidity': '% relative humdity',
               'pressure': 'Pascals',
               'co2': 'parts per million',
               'voc': 'parts per billion'}
