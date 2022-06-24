@@ -150,8 +150,8 @@ class EnvironmentSensors:
                 return
 
 
-    def __call__(self, tph_warmup_time=60, verbose=False, debug=False):
-
+    def __call__(self, tph_warmup_time=60, verbose=False, debug=False,
+                 tph_sensor=None, aq_sensor=None):
 
         if tph_sensor is None:
             message = "Starting atomospheric sensor (BME280) on %s." % self._host_identifier
