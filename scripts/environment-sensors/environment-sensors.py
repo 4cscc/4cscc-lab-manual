@@ -215,8 +215,8 @@ if __name__ == "__main__":
 
     usage = "environment-sensors.py [access-key bucket-key] | [--help]"
 
-    debug = True
-    verbose = True
+    debug = False
+    verbose = False
 
     if '--help' in sys.argv:
         print(usage)
