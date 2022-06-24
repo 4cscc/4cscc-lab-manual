@@ -73,7 +73,7 @@ class EnvironmentSensors:
                 current_delay = delay * i
                 print('Request of URL failed: %s' % url)
                 print('Trying again in %d seconds.' % current_delay)
-                print('HTTP error code: %s %s' % (err.code, err.reason))
+                #print('HTTP error code: %s %s' % (err.code, err.reason))
                 sleep(current_delay)
 
         if not error_tolerant:
