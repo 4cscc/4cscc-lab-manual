@@ -150,8 +150,7 @@ class EnvironmentSensors:
                 return
 
 
-    def __call__(self, tph_warmup_time=60, verbose=False, debug=False,
-                 tph_sensor=None, aq_sensor=None):
+    def __call__(self, tph_warmup_time=60, verbose=False, debug=False):
 
 
         if tph_sensor is None:
@@ -217,6 +216,7 @@ if __name__ == "__main__":
     usage = "environment-sensors.py [access-key bucket-key] | [--help]"
 
     debug = True
+    verbose = True
 
     if '--help' in sys.argv:
         print(usage)
@@ -237,19 +237,4 @@ if __name__ == "__main__":
                            host_identifier=None,
                            report_to_inst=report_to_inst,
                            report_to_terminal=report_to_terminal)
-    if debug:
-        DummyTphSensor = namedtuple('DummyTphSensor',
-                                    ['temperature_fahrenheit',
-                                     'pressure',
-                                     'humidity'])
-        dummy_tph_sensor = DummyTphSensor(-459.67, 0.00, 0.00)
-
-        DummyAqSensor = namedtuple('DummyAqSensor',
-                                   ['equivalent_co2',
-                                    'total_voc'])
-        dummy_aq_sensor = DummyAqSensor(0.00, 0.00)
-
-        e(tph_warmup_time=0, tph_sensor=dummy_tph_sensor,
-        aq_sensor=dummy_aq_sensor)
-    else:
-        e()
+    e(verbose=verbose, debug=debug)
