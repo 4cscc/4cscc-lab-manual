@@ -208,8 +208,10 @@ class EnvironmentSensors:
             exit(1)
 
 @click.command()
-@click.option('--access-key', default=None, help='Initial State access key.')
-@click.option('--bucket-key', default=None, help='Initial State bucket key.')
+@click.option('--access-key', name='inst_access_key', default=None,
+              help='Initial State access key.')
+@click.option('--bucket-key', name='inst_bucket_key',  default=None,
+              help='Initial State bucket key.')
 @click.option('--host-identifier', default=socket.gethostname(),
               help='Optional identifier for this machine.')
 @click.option('--report-to-inst', default=False,
