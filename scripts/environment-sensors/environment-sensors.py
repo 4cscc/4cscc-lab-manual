@@ -11,10 +11,10 @@ import urllib.parse
 import urllib.error
 import socket
 import math
-from collections import namedtuple
-
 import qwiic_bme280
 import sgp30
+
+import click
 
 class EnvironmentSensors:
 
@@ -201,37 +201,43 @@ class EnvironmentSensors:
 
         except (KeyboardInterrupt, SystemExit):
             # We won't always get in this block on program termination, but we
-            # can try to send the message.
+            # can try to send a message.
             message = "%s offline." % self._host_identifier
             if self._report_to_inst: self._report_status_inst(message, debug)
             if self._report_to_terminal: self._report_status_terminal(message)
             exit(1)
 
+@click.command()
+@click.option('--access-key', default=None, help='Initial State access key.')
+@click.option('--bucket-key', default=None, help='Initial State bucket key.')
+@click.option('--host-identifier', default=socket.gethostname(),
+              help='Optional identifier for this machine.')
+@click.option('--report-to-inst', default=False,
+              help='Report sensor data to Initial State.')
+@click.option('--report-to-terminal', default=False,
+              help='Report sensor data to terminal.')
+@click.option('--debug', default=False, help='Run in debug mode.')
+@click.option('--verbose', default=False, help='Run in verbose mode.')
+def run(inst_access_key=None,
+        inst_bucket_key=None,
+        host_identifier=None,
+        report_to_inst=False,
+        report_to_terminal=True,
+        debug=False,
+        verbose=False):
+
+    if report_to_inst:
+        if inst_access_key is not None:
+            click.echo("Must provide access key to write to Initial State.")
+        if inst_bucket_key is not None:
+            click.echo("Must provide bucket key to write to Initial State.")
+
+    # e = EnvironmentSensors(inst_access_key=inst_access_key,
+    #                        inst_bucket_key=inst_bucket_key,
+    #                        host_identifier=None,
+    #                        report_to_inst=report_to_inst,
+    #                        report_to_terminal=report_to_terminal)
+    # e(verbose=verbose, debug=debug)
 
 if __name__ == "__main__":
-
-    usage = "environment-sensors.py [access-key bucket-key] | [--help]"
-
-    debug = False
-    verbose = False
-
-    if '--help' in sys.argv:
-        print(usage)
-        exit(0)
-    elif len(sys.argv) == 3:
-        inst_access_key = sys.argv[1]
-        inst_bucket_key = sys.argv[2]
-        report_to_inst = True
-        report_to_terminal = False
-    else:
-        inst_access_key = None
-        inst_bucket_key = None
-        report_to_inst = False
-        report_to_terminal = True
-
-    e = EnvironmentSensors(inst_access_key=inst_access_key,
-                           inst_bucket_key=inst_bucket_key,
-                           host_identifier=None,
-                           report_to_inst=report_to_inst,
-                           report_to_terminal=report_to_terminal)
-    e(verbose=verbose, debug=debug)
+    run()
