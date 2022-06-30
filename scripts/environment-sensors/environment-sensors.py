@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python
 
 # This script depends on the pimoroni-sgp30 and sparkfun-qwiic-bme280
 # python libraries. These can be installed with the command:
@@ -11,6 +11,7 @@ import urllib.parse
 import urllib.error
 import socket
 import math
+
 import qwiic_bme280
 import sgp30
 
@@ -59,7 +60,7 @@ class EnvironmentSensors:
     def _urlopen(self, url, retries=10, delay=6, error_tolerant=True,
                  verbose=False, debug=False):
         if verbose:
-            print('Requesting URL: %s' % url)
+            click.echo('Requesting URL: %s' % url)
 
         if debug:
             return (-1, url)
@@ -71,15 +72,15 @@ class EnvironmentSensors:
                 return (0, "Success")
             except urllib.error.URLError as err:
                 current_delay = delay * i
-                print('Request of URL failed: %s' % url)
-                print('Trying again in %d seconds.' % current_delay)
-                #print('HTTP error code: %s %s' % (err.code, err.reason))
+                click.echo('Request of URL failed: %s' % url)
+                click.echo('Trying again in %d seconds.' % current_delay)
+                #click.echo('HTTP error code: %s %s' % (err.code, err.reason))
                 sleep(current_delay)
 
         if not error_tolerant:
             raise urllib.error.URLError
         else:
-            print("** Error encountered trying to send data to InitialState. " +\
+            click.echo("** Error encountered trying to send data to InitialState. " +\
                 "Let's ignore it, and maybe it'll go away...\n")
             return (1, "Failure")
 
@@ -109,12 +110,12 @@ class EnvironmentSensors:
 
 
     def _report_status_terminal(self, value):
-        print('%s status: %s' % (self._host_identifier, value))
+        click.echo('%s status: %s' % (self._host_identifier, value))
 
 
     def _report_data_terminal(self, data):
         for key, value in data.items():
-            print('%s: %1.2f %s' % (key.title(), value, self._units[key]))
+            click.echo('%s: %1.2f %s' % (key.title(), value, self._units[key]))
 
     def _warmup_tph_sensor(self, sensor, warmup_time, debug):
         if warmup_time < 1:
@@ -195,7 +196,7 @@ class EnvironmentSensors:
                 if self._report_to_inst: self._report_data_inst(data, debug)
                 if self._report_to_terminal: self._report_data_terminal(data)
 
-                if self._report_to_terminal: print('')
+                if self._report_to_terminal: click.echo('')
 
                 sleep(self._reporting_frequency)
 
@@ -214,12 +215,12 @@ class EnvironmentSensors:
               help='Initial State bucket key.')
 @click.option('--host-identifier', default=socket.gethostname(),
               help='Optional identifier for this machine.')
-@click.option('--report-to-inst', default=False,
+@click.option('--report-to-inst/--no-report-to-inst', default=False,
               help='Report sensor data to Initial State.')
-@click.option('--report-to-terminal', default=False,
+@click.option('--report-to-terminal/--no-report-to-terminal', default=True,
               help='Report sensor data to terminal.')
-@click.option('--debug', default=False, help='Run in debug mode.')
-@click.option('--verbose', default=False, help='Run in verbose mode.')
+@click.option('--debug/--no-debug', default=False, help='Run in debug mode.')
+@click.option('--verbose/--no-verbose', default=False, help='Run in verbose mode.')
 def run(inst_access_key=None,
         inst_bucket_key=None,
         host_identifier=None,
@@ -229,17 +230,19 @@ def run(inst_access_key=None,
         verbose=False):
 
     if report_to_inst:
-        if inst_access_key is not None:
+        if inst_access_key is None:
             click.echo("Must provide access key to write to Initial State.")
-        if inst_bucket_key is not None:
+            exit(-1)
+        if inst_bucket_key is None:
             click.echo("Must provide bucket key to write to Initial State.")
+            exit(-1)
 
-    # e = EnvironmentSensors(inst_access_key=inst_access_key,
-    #                        inst_bucket_key=inst_bucket_key,
-    #                        host_identifier=None,
-    #                        report_to_inst=report_to_inst,
-    #                        report_to_terminal=report_to_terminal)
-    # e(verbose=verbose, debug=debug)
+    e = EnvironmentSensors(inst_access_key=inst_access_key,
+                           inst_bucket_key=inst_bucket_key,
+                           host_identifier=host_identifier,
+                           report_to_inst=report_to_inst,
+                           report_to_terminal=report_to_terminal)
+    e(verbose=verbose, debug=debug)
 
 if __name__ == "__main__":
     run()
