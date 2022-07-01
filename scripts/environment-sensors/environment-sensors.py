@@ -58,11 +58,9 @@ class EnvironmentSensors:
             self._host_identifier = host_identifier
 
     def _urlopen(self, url, retries=10, delay=6, error_tolerant=True,
-                 verbose=False, debug=False):
-        if verbose:
-            click.echo('Requesting URL: %s' % url)
-
+                 debug=False):
         if debug:
+            click.echo('URL: %s' % url)
             return (-1, url)
 
         i = 0
@@ -85,7 +83,7 @@ class EnvironmentSensors:
             return (1, "Failure")
 
 
-    def _report_status_inst(self, value, verbose=False, debug=False):
+    def _report_status_inst(self, value, debug=False):
         url_components = [self._inst_api_endpoint]
         parameter = '%s-status=%s' % \
             (urllib.parse.quote(self._host_identifier),
@@ -93,10 +91,10 @@ class EnvironmentSensors:
         url_components.append(parameter)
         url = '&'.join(url_components)
 
-        return self._urlopen(url, verbose=verbose, debug=debug)
+        return self._urlopen(url, debug=debug)
 
 
-    def _report_data_inst(self, data, verbose=False, debug=False):
+    def _report_data_inst(self, data, debug=False):
         url_components = [self._inst_api_endpoint]
         for key, value in data.items():
             parameter = '%s-%s=%1.2f' % \
@@ -106,7 +104,7 @@ class EnvironmentSensors:
             url_components.append(parameter)
         url = '&'.join(url_components)
 
-        return self._urlopen(url, verbose=verbose, debug=debug)
+        return self._urlopen(url, debug=debug)
 
 
     def _report_status_terminal(self, value):
@@ -143,7 +141,7 @@ class EnvironmentSensors:
                 _ = sensor.pressure
                 _ = sensor.humidity
 
-                if self._report_to_inst: self._report_status_inst(message, debug)
+                if self._report_to_inst: self._report_status_inst(message, debug=debug)
                 if self._report_to_terminal: self._report_status_terminal(message)
 
                 sleep(self._reporting_frequency)
@@ -151,34 +149,34 @@ class EnvironmentSensors:
                 return
 
 
-    def __call__(self, tph_warmup_time=60, verbose=False, debug=False,
+    def __call__(self, tph_warmup_time=60, debug=False,
                  tph_sensor=None, aq_sensor=None):
 
         if tph_sensor is None:
             message = "Starting atomospheric sensor (BME280) on %s." % self._host_identifier
-            if self._report_to_inst: self._report_status_inst(message, debug)
+            if self._report_to_inst: self._report_status_inst(message, debug=debug)
             if self._report_to_terminal: self._report_status_terminal(message)
             tph_sensor = qwiic_bme280.QwiicBme280()
             if not tph_sensor.is_connected():
                 message = "BME280 device not detected. Is it connected?"
-                if self._report_to_inst: self._report_status_inst(message, debug)
+                if self._report_to_inst: self._report_status_inst(message, debug=debug)
                 if self._report_to_terminal: self._report_status_terminal(message)
                 return
             else:
                 tph_sensor.begin()
-                self._warmup_tph_sensor(tph_sensor, tph_warmup_time, debug)
+                self._warmup_tph_sensor(tph_sensor, tph_warmup_time, debug=debug)
 
 
         if aq_sensor is None:
             message = "Starting air quality sensor (SGP30) on %s." % self._host_identifier
-            if self._report_to_inst: self._report_status_inst(message, debug)
+            if self._report_to_inst: self._report_status_inst(message, debug=debug)
             if self._report_to_terminal: self._report_status_terminal(message)
             aq_sensor = sgp30.SGP30()
             aq_sensor.start_measurement()
 
 
         message = "Sensors sensing on %s." % self._host_identifier
-        if self._report_to_inst: self._report_status_inst(message, debug)
+        if self._report_to_inst: self._report_status_inst(message, debug=debug)
         if self._report_to_terminal: self._report_status_terminal(message)
 
 
@@ -193,7 +191,7 @@ class EnvironmentSensors:
                 data['co2'] = aq_data.equivalent_co2
                 data['voc'] =  aq_data.total_voc
 
-                if self._report_to_inst: self._report_data_inst(data, debug)
+                if self._report_to_inst: self._report_data_inst(data, debug=debug)
                 if self._report_to_terminal: self._report_data_terminal(data)
 
                 if self._report_to_terminal: click.echo('')
@@ -204,11 +202,11 @@ class EnvironmentSensors:
             # We won't always get in this block on program termination, but we
             # can try to send a message.
             message = "%s offline." % self._host_identifier
-            if self._report_to_inst: self._report_status_inst(message, debug)
+            if self._report_to_inst: self._report_status_inst(message, debug=debug)
             if self._report_to_terminal: self._report_status_terminal(message)
             exit(1)
 
-@click.command()
+@click.command("run", context_settings={'show_default': True})
 @click.option('--access-key', 'inst_access_key', default=None,
               help='Initial State access key.')
 @click.option('--bucket-key', 'inst_bucket_key',  default=None,
@@ -219,15 +217,14 @@ class EnvironmentSensors:
               help='Report sensor data to Initial State.')
 @click.option('--report-to-terminal/--no-report-to-terminal', default=True,
               help='Report sensor data to terminal.')
-@click.option('--debug/--no-debug', default=False, help='Run in debug mode.')
-@click.option('--verbose/--no-verbose', default=False, help='Run in verbose mode.')
+@click.option('--debug/--no-debug', default=False, 
+              help='Run in debug mode (don\'t actually send data to Initial State).')
 def run(inst_access_key=None,
         inst_bucket_key=None,
         host_identifier=None,
         report_to_inst=False,
         report_to_terminal=True,
-        debug=False,
-        verbose=False):
+        debug=False):
 
     if report_to_inst:
         if inst_access_key is None:
@@ -242,7 +239,7 @@ def run(inst_access_key=None,
                            host_identifier=host_identifier,
                            report_to_inst=report_to_inst,
                            report_to_terminal=report_to_terminal)
-    e(verbose=verbose, debug=debug)
+    e(debug=debug)
 
 if __name__ == "__main__":
     run()
