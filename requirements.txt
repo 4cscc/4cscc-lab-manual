@@ -4,3 +4,6 @@ numpy
 ghp-import
 pimoroni-sgp30
 sparkfun-qwiic-bme280
+click
+gpiozero
+
