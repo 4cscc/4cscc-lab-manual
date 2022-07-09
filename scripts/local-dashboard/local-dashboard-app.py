@@ -2,6 +2,11 @@
 #  https://dash.plotly.com/live-updates
 #  https://dash.plotly.com/dash-core-components/store
 
+## TODO
+# - fill more of browser window with graphs
+# - why is slicing data through the previous hour not working? 
+# - set reasonable default values for ymin and ymax on each graph?
+
 import datetime
 
 import dash
@@ -9,6 +14,8 @@ from dash import dcc, html
 import plotly
 from dash.dependencies import Input, Output
 import pandas as pd
+from plotly.subplots import make_subplots
+import plotly.express as px
 
 import qwiic_bme280
 import qwiic_sgp40
@@ -35,15 +42,19 @@ else:
 
 
 ## Initialize data dashboard
-_initial_data_store = pd.DataFrame([], 
-    columns=['Time', 'Temperature', 'Humidity', 'Pressure', 'VOC'])
+_initial_data_store = pd.DataFrame(
+        [],
+        columns=['Temperature', 'Humidity', 'Pressure', 'VOC'])
 
 app = dash.Dash(__name__)
 app.layout = html.Div(
     html.Div([
         html.H4('4CSCC: Data sensor live feed'),
-        html.Div(id='live-update-text'),
-        dcc.Graph(id='live-update-graph',),
+        html.Div(id='live-text'),
+        dcc.Graph(id='live-temperature-graph',),
+        dcc.Graph(id='live-humidity-graph',),
+        dcc.Graph(id='live-pressure-graph',),
+        dcc.Graph(id='live-voc-graph',),
         dcc.Interval(
             id='interval-component',
             interval=1*1000, # in milliseconds
@@ -51,40 +62,45 @@ app.layout = html.Div(
         ),
         dcc.Store(id='sensor-data', data=_initial_data_store.to_json(date_format='iso', orient='split')),
         ])
-)
+    )
 
+def _load_data(jsonified_data):
+    df = pd.read_json(jsonified_data, orient='split')
+    df.index = pd.DatetimeIndex(df.index)
+    df.index.name = 'Time'
+    return df
 
 @app.callback(Output('sensor-data', 'data'), 
         Input('sensor-data', 'data'), 
         Input('interval-component', 'n_intervals'))
-def collect_sensor_data(data, n):
-    # load data collected in the last hour (3599 seconds, 
-    # and we'll add one more in this call)
-    df = pd.read_json(data, orient='split').tail(3599)
+def collect_sensor_data(jsonified_data, n):
+    df = _load_data(jsonified_data)
+    df = df.last('3600S')
     
-    dt = datetime.datetime.now()
+    dt = pd.Timestamp.now()
     tempF = tph_sensor.temperature_fahrenheit
     humidity = tph_sensor.humidity
     pressure_pa = tph_sensor.pressure
     pressure_atm = pressure_pa / 101325 # conversion Pascals to atmospheres
     voc = voc_sensor.get_VOC_index()
 
-    new_entry = pd.DataFrame([[dt, tempF, humidity, pressure_atm, voc]], 
-                             columns=['Time', 'Temperature', 'Humidity', 'Pressure', 'VOC'])
+    new_entry = pd.DataFrame([[tempF, humidity, pressure_atm, voc]],
+                             index=[dt],
+                             columns=['Temperature', 'Humidity', 'Pressure', 'VOC'])
 
     df = pd.concat([df, new_entry])
-    return df.to_json(date_format='iso', orient='split')
+    return df.to_json(orient='split')
 
-@app.callback(Output('live-update-text', 'children'),
+@app.callback(Output('live-text', 'children'),
               Input('sensor-data', 'data'))
 def update_metrics(jsonified_data):
-    df = pd.read_json(jsonified_data, orient='split')
+    df = _load_data(jsonified_data)
     most_recent_entry = df.tail(1)
     style = {'padding': '5px', 'fontSize': '16px'}
-    dt = pd.Timestamp(most_recent_entry['Time'][0]).strftime('%-d %B %Y %-I:%M:%S %p')
+    dt = pd.Timestamp(most_recent_entry.index[0]).strftime('%-d %B %Y %-I:%M:%S %p')
     
     return [
-            html.Span('Most recent reading: {}'.format(dt), style=style),
+        html.Span('Most recent reading: {}'.format(dt), style=style),
         html.Br(),
         html.Span('Temperature: {0:0.2f} F'.format(most_recent_entry['Temperature'][0]), style=style),
         html.Span('Relative humidity: {0:0.2f}%'.format(most_recent_entry['Humidity'][0]), style=style),
@@ -94,51 +110,32 @@ def update_metrics(jsonified_data):
     ]
 
 
-@app.callback(Output('live-update-graph', 'figure'),
+@app.callback(Output('live-temperature-graph', 'figure'),
               Input('sensor-data', 'data'))
-def update_graph_live(jsonified_data):
-    df = pd.read_json(jsonified_data, orient='split')
-    
-    # Create the graph with subplots
-    fig = plotly.tools.make_subplots(rows=4, cols=1, vertical_spacing=0.2)
-    fig['layout']['margin'] = {
-        'l': 30, 'r': 10, 'b': 30, 't': 10
-    }
-    fig['layout']['legend'] = {'x': 0, 'y': 1.02, 'xanchor': 'left', 'yanchor':'bottom', 'orientation':'v'}
+def live_temperature_graph(jsonified_data):
+    df = _load_data(jsonified_data)
+    return px.line(df, x=df.index, y=df['Temperature'], height=500)
 
-    fig.append_trace({
-        'x': df['Time'],
-        'y': df['Temperature'],
-        'name': 'Temperature (F)',
-        'mode': 'lines',
-        'type': 'scatter'
-    }, 1, 1)
+@app.callback(Output('live-humidity-graph', 'figure'),
+              Input('sensor-data', 'data'))
+def live_humidity_graph(jsonified_data):
+    df = _load_data(jsonified_data)
+    return px.line(df, x=df.index, y=df['Humidity'], height=500)
 
-    fig.append_trace({
-        'x': df['Time'],
-        'y': df['Humidity'],
-        'name': 'Percent relative humidity',
-        'mode': 'lines',
-        'type': 'scatter'
-    }, 2, 1)
+@app.callback(Output('live-pressure-graph', 'figure'),
+              Input('sensor-data', 'data'))
+def live_pressure_graph(jsonified_data):
+    df = _load_data(jsonified_data)
+    return px.line(df, x=df.index, y=df['Pressure'], height=500)
 
-    fig.append_trace({
-        'x': df['Time'],
-        'y': df['Pressure'],
-        'name': 'Air pressure (atmospheres)',
-        'mode': 'lines',
-        'type': 'scatter'
-        }, 3, 1)
+@app.callback(Output('live-voc-graph', 'figure'),
+              Input('sensor-data', 'data'))
+def live_voc_graph(jsonified_data):
+    df = _load_data(jsonified_data)
+    return px.line(df, x=df.index, y=df['VOC'], height=500)
 
-    fig.append_trace({
-        'x': df['Time'],
-        'y': df['VOC'],
-        'name': 'Volatile Organic Compounds (parts per billion)',
-        'mode': 'lines',
-        'type': 'scatter'
-        }, 4, 1)
 
-    return fig
+
 
 
 if __name__ == '__main__':
