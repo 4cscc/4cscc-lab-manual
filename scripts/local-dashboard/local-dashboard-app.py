@@ -11,10 +11,32 @@ from dash.dependencies import Input, Output
 import pandas as pd
 
 import qwiic_bme280
+import qwiic_sgp40
 
 
+## Initialize data sensors
+tph_sensor = qwiic_bme280.QwiicBme280()
+if not tph_sensor.begin():
+    print('BME 280 Atmospheric sensor doesn\'t seem to be connected to the system.')
+    exit(-1)
+else:
+    # discard first readings from the sensor as they tend to be unreliable
+    _ = tph_sensor.temperature_fahrenheit
+    _ = tph_sensor.pressure
+    _ = tph_sensor.humidity
+
+voc_sensor = qwiic_sgp40.QwiicSGP40()
+if voc_sensor.begin() != 0:
+    print('SGP 40 VOC sensor doesn\'t seem to be connected to the system.')
+    exit(-1)
+else:
+    # discard first reading from the sensor as it tends to be unreliable
+    _ = voc_sensor.get_VOC_index()
+
+
+## Initialize data dashboard
 _initial_data_store = pd.DataFrame([], 
-    columns=['Time', 'Temperature', 'Humidity', 'Pressure'])
+    columns=['Time', 'Temperature', 'Humidity', 'Pressure', 'VOC'])
 
 app = dash.Dash(__name__)
 app.layout = html.Div(
@@ -31,8 +53,6 @@ app.layout = html.Div(
         ])
 )
 
-tph_sensor = qwiic_bme280.QwiicBme280()
-tph_sensor.begin()
 
 @app.callback(Output('sensor-data', 'data'), 
         Input('sensor-data', 'data'), 
@@ -47,9 +67,10 @@ def collect_sensor_data(data, n):
     humidity = tph_sensor.humidity
     pressure_pa = tph_sensor.pressure
     pressure_atm = pressure_pa / 101325 # conversion Pascals to atmospheres
-     
-    new_entry = pd.DataFrame([[dt, tempF, humidity, pressure_atm]], 
-                             columns=['Time', 'Temperature', 'Humidity', 'Pressure'])
+    voc = voc_sensor.get_VOC_index()
+
+    new_entry = pd.DataFrame([[dt, tempF, humidity, pressure_atm, voc]], 
+                             columns=['Time', 'Temperature', 'Humidity', 'Pressure', 'VOC'])
 
     df = pd.concat([df, new_entry])
     return df.to_json(date_format='iso', orient='split')
@@ -67,7 +88,8 @@ def update_metrics(jsonified_data):
         html.Br(),
         html.Span('Temperature: {0:0.2f} F'.format(most_recent_entry['Temperature'][0]), style=style),
         html.Span('Relative humidity: {0:0.2f}%'.format(most_recent_entry['Humidity'][0]), style=style),
-        html.Span('Air pressure: {0:0.4f} atmospheres'.format(most_recent_entry['Pressure'][0]), style=style),
+        html.Span('Air pressure: {0:0.4f} atm'.format(most_recent_entry['Pressure'][0]), style=style),
+        html.Span('VOC: {0:0.2f} ppb'.format(most_recent_entry['VOC'][0]), style=style),
         html.Hr(),
     ]
 
@@ -78,7 +100,7 @@ def update_graph_live(jsonified_data):
     df = pd.read_json(jsonified_data, orient='split')
     
     # Create the graph with subplots
-    fig = plotly.tools.make_subplots(rows=3, cols=1, vertical_spacing=0.2)
+    fig = plotly.tools.make_subplots(rows=4, cols=1, vertical_spacing=0.2)
     fig['layout']['margin'] = {
         'l': 30, 'r': 10, 'b': 30, 't': 10
     }
@@ -108,6 +130,13 @@ def update_graph_live(jsonified_data):
         'type': 'scatter'
         }, 3, 1)
 
+    fig.append_trace({
+        'x': df['Time'],
+        'y': df['VOC'],
+        'name': 'Volatile Organic Compounds (parts per billion)',
+        'mode': 'lines',
+        'type': 'scatter'
+        }, 4, 1)
 
     return fig
 
