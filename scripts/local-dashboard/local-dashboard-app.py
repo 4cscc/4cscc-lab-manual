@@ -75,6 +75,7 @@ app.layout = html.Div([
     ])
 ])
 
+
 ## Initialize data sensors
 tph_sensor = qwiic_bme280.QwiicBme280()
 if not tph_sensor.begin():
@@ -94,12 +95,14 @@ else:
     # discard first reading from the sensor as it tends to be unreliable
     _ = voc_sensor.get_VOC_index()
 
+
 ## Define callbacks and help functions
 def _load_data(jsonified_data):
     df = pd.read_json(jsonified_data, orient='split')
     df.index = pd.DatetimeIndex(df.index)
     df.index.name = 'Time'
     return df
+
 
 @app.callback(Output('sensor-data', 'data'), 
         Input('sensor-data', 'data'), 
@@ -122,6 +125,7 @@ def collect_sensor_data(jsonified_data, n):
     df = pd.concat([df, new_entry])
     return df.to_json(orient='split')
 
+
 @app.callback(Output('live-text', 'children'),
               Input('sensor-data', 'data'))
 def update_current_values(jsonified_data):
@@ -129,7 +133,7 @@ def update_current_values(jsonified_data):
     most_recent_entry = df.tail(1)
     dt = pd.Timestamp(most_recent_entry.index[0]).strftime(timestamp_fmt)
     
-    return [
+    results = [
         html.Span('Most recent reading on {}'.format(dt), style=span_style),
         html.Br(),
         html.Span('Temperature: {0:0.2f} F'.format(most_recent_entry['Temperature'][0]), style=span_style),
@@ -138,6 +142,18 @@ def update_current_values(jsonified_data):
         html.Span('VOC index: {0:0.2f}*'.format(most_recent_entry['VOC'][0]), style=span_style),
         html.Hr(),
     ]
+
+    if most_recent_entry['Temperature'][0] >= 100:
+        style = {'color':'red'}
+        style.update(span_style)
+        results.append(
+            html.Span(dcc.Markdown(
+                "**It's too hot!** Please remove heat source to avoid damaging computer or sensor! 🥵"),
+                style=style)
+        )
+
+    return results
+
 
 @app.callback(Output('live-temperature-graph', 'figure'),
               Output('live-humidity-graph', 'figure'),
