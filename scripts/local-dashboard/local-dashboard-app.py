@@ -25,8 +25,6 @@ _initial_data_store = pd.DataFrame(
 timestamp_fmt = '%-d %B %Y at %-I:%M:%S %p.'
 start_time = pd.Timestamp.now()
 span_style = {'padding': '5px', 'fontSize': '16px'}
-voc_index_interpretation = '''* VOC index range is 0-500, with 100 representing 
-typical air quality and larger numbers indicating worse air quality. '''
 
 app = dash.Dash(
     __name__,
@@ -56,9 +54,12 @@ app.layout = html.Div([
         dcc.Graph(id='live-pressure-graph',),
         dcc.Graph(id='live-voc-graph',),
         html.Hr(),
-        html.Span(voc_index_interpretation, style=span_style),
+        html.Span(
+            ("* VOC index range is 0-500, with 100 representing " 
+             "typical air quality and larger numbers indicating "
+             "worse air quality."), style=span_style),
         html.A(
-            "Learn more about VOC and VOC sensing here",
+            "Learn more about VOCs and VOC sensing here",
             href="https://bit.ly/3AE9qdE",
             target="_blank"),
         html.Span(".")
