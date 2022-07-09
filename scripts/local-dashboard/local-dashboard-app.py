@@ -22,36 +22,57 @@ _initial_data_store = pd.DataFrame(
         [],
         columns=['Temperature', 'Humidity', 'Pressure', 'VOC'])
 
-timestamp_fmt = '%-d %B %Y %-I:%M:%S %p'
+timestamp_fmt = '%-d %B %Y at %-I:%M:%S %p.'
 start_time = pd.Timestamp.now()
 span_style = {'padding': '5px', 'fontSize': '16px'}
-voc_index_interpretation = ''' 
-\* VOC index range is 0-500, with 100 representing typical air quality
-with larger numbers indicating worse air quality.
-[Find more details here.](https://bit.ly/3AE9qdE)
-'''
+voc_index_interpretation = '''* VOC index range is 0-500, with 100 representing 
+typical air quality and larger numbers indicating worse air quality. '''
 
-app = dash.Dash(__name__)
-app.layout = html.Div(
+app = dash.Dash(
+    __name__,
+    title = "4CSCC sensor dashboard",
+    update_title=None,
+)
+
+app.layout = html.Div([
     html.Div([
-        html.H1('Data sensor live feed', style={'padding':'5px'}),
-        html.Span('Collection initiated at: {}'.format(start_time.strftime(timestamp_fmt)), style=span_style),
-        html.Hr(),
-        html.Div(id='live-text'),
-        dcc.Graph(id='live-temperature-graph',),
-        dcc.Graph(id='live-humidity-graph',),
-        dcc.Graph(id='live-pressure-graph',),
-        dcc.Graph(id='live-voc-graph',),
-        html.Hr(),
-        html.Span(dcc.Markdown(voc_index_interpretation), style=span_style),
         dcc.Interval(
             id='interval-component',
             interval=1*1000, # in milliseconds
             n_intervals=0
         ),
-        dcc.Store(id='sensor-data', data=_initial_data_store.to_json(date_format='iso', orient='split')),
-        ])
-    )
+        dcc.Store(
+            id='sensor-data', 
+            data=_initial_data_store.to_json(date_format='iso', orient='split')
+        ),
+        html.H1('Data sensor live feed', style={'padding':'5px'}),
+        html.Span('Collection initiated on {}'.format(start_time.strftime(timestamp_fmt)), style=span_style),
+        html.Hr()
+    ]),
+    html.Div([
+        html.Div(id='live-text'),
+        dcc.Graph(id='live-temperature-graph', style={'background-color':'#f1f1f1'}),
+        dcc.Graph(id='live-humidity-graph',),
+        dcc.Graph(id='live-pressure-graph',),
+        dcc.Graph(id='live-voc-graph',),
+        html.Hr(),
+        html.Span(voc_index_interpretation, style=span_style),
+        html.A(
+            "Learn more about VOC and VOC sensing here",
+            href="https://bit.ly/3AE9qdE",
+            target="_blank"),
+        html.Span(".")
+     ]),
+     html.Div([
+        html.Hr(),
+        html.Span("Developed by the ", style=span_style),
+        html.A(
+            "Four Corners Science and Computing Club (4CSCC)",
+            href="https://github.com/gregcaporaso/4cscc-ln", 
+            target="_blank"),
+        html.Span(". 🐢")
+    ])
+])
 
 ## Initialize data sensors
 tph_sensor = qwiic_bme280.QwiicBme280()
@@ -108,7 +129,7 @@ def update_current_values(jsonified_data):
     dt = pd.Timestamp(most_recent_entry.index[0]).strftime(timestamp_fmt)
     
     return [
-        html.Span('Most recent reading: {}'.format(dt), style=span_style),
+        html.Span('Most recent reading on {}'.format(dt), style=span_style),
         html.Br(),
         html.Span('Temperature: {0:0.2f} F'.format(most_recent_entry['Temperature'][0]), style=span_style),
         html.Span('Relative humidity: {0:0.2f}%'.format(most_recent_entry['Humidity'][0]), style=span_style),
@@ -128,28 +149,28 @@ def update_graphs(jsonified_data):
             df,
             x=df.index,
             y=df['Temperature'],
-            title='Temperature (F)',
+            title='Temperature (F) 🌡️',
             range_y=(10,110),
             height=500)
     humidity_fig = px.line(
             df,
             x=df.index,
             y=df['Humidity'],
-            title='Percent relative humidity',
+            title='Percent relative humidity ☁️',
             range_y=(0,100),
             height=500)
     pressure_fig = px.line(
             df, 
             x=df.index, 
             y=df['Pressure'], 
-            title='Pressure (atmospheres)',
+            title='Pressure (atmospheres) ⛰️',
             range_y=(0,2),
             height=500) 
     voc_fig = px.line(
             df, 
             x=df.index, 
             y=df['VOC'],
-            title='Volatile organic compounds index*',
+            title='Volatile organic compounds (VOC) index* 😷',
             range_y=(0,500),
             height=500)
     return temp_fig, humidity_fig, pressure_fig, voc_fig
