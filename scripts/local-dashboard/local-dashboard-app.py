@@ -60,9 +60,10 @@ def update_metrics(jsonified_data):
     df = pd.read_json(jsonified_data, orient='split')
     most_recent_entry = df.tail(1)
     style = {'padding': '5px', 'fontSize': '16px'}
+    dt = pd.Timestamp(most_recent_entry['Time'][0]).strftime('%-d %B %Y %-I:%M:%S %p')
     
     return [
-        html.Span('Most recent reading: {}'.format(most_recent_entry['Time'][0]), style=style),
+            html.Span('Most recent reading: {}'.format(dt), style=style),
         html.Br(),
         html.Span('Temperature: {0:0.2f} F'.format(most_recent_entry['Temperature'][0]), style=style),
         html.Span('Relative humidity: {0:0.2f}%'.format(most_recent_entry['Humidity'][0]), style=style),
@@ -87,7 +88,7 @@ def update_graph_live(jsonified_data):
         'x': df['Time'],
         'y': df['Temperature'],
         'name': 'Temperature (F)',
-        'mode': 'lines+markers',
+        'mode': 'lines',
         'type': 'scatter'
     }, 1, 1)
 
@@ -95,7 +96,7 @@ def update_graph_live(jsonified_data):
         'x': df['Time'],
         'y': df['Humidity'],
         'name': 'Percent relative humidity',
-        'mode': 'lines+markers',
+        'mode': 'lines',
         'type': 'scatter'
     }, 2, 1)
 
@@ -103,7 +104,7 @@ def update_graph_live(jsonified_data):
         'x': df['Time'],
         'y': df['Pressure'],
         'name': 'Air pressure (atmospheres)',
-        'mode': 'lines+markers',
+        'mode': 'lines',
         'type': 'scatter'
         }, 3, 1)
 
