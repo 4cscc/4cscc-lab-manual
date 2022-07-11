@@ -44,7 +44,12 @@ app.layout = html.Div([
             data=_initial_data_store.to_json(date_format='iso', orient='split')
         ),
         html.H1('Data sensor live feed', style={'padding':'5px'}),
-        html.Span('Collection initiated on {}'.format(start_time.strftime(timestamp_fmt)), style=span_style),
+        html.Span('Server started on {}'.format(start_time.strftime(timestamp_fmt)), style=span_style),
+        html.Br(),
+        html.Span(
+            ('Data is logged for a maximum period of 24 hours. Data older than 24 hours '
+             'will be automatically discarded. Refreshing your browser will clear all '
+             'previous data.' ), style=span_style),
         html.Hr()
     ]),
     html.Div([
@@ -69,7 +74,7 @@ app.layout = html.Div([
         html.Span("Developed by the ", style=span_style),
         html.A(
             "Four Corners Science and Computing Club (4CSCC)",
-            href="https://github.com/gregcaporaso/4cscc-ln", 
+            href="https://gregcaporaso.github.io/4cscc-ln", 
             target="_blank"),
         html.Span(". 🐢")
     ])
@@ -109,7 +114,7 @@ def _load_data(jsonified_data):
         Input('interval-component', 'n_intervals'))
 def collect_sensor_data(jsonified_data, n):
     df = _load_data(jsonified_data)
-    df = df.last('3600S')
+    df = df.last('86400S')
     
     dt = pd.Timestamp.now()
     tempF = tph_sensor.temperature_fahrenheit
