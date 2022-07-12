@@ -14,13 +14,14 @@ import plotly.express as px
 
 import qwiic_bme280
 import qwiic_sgp40
+import pms5003
 
 
 
 ## Initialize data dashboard
 _initial_data_store = pd.DataFrame(
         [],
-        columns=['Temperature', 'Humidity', 'Pressure', 'VOC'])
+        columns=['Temperature', 'Humidity', 'Pressure', 'VOC', 'PM1.0', 'PM2.5', 'PM10'])
 
 timestamp_fmt = '%-d %B %Y at %-I:%M:%S %p.'
 start_time = pd.Timestamp.now()
@@ -36,7 +37,7 @@ app.layout = html.Div([
     html.Div([
         dcc.Interval(
             id='interval-component',
-            interval=1*1000, # in milliseconds
+            interval=5*1000, # in milliseconds
             n_intervals=0
         ),
         dcc.Store(
@@ -58,6 +59,9 @@ app.layout = html.Div([
         dcc.Graph(id='live-humidity-graph',),
         dcc.Graph(id='live-pressure-graph',),
         dcc.Graph(id='live-voc-graph',),
+        dcc.Graph(id='live-pm1-graph',),
+        dcc.Graph(id='live-pm2_5-graph',),
+        dcc.Graph(id='live-pm10-graph',),
         html.Hr(),
         html.Span(
             ("* VOC index range is 0-500, with 100 representing " 
@@ -67,7 +71,16 @@ app.layout = html.Div([
             "Learn more about VOCs and VOC sensing here",
             href="https://bit.ly/3AE9qdE",
             target="_blank"),
-        html.Span(".")
+        html.Span("."),
+        html.Br(),
+        html.Span(
+            ("** ug/m3 of particles between 1.0um and 2.5um (ultrafine particles)."), style=span_style),
+        html.Br(),
+        html.Span(
+            ("*** ug/m3 of particles between 2.5um and 10um (e.g. combustion particles, organic compounds, metals)."), style=span_style),
+        html.Br(),
+        html.Span(
+            ("**** ug/m3 of partcles larger than 10um (e.g. dust, pollen, mould spores)."), style=span_style)
      ]),
      html.Div([
         html.Hr(),
@@ -100,6 +113,14 @@ else:
     # discard first reading from the sensor as it tends to be unreliable
     _ = voc_sensor.get_VOC_index()
 
+# This one has a different interface than the other two
+pm_sensor = pms5003.PMS5003()
+try:
+    pm_sensor.read()
+except pms5003.SerialTimeoutError:
+    print('PMS5003 doesn\'t seem to be connected to the system.')
+    exit(-1)
+
 
 ## Define callbacks and help functions
 def _load_data(jsonified_data):
@@ -122,10 +143,21 @@ def collect_sensor_data(jsonified_data, n):
     pressure_pa = tph_sensor.pressure
     pressure_atm = pressure_pa / 101325 # conversion Pascals to atmospheres
     voc = voc_sensor.get_VOC_index()
+    
+    try:
+        pm_reading = pm_sensor.read()
+    except (pms5003.ChecksumMismatchError, pms5003.ReadTimeoutError, pms5003.SerialTimeoutError):
+        pm1 = None
+        pm2_5 = None
+        pm10 = None
+    else:
+        pm1 = pm_reading.data[3]
+        pm2_5 = pm_reading.data[4]
+        pm10 = pm_reading.data[5]
 
-    new_entry = pd.DataFrame([[tempF, humidity, pressure_atm, voc]],
+    new_entry = pd.DataFrame([[tempF, humidity, pressure_atm, voc, pm1, pm2_5, pm10]],
                              index=[dt],
-                             columns=['Temperature', 'Humidity', 'Pressure', 'VOC'])
+                             columns=['Temperature', 'Humidity', 'Pressure', 'VOC', 'PM1.0', 'PM2.5', 'PM10'])
 
     df = pd.concat([df, new_entry])
     return df.to_json(orient='split')
@@ -145,6 +177,9 @@ def update_current_values(jsonified_data):
         html.Span('Relative humidity: {0:0.2f}%'.format(most_recent_entry['Humidity'][0]), style=span_style),
         html.Span('Air pressure: {0:0.4f} atm'.format(most_recent_entry['Pressure'][0]), style=span_style),
         html.Span('VOC index: {0:0.2f}*'.format(most_recent_entry['VOC'][0]), style=span_style),
+        html.Span('PM1.0: {0}**'.format(most_recent_entry['PM1.0'][0]), style=span_style),
+        html.Span('PM2.5: {0}***'.format(most_recent_entry['PM2.5'][0]), style=span_style),
+        html.Span('PM10: {0}****'.format(most_recent_entry['PM10'][0]), style=span_style),
         html.Hr(),
     ]
 
@@ -164,6 +199,9 @@ def update_current_values(jsonified_data):
               Output('live-humidity-graph', 'figure'),
               Output('live-pressure-graph', 'figure'),
               Output('live-voc-graph', 'figure'),
+              Output('live-pm1-graph', 'figure'),
+              Output('live-pm2_5-graph', 'figure'),
+              Output('live-pm10-graph', 'figure'),
               Input('sensor-data', 'data'))
 def update_graphs(jsonified_data):
     df = _load_data(jsonified_data)
@@ -195,7 +233,28 @@ def update_graphs(jsonified_data):
             title='Volatile organic compounds (VOC) index* 😷',
             range_y=(0,500),
             height=500)
-    return temp_fig, humidity_fig, pressure_fig, voc_fig
+    pm1_fig = px.line(
+            df, 
+            x=df.index, 
+            y=df['PM1.0'],
+            title='PM1.0**',
+            range_y=(0,10),
+            height=500)
+    pm2_5_fig = px.line(
+            df, 
+            x=df.index, 
+            y=df['PM2.5'],
+            title='PM2.5***',
+            range_y=(0,10),
+            height=500)
+    pm10_fig = px.line(
+            df, 
+            x=df.index, 
+            y=df['PM10'],
+            title='PM10****',
+            range_y=(0,10),
+            height=500)
+    return temp_fig, humidity_fig, pressure_fig, voc_fig, pm1_fig, pm2_5_fig, pm10_fig
 
 
 if __name__ == '__main__':
