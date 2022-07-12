@@ -4,6 +4,9 @@ numpy
 ghp-import
 pimoroni-sgp30
 sparkfun-qwiic-bme280
+sparkfun-qwiic-sgp40
 click
 gpiozero
+dash
+pandas
 
