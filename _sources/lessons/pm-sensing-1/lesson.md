@@ -1,3 +1,3 @@
-# Particular matter sensing to assess indoor air quality
+# Particulate matter sensing to assess indoor air quality
 
 In this lesson...
