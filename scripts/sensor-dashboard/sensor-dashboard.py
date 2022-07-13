@@ -55,16 +55,16 @@ app.layout = html.Div([
     ]),
     html.Div([
         html.Div(id='live-text'),
-        dcc.Graph(id='live-temperature-graph', style={'background-color':'#f1f1f1'}),
-        dcc.Graph(id='live-humidity-graph',),
-        dcc.Graph(id='live-pressure-graph',),
-        dcc.Graph(id='live-voc-graph',),
-        dcc.Graph(id='live-pm1-graph',),
-        dcc.Graph(id='live-pm2_5-graph',),
-        dcc.Graph(id='live-pm10-graph',),
         html.Hr(),
+        dcc.Graph(id='live-temperature-graph', style={'background-color':'#f1f1f1'}),
+        html.Hr(),
+        dcc.Graph(id='live-humidity-graph',),
+        html.Hr(),
+        dcc.Graph(id='live-pressure-graph',),
+        html.Hr(),
+        dcc.Graph(id='live-voc-graph',),
         html.Span(
-            ("* VOC index range is 0-500, with 100 representing " 
+            ("VOC index range is 0-500, with 100 representing " 
              "typical air quality and larger numbers indicating "
              "worse air quality."), style=span_style),
         html.A(
@@ -72,15 +72,18 @@ app.layout = html.Div([
             href="https://bit.ly/3AE9qdE",
             target="_blank"),
         html.Span("."),
-        html.Br(),
+        html.Hr(),
+        dcc.Graph(id='live-pm1-graph',),
         html.Span(
-            ("** ug/m3 of particles between 1.0um and 2.5um (ultrafine particles)."), style=span_style),
-        html.Br(),
+            ("ug/m3 of particles between 1.0um and 2.5um (ultrafine particles)."), style=span_style),
+        html.Hr(),
+        dcc.Graph(id='live-pm2_5-graph',),
         html.Span(
-            ("*** ug/m3 of particles between 2.5um and 10um (e.g. combustion particles, organic compounds, metals)."), style=span_style),
-        html.Br(),
+            ("ug/m3 of particles between 2.5um and 10um (e.g. combustion particles, organic compounds, metals)."), style=span_style),
+        html.Hr(),
+        dcc.Graph(id='live-pm10-graph',),
         html.Span(
-            ("**** ug/m3 of partcles larger than 10um (e.g. dust, pollen, mould spores)."), style=span_style)
+            (" ug/m3 of partcles larger than 10um (e.g. dust, pollen, mould spores)."), style=span_style),
      ]),
      html.Div([
         html.Hr(),
@@ -176,11 +179,10 @@ def update_current_values(jsonified_data):
         html.Span('Temperature: {0:0.2f} F'.format(most_recent_entry['Temperature'][0]), style=span_style),
         html.Span('Relative humidity: {0:0.2f}%'.format(most_recent_entry['Humidity'][0]), style=span_style),
         html.Span('Air pressure: {0:0.4f} atm'.format(most_recent_entry['Pressure'][0]), style=span_style),
-        html.Span('VOC index: {0:0.2f}*'.format(most_recent_entry['VOC'][0]), style=span_style),
-        html.Span('PM1.0: {0}**'.format(most_recent_entry['PM1.0'][0]), style=span_style),
-        html.Span('PM2.5: {0}***'.format(most_recent_entry['PM2.5'][0]), style=span_style),
-        html.Span('PM10: {0}****'.format(most_recent_entry['PM10'][0]), style=span_style),
-        html.Hr(),
+        html.Span('VOC index: {0:0.2f}'.format(most_recent_entry['VOC'][0]), style=span_style),
+        html.Span('PM1.0: {0}'.format(most_recent_entry['PM1.0'][0]), style=span_style),
+        html.Span('PM2.5: {0}'.format(most_recent_entry['PM2.5'][0]), style=span_style),
+        html.Span('PM10: {0}'.format(most_recent_entry['PM10'][0]), style=span_style),
     ]
 
     if most_recent_entry['Temperature'][0] >= 100:
@@ -230,28 +232,28 @@ def update_graphs(jsonified_data):
             df, 
             x=df.index, 
             y=df['VOC'],
-            title='Volatile organic compounds (VOC) index* 😷',
+            title='Volatile organic compounds (VOC) index 😷',
             range_y=(0,500),
             height=500)
     pm1_fig = px.line(
             df, 
             x=df.index, 
             y=df['PM1.0'],
-            title='PM1.0**',
+            title='PM1.0',
             range_y=(0,10),
             height=500)
     pm2_5_fig = px.line(
             df, 
             x=df.index, 
             y=df['PM2.5'],
-            title='PM2.5***',
+            title='PM2.5',
             range_y=(0,10),
             height=500)
     pm10_fig = px.line(
             df, 
             x=df.index, 
             y=df['PM10'],
-            title='PM10****',
+            title='PM10',
             range_y=(0,10),
             height=500)
     return temp_fig, humidity_fig, pressure_fig, voc_fig, pm1_fig, pm2_5_fig, pm10_fig
