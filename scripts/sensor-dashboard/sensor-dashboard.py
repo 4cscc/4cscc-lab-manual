@@ -79,7 +79,7 @@ app.layout = html.Div([
         html.Span("."),
         dcc.Graph(id='live-voc-graph',),
         html.Hr(),
-        html.Span("PM1.0", style=title_style),
+        html.Span("PM1.0 ✨", style=title_style),
         html.Br(),    
         html.Span(
             ("ug/m3 of particles between 1.0um and 2.5um (ultrafine particles)."), style=span_style),
@@ -90,7 +90,7 @@ app.layout = html.Div([
         html.Span("."),
         dcc.Graph(id='live-pm1-graph',),
         html.Hr(),
-        html.Span("PM2.5", style=title_style),
+        html.Span("PM2.5 🚭", style=title_style),
         html.Br(),
         html.Span(
             ("ug/m3 of particles between 2.5um and 10um (e.g. combustion particles, organic compounds, metals)."), style=span_style),
@@ -101,10 +101,10 @@ app.layout = html.Div([
         html.Span("."),
         dcc.Graph(id='live-pm2_5-graph',),
         html.Hr(),
-        html.Span("PM10", style=title_style),
+        html.Span("PM10 ☘️", style=title_style),
         html.Br(),
         html.Span(
-            (" ug/m3 of partcles larger than 10um (e.g. dust, pollen, mould spores)."), style=span_style),
+            ("ug/m3 of partcles larger than 10um (e.g. dust, pollen, mould spores)."), style=span_style),
         html.A(
             "Learn more about particulate matter here",
             href="https://en.wikipedia.org/wiki/Particulates",
