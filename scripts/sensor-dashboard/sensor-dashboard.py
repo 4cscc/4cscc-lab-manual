@@ -104,7 +104,7 @@ app.layout = html.Div([
         html.Span("PM10 ☘️", style=title_style),
         html.Br(),
         html.Span(
-            ("ug/m3 of partcles larger than 10um (e.g. dust, pollen, mould spores)."), style=span_style),
+            ("ug/m3 of particles larger than 10um (e.g. dust, pollen, mould spores)."), style=span_style),
         html.A(
             "Learn more about particulate matter here",
             href="https://en.wikipedia.org/wiki/Particulates",
