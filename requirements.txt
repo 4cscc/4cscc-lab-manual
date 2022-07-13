@@ -5,6 +5,8 @@ ghp-import
 pimoroni-sgp30
 sparkfun-qwiic-bme280
 sparkfun-qwiic-sgp40
+pms5003
+RPi.GPIO
 click
 gpiozero
 dash
