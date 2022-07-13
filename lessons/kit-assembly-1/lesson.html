@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>VOC and CO2 sensing &#8212; Four Corners Science and Computing Club Lab Notebook</title>
+    <title>Unpacking and assembling your supplies &#8212; Four Corners Science and Computing Club Lab Notebook</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -52,8 +52,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Markdown Files" href="../../markdown.html" />
-    <link rel="prev" title="Weather sensing" href="../weather-sensing-1/lesson.html" />
+    <link rel="next" title="Hello LED" href="../hello-led-1/lesson.html" />
+    <link rel="prev" title="The Four Corners Science and Computing Club (4CSCC) Lab Notebook" href="../../intro.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -114,8 +114,8 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../kit-assembly-1/lesson.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Unpacking and assembling your supplies
   </a>
  </li>
@@ -139,8 +139,8 @@ const thebe_selector_output = ".output, .cell_output"
    Weather sensing
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../voc-sensing-1/lesson.html">
    VOC and CO2 sensing
   </a>
  </li>
@@ -244,7 +244,7 @@ title="Source repository"
       </li>
       
       <li>
-        <a href="https://github.com/gregcaporaso/4cscc-ln/issues/new?title=Issue%20on%20page%20%2Flessons/voc-sensing-1/lesson.html&body=Your%20issue%20content%20here."
+        <a href="https://github.com/gregcaporaso/4cscc-ln/issues/new?title=Issue%20on%20page%20%2Flessons/kit-assembly-1/lesson.html&body=Your%20issue%20content%20here."
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -272,7 +272,7 @@ title="Open an issue"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../../_sources/lessons/voc-sensing-1/lesson.md"
+        <a href="../../_sources/lessons/kit-assembly-1/lesson.md"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -332,13 +332,23 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#parts-list">
-   Parts list
+  <a class="reference internal nav-link" href="#unpacking-the-computer-kit">
+   Unpacking the computer kit
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#python-3-code">
-   Python 3 code
+  <a class="reference internal nav-link" href="#unpacking-the-sensor-kit">
+   Unpacking the sensor kit
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#assembling-the-raspberry-pi-400">
+   Assembling the Raspberry Pi 400
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#getting-started">
+   Getting started
   </a>
  </li>
 </ul>
@@ -350,7 +360,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>VOC and CO2 sensing</h1>
+                <h1>Unpacking and assembling your supplies</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -361,13 +371,23 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#parts-list">
-   Parts list
+  <a class="reference internal nav-link" href="#unpacking-the-computer-kit">
+   Unpacking the computer kit
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#python-3-code">
-   Python 3 code
+  <a class="reference internal nav-link" href="#unpacking-the-sensor-kit">
+   Unpacking the sensor kit
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#assembling-the-raspberry-pi-400">
+   Assembling the Raspberry Pi 400
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#getting-started">
+   Getting started
   </a>
  </li>
 </ul>
@@ -380,87 +400,103 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="voc-and-co2-sensing">
-<h1>VOC and CO2 sensing<a class="headerlink" href="#voc-and-co2-sensing" title="Permalink to this headline">#</a></h1>
-<p>In this lesson…</p>
-<section id="parts-list">
-<h2>Parts list<a class="headerlink" href="#parts-list" title="Permalink to this headline">#</a></h2>
-<p>For this exercise you’ll need:</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="unpacking-and-assembling-your-supplies">
+<h1>Unpacking and assembling your supplies<a class="headerlink" href="#unpacking-and-assembling-your-supplies" title="Permalink to this headline">#</a></h1>
+<p>When you open your shipping box, you should see two plastic totes:
+<img alt="Packed totes" src="../../_images/4cscc-parts-0-packed-totes.jpeg" /></p>
+<section id="unpacking-the-computer-kit">
+<h2>Unpacking the computer kit<a class="headerlink" href="#unpacking-the-computer-kit" title="Permalink to this headline">#</a></h2>
+<p>Start by opening the “Art bin” tote (the larger one, with the handle):
+<img alt="Art bin tote" src="../../_images/4cscc-parts-1-art-bin-tote.jpeg" /></p>
+<p>You should have one of each of the following items in this tote.</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://www.sparkfun.com/products/17377">Raspberry Pi 400</a> computer</p></li>
-<li><p>Sparkfun <a class="reference external" href="https://www.sparkfun.com/products/17512">Qwiic pHAT Extension</a></p></li>
-<li><p>Sparkfun <a class="reference external" href="https://www.sparkfun.com/products/16531">SGP30 Air Quality Sensor</a></p></li>
-<li><p>Sparkfun <a class="reference external" href="https://www.sparkfun.com/products/14429">Qwiic cable (500mm)</a></p></li>
-<li><p><a class="reference external" href="https://www.initialstate.com/">Initial State</a> access and bucket keys</p></li>
-<li><p>An internet connection</p></li>
+<li><p>A 7” computer monitor connected to the inside of the tote:
+<img alt="Monitor" src="../../_images/4cscc-parts-2-monitor.jpeg" /></p></li>
 </ul>
-<p>If you haven’t used Initial State before, start with their <a class="reference external" href="https://support.initialstate.com/hc/en-us/categories/360000428291-Using-Initial-State"><em>Getting Started</em> documentation</a>.</p>
-</section>
-<section id="python-3-code">
-<h2>Python 3 code<a class="headerlink" href="#python-3-code" title="Permalink to this headline">#</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sgp30</span> <span class="kn">import</span> <span class="n">SGP30</span>
-<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span><span class="p">,</span> <span class="n">time</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">import</span> <span class="nn">urllib.request</span>
-<span class="kn">import</span> <span class="nn">urllib.parse</span>
-<span class="kn">import</span> <span class="nn">socket</span>
-<span class="kn">import</span> <span class="nn">math</span>
-
-<span class="n">hostname</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">gethostname</span><span class="p">()</span>
-
-<span class="c1"># The following values should be added from your Initial State account.</span>
-<span class="c1"># See https://www.initialstate.com/</span>
-<span class="n">access_key</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span> <span class="c1"># EDIT: Add your Initial State API endpoint access key</span>
-<span class="n">bucket_key</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>  <span class="c1"># EDIT: Add your Initial State API endpoint bucket key</span>
-<span class="n">inst_api_endpoint</span> <span class="o">=</span> <span class="s2">&quot;https://groker.init.st/api/events?accessKey=</span><span class="si">%s</span><span class="s2">&amp;bucketKey=</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">access_key</span><span class="p">,</span> <span class="n">bucket_key</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">report_string_inst</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-    <span class="n">value</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-    <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">inst_api_endpoint</span> <span class="o">+</span> <span class="s1">&#39;&amp;</span><span class="si">%s</span><span class="s1">=</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
-
-
-<span class="k">def</span> <span class="nf">report_status</span><span class="p">(</span><span class="n">value</span><span class="p">,</span><span class="n">quiet</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">quiet</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-    <span class="n">report_string_inst</span><span class="p">(</span><span class="s2">&quot;status&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">report_aq_inst</span><span class="p">(</span><span class="n">sensor</span><span class="p">):</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">sensor</span><span class="o">.</span><span class="n">get_air_quality</span><span class="p">()</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-
-        <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">inst_api_endpoint</span> <span class="o">+</span>\
-                               <span class="s2">&quot;&amp;co2=</span><span class="si">%1.2f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">result</span><span class="o">.</span><span class="n">equivalent_co2</span> <span class="o">+</span>\
-                               <span class="s2">&quot;&amp;voc=</span><span class="si">%1.2f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">result</span><span class="o">.</span><span class="n">total_voc</span><span class="p">)</span>
-
-
-
-<span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">reporting_frequency</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Air quality sensor (SGP30) on </span><span class="si">%s</span><span class="s2">:</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">hostname</span><span class="p">)</span>
-    <span class="n">sensor</span> <span class="o">=</span> <span class="n">SGP30</span><span class="p">()</span>
-
-    <span class="c1"># if not sensor.is_connected():</span>
-    <span class="c1">#     print(&quot;SGP30 device not detected. Is it connected?&quot;, \</span>
-    <span class="c1">#         file=sys.stderr)</span>
-    <span class="c1">#     return</span>
-
-    <span class="n">sensor</span><span class="o">.</span><span class="n">start_measurement</span><span class="p">()</span>
-    <span class="n">report_status</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> online.&quot;</span> <span class="o">%</span> <span class="n">hostname</span><span class="p">)</span>
-
-    <span class="k">try</span><span class="p">:</span>
-        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="n">sleep</span><span class="p">(</span><span class="n">reporting_frequency</span><span class="p">)</span>
-            <span class="n">report_aq_inst</span><span class="p">(</span><span class="n">sensor</span><span class="p">)</span>
-            <span class="n">report_status</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> reporting.&quot;</span> <span class="o">%</span> <span class="n">hostname</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">except</span> <span class="p">(</span><span class="ne">KeyboardInterrupt</span><span class="p">,</span> <span class="ne">SystemExit</span><span class="p">):</span>
-        <span class="n">report_status</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> offline.&quot;</span> <span class="o">%</span> <span class="n">hostname</span><span class="p">)</span>
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="n">run</span><span class="p">()</span>
-</pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>When using your Raspberry Pi with the monitor mounted inside of the tote, please place a heavy item such as a book inside the tote. This will keep it from tipping backwards while you’re using it, which could damage the monitor.</p>
 </div>
+<ul class="simple">
+<li><p>A book that will teach you how to use this computer:
+<img alt="Book" src="../../_images/4cscc-parts-3-book.jpeg" /></p></li>
+<li><p>A Raspberry Pi 400 computer. This is a complete computer build into a keyboard. Notice that this looks different from a typical computer keyboard because of all of the connection ports on the back.
+<img alt="Raspberry Pi 400 computer" src="../../_images/4cscc-parts-4-pi400.jpeg" /></p></li>
+<li><p>A computer mouse:
+<img alt="Mouse" src="../../_images/4cscc-parts-5-mouse.jpeg" /></p></li>
+<li><p>A USB-C power adapter for the computer:
+<img alt="USB-C power adapter" src="../../_images/4cscc-parts-6-usbc-power-adapter.jpeg" /></p></li>
+<li><p>Two monitor cables bundled together. Keep these two wires bundled together.
+<img alt="Monitor cables" src="../../_images/4cscc-parts-7-monitor-cables.jpeg" /></p></li>
+<li><p>A foam monitor cover. This doesn’t stay on the monitor perfectly, but when packing up the tote after you’re done using it, you can place it on the monitor after packing everything else in the tote. When you close the tote, the cover should stay in place and it will protect the screen from being scratched by the items in the tote.
+<img alt="Monitor cover" src="../../_images/4cscc-parts-8-monitor-cover.jpeg" /></p></li>
+</ul>
+</section>
+<section id="unpacking-the-sensor-kit">
+<h2>Unpacking the sensor kit<a class="headerlink" href="#unpacking-the-sensor-kit" title="Permalink to this headline">#</a></h2>
+<p>Next, open the tote with the “Kids Making Sense” sticker on the front:
+<img alt="Kids Making Sense tote" src="../../_images/4cscc-parts-9-kids-tote.jpeg" /></p>
+<p>In this tote, you’ll find the following:</p>
+<ul class="simple">
+<li><p>A small carboard box. That box contains a silver bag and in that bag is a small circut board and a wire.
+<img alt="Particular Matter sensor board" src="../../_images/4cscc-parts-10-pm-board.jpeg" /></p></li>
+<li><p>In the carboard box there is also a regtangular metal box. This is a particular matter sensor, which we’ll call a PM sensor. We’ll learn more about this, and how to connect this to your computer later. Put all of this back in the cardboard box to keep it safe for now.
+<img alt="Particular Matter sensor" src="../../_images/4cscc-parts-11-pm-sensor.jpeg" /></p></li>
+<li><p>A breadboard. This is used to build digital circuts without having to solder wires.
+<img alt="Breadboard" src="../../_images/4cscc-parts-12-breadboard.jpeg" /></p></li>
+<li><p>Two 330 Ohm resistors. These are easy to lose, so be careful with them.
+<img alt="330 Ohm Resistors" src="../../_images/4cscc-parts-13-330-resistors.jpeg" /></p></li>
+<li><p>One LED. The color may vary from what is pictured here.
+<img alt="LED (color may vary)" src="../../_images/4cscc-parts-14-led.jpeg" /></p></li>
+<li><p>Five female/male jumper wires.
+<img alt="Female/male jumpers" src="../../_images/4cscc-parts-15-fm-jumpers.jpeg" /></p></li>
+<li><p>Five male/male jumper wires.
+<img alt="Male/male jumpers" src="../../_images/4cscc-parts-16-mm-jumpers.jpeg" /></p></li>
+<li><p>Five female/female jumper wires.
+<img alt="Female/female jumpers" src="../../_images/4cscc-parts-17-ff-jumpers.jpeg" /></p></li>
+</ul>
+<p>The fifteen jumper wires will all be bundled together. There’s no difference between the different colored wires, but the colors are helpful to keep track of what is connected to what when we start building circuits.</p>
+<ul class="simple">
+<li><p>Your assembled pHAT. This allows us to easy connect the digital circuits that we build to the Raspberry Pi computer.
+<img alt="Assembled pHAT" src="../../_images/4cscc-parts-18-assembled-phat.jpeg" /></p></li>
+</ul>
+<p>The assembled pHAT contains three different circuit boards.</p>
+<ul class="simple">
+<li><p>Mounted on the circuit board is a Volatile Organic Compound sensor, which we’ll call the VOC sensor.
+<img alt="VOC sensor (SGP40)" src="../../_images/4cscc-parts-19-sgp40.jpeg" /></p></li>
+<li><p>On a long wire dangling from the side of the pHAT is an atmospheric sensor. This senses temperature, air pressure, and humidity. We’ll call this the TPH sensor (for temperature/pressure/humdity).
+<img alt="Atmospheric sensor (BME280)" src="../../_images/4cscc-parts-20-bme280.jpeg" /></p></li>
+<li><p>The pHAT. This is a board that makes the Raspberry Pi’s GPIO (General Purpose Input/Output) pins available. The GPIO is a big part of what makes the Raspberry Pi computer exciting - this allows you to build your own “physical computing” projects that can interact with the world outside of the computer.
+<img alt="pHAT" src="../../_images/4cscc-parts-21-phat.jpeg" /></p></li>
+</ul>
+<p>After confirming that you have all of the parts listed above, you can pack all of the “sensor kit” items back into the small tote. We’ll come back to those soon.</p>
+</section>
+<section id="assembling-the-raspberry-pi-400">
+<h2>Assembling the Raspberry Pi 400<a class="headerlink" href="#assembling-the-raspberry-pi-400" title="Permalink to this headline">#</a></h2>
+<p>Connect the monitor and mouse to the Raspberry Pi using the ports on the back. It should look like the following when these are connected.</p>
+<p><img alt="Assembled computer" src="../../_images/kit-assembly-1-pi-wo-power.jpeg" /></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>When using your Raspberry Pi with the monitor mounted inside of the tote, please place a heavy item such as a book inside the tote. This will keep it from tipping backwards while you’re using it, which could damage the monitor.</p>
+</div>
+<p>This image shows which ports to connect each cable to on the computer:</p>
+<p><img alt="Computer wiring without power" src="../../_images/kit-assembly-2-pi-wiring-detail-wo-power.jpeg" /></p>
+<p>And this image shows which port to connect each cable to on the monitor:</p>
+<p><img alt="Monitor wiring" src="../../_images/kit-assembly-3-monitor-wiring-detail.jpeg" /></p>
+<p>Once those are connected, you can connect the USB-C power adapter. This will look like the following:</p>
+<p><img alt="Computer wiring with power" src="../../_images/kit-assembly-4-kit-assembly-4-pi-wiring-detail-w-power.jpeg" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Both monitor cables must be connected to the Raspberry Pi computer before connecting the USB-C power adapter. Otherwise the monitor won’t turn on. If you accidentally connected the USB-C power adapter before connecting one or both of the monitor cables, just unplug the power adapter and then plug it back in. The screen should come on now.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If you have a larger computer monitor or a TV screen that has an HDMI input, you can connect that to the Raspberry Pi in place of the monitor mounted inside the tote.</p>
+</div>
+</section>
+<section id="getting-started">
+<h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">#</a></h2>
+<p>Feel free to start reading the book and experimenting with the computer. If some parts of the book are too basic for you, feel free to skip ahead to the more advanced sections. In particular Chapters 4, 5 and 6 are good to read through and follow along with. These will introduce you to programming and building digital circuits.</p>
 </section>
 </section>
 
@@ -477,7 +513,7 @@ title="Print to PDF"
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./lessons/voc-sensing-1"
+            path: "./lessons/kit-assembly-1"
         },
         predefinedOutput: true
     }
@@ -491,17 +527,17 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="../weather-sensing-1/lesson.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="../../intro.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Weather sensing</p>
+            <p class="prev-next-title">The Four Corners Science and Computing Club (4CSCC) Lab Notebook</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="../../markdown.html" title="next page">
+    <a class='right-next' id="next-link" href="../hello-led-1/lesson.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Markdown Files</p>
+        <p class="prev-next-title">Hello LED</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
