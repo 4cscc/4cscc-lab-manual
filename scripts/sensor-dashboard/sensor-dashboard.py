@@ -1,4 +1,4 @@
-# Adapted from: 
+# Adapted from:
 #  https://dash.plotly.com/live-updates
 #  https://dash.plotly.com/dash-core-components/store
 
@@ -42,7 +42,7 @@ app.layout = html.Div([
             n_intervals=0
         ),
         dcc.Store(
-            id='sensor-data', 
+            id='sensor-data',
             data=_initial_data_store.to_json(date_format='iso', orient='split')
         ),
         html.H1('Data sensor live feed', style={'padding':'5px'}),
@@ -69,7 +69,7 @@ app.layout = html.Div([
         html.Span("Volatile organic compounds (VOC) index 😷", style=title_style),
         html.Br(),
         html.Span(
-            ("VOC index range is 0-500, with 100 representing " 
+            ("VOC index range is 0-500, with 100 representing "
              "typical air quality and larger numbers indicating "
              "worse air quality."), style=span_style),
         html.A(
@@ -80,7 +80,7 @@ app.layout = html.Div([
         dcc.Graph(id='live-voc-graph',),
         html.Hr(),
         html.Span("PM1.0 ✨", style=title_style),
-        html.Br(),    
+        html.Br(),
         html.Span(
             ("ug/m3 of particles between 1.0um and 2.5um (ultrafine particles)."), style=span_style),
         html.A(
@@ -101,7 +101,7 @@ app.layout = html.Div([
         html.Span("."),
         dcc.Graph(id='live-pm2_5-graph',),
         html.Hr(),
-        html.Span("PM10 ☘️", style=title_style),
+        html.Span("PM10 🌻", style=title_style),
         html.Br(),
         html.Span(
             ("ug/m3 of particles larger than 10um (e.g. dust, pollen, mould spores)."), style=span_style),
@@ -117,7 +117,7 @@ app.layout = html.Div([
         html.Span("Developed by the ", style=span_style),
         html.A(
             "Four Corners Science and Computing Club (4CSCC)",
-            href="https://gregcaporaso.github.io/4cscc-ln", 
+            href="https://gregcaporaso.github.io/4cscc-ln",
             target="_blank"),
         html.Span(". 🐢")
     ])
@@ -160,20 +160,20 @@ def _load_data(jsonified_data):
     return df
 
 
-@app.callback(Output('sensor-data', 'data'), 
-        Input('sensor-data', 'data'), 
+@app.callback(Output('sensor-data', 'data'),
+        Input('sensor-data', 'data'),
         Input('interval-component', 'n_intervals'))
 def collect_sensor_data(jsonified_data, n):
     df = _load_data(jsonified_data)
     df = df.last('86400S')
-    
+
     dt = pd.Timestamp.now()
     tempF = tph_sensor.temperature_fahrenheit
     humidity = tph_sensor.humidity
     pressure_pa = tph_sensor.pressure
     pressure_atm = pressure_pa / 101325 # conversion Pascals to atmospheres
     voc = voc_sensor.get_VOC_index()
-    
+
     try:
         pm_reading = pm_sensor.read()
     except (pms5003.ChecksumMismatchError, pms5003.ReadTimeoutError, pms5003.SerialTimeoutError):
@@ -199,7 +199,7 @@ def update_current_values(jsonified_data):
     df = _load_data(jsonified_data)
     most_recent_entry = df.tail(1)
     dt = pd.Timestamp(most_recent_entry.index[0]).strftime(timestamp_fmt)
-    
+
     results = [
         html.Span('Most recent reading on {}'.format(dt), style=span_style),
         html.Br(),
@@ -247,34 +247,31 @@ def update_graphs(jsonified_data):
             range_y=(0,100),
             height=500)
     pressure_fig = px.line(
-            df, 
-            x=df.index, 
-            y=df['Pressure'], 
+            df,
+            x=df.index,
+            y=df['Pressure'],
             range_y=(0,2),
-            height=500) 
+            height=500)
     voc_fig = px.line(
-            df, 
-            x=df.index, 
+            df,
+            x=df.index,
             y=df['VOC'],
             range_y=(0,500),
             height=500)
     pm1_fig = px.line(
-            df, 
-            x=df.index, 
+            df,
+            x=df.index,
             y=df['PM1.0'],
-            range_y=(0,10),
             height=500)
     pm2_5_fig = px.line(
-            df, 
-            x=df.index, 
+            df,
+            x=df.index,
             y=df['PM2.5'],
-            range_y=(0,10),
             height=500)
     pm10_fig = px.line(
-            df, 
-            x=df.index, 
+            df,
+            x=df.index,
             y=df['PM10'],
-            range_y=(0,10),
             height=500)
     return temp_fig, humidity_fig, pressure_fig, voc_fig, pm1_fig, pm2_5_fig, pm10_fig
 
