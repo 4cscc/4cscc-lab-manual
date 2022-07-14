@@ -13,21 +13,25 @@ For this exercise you'll need:
 
 ## Assembly
 
+### 1. Get the sensor
 You should have a pm sensor with the cable already attached as shown. On the
 other end of the cable there should be a green board with 8 pins.
 ![PM Sensor](images/pm-sensor-sensor.jpeg)
 
+### 2. Connect the sensor to the breadboard
 You should insert the 8 pins along a column on the breadboard as shown below.
 Then use the male ends of the 4 male to female jumper wires on the same rows of
 the breadboard as the pins labeled TXD, RXD, GND, and VCC.
 ![Breadboard](images/pm-sensor-breadboard.jpeg)
 
+### 3. Connect the breadboard to the Qwiic
 Connect the female end of the GND wire to GND on the Qwiic. Connect the female
 end of the VCC wire to 5V on the Qwiic. Connect the female end of the TXD wire
 to 14/TXO on the Qwiic. Connect the female end of the RXD wire to 15/RXI on the
 Qwiic.
 ![Qwiic](images/pm-sensor-qwiic.jpeg)
 
+### 4. Should be done
 You should now have a complete product that looks like the following with the
 pm sensor wired to the breadboard and the breadboard wired to the Qwiic.
 ![Finished](images/pm-sensor-complete.jpeg)
