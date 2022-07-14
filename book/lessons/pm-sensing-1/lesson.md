@@ -40,7 +40,9 @@ pm sensor wired to the breadboard and the breadboard wired to the Qwiic.
 Before running the following code make sure you are in the proper virtual
 environment by running `source ~/code/4cscc-ln/venv/bin/activate` in your
 terminal. If this works you should see `(venv)` on the far left of the text in
-your terminal
+your terminal. This code was adapted from the files found
+[here](https://github.com/pimoroni/pms5003-python/tree/master/examples). This
+repo contains the source for the pms5003 module we use to read from the sensor.
 
 ```python
 # Import the library we use to access the sensor
