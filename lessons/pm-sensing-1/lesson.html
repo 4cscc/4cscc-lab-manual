@@ -309,12 +309,73 @@ title="Print to PDF"
     </ul>
   </div>
 </div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
 
     </div>
 </div>
 
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction">
+   Introduction
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#parts-list">
+   Parts list
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#assembly">
+   Assembly
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#get-the-sensorin-this-lesson">
+     1. Get the sensorIn this lesson…
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#connect-the-sensor-to-the-breadboard">
+     2. Connect the sensor to the breadboard
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#connect-the-breadboard-to-the-qwiic">
+     3. Connect the breadboard to the Qwiic
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#should-be-done">
+     4. Should be done
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#python-3-code">
+   Python 3 code
+  </a>
+ </li>
+</ul>
+
+    </nav>
 </div>
     </div>
     <div class="article row">
@@ -326,6 +387,56 @@ title="Print to PDF"
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction">
+   Introduction
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#parts-list">
+   Parts list
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#assembly">
+   Assembly
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#get-the-sensorin-this-lesson">
+     1. Get the sensorIn this lesson…
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#connect-the-sensor-to-the-breadboard">
+     2. Connect the sensor to the breadboard
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#connect-the-breadboard-to-the-qwiic">
+     3. Connect the breadboard to the Qwiic
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#should-be-done">
+     4. Should be done
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#python-3-code">
+   Python 3 code
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -335,7 +446,92 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="particulate-matter-sensing-to-assess-indoor-air-quality">
 <h1>Particulate matter sensing to assess indoor air quality<a class="headerlink" href="#particulate-matter-sensing-to-assess-indoor-air-quality" title="Permalink to this headline">#</a></h1>
-<p>In this lesson…</p>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">#</a></h2>
+<p>In this lesson you will learn how to set up your PMS5003 air sensor with the
+hardware provided. You will learn how to connect it to your Raspberry Pi 400
+and the basics of how to get the sensor readings from it using Python 3. If you
+are interested in learning more about particulate matter sensing see
+<a class="reference external" href="https://en.wikipedia.org/wiki/Particulates">this</a> page.</p>
+</section>
+<section id="parts-list">
+<h2>Parts list<a class="headerlink" href="#parts-list" title="Permalink to this headline">#</a></h2>
+<p>For this exercise you’ll need:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.sparkfun.com/products/17377">Raspberry Pi 400</a> computer</p></li>
+<li><p>Sparkfun <a class="reference external" href="https://www.sparkfun.com/products/17512">Qwiic pHAT Extension</a></p></li>
+<li><p>PMS5003</p></li>
+<li><p>Breadboard</p></li>
+<li><p>4 male to female jumper wires</p></li>
+</ul>
+</section>
+<section id="assembly">
+<h2>Assembly<a class="headerlink" href="#assembly" title="Permalink to this headline">#</a></h2>
+<section id="get-the-sensorin-this-lesson">
+<h3>1. Get the sensorIn this lesson…<a class="headerlink" href="#get-the-sensorin-this-lesson" title="Permalink to this headline">#</a></h3>
+<p>You should have a pm sensor with the cable already attached as shown. On the
+other end of the cable there should be a green board with 8 pins.
+<img alt="PM Sensor" src="../../_images/pm-sensor-sensor.jpeg" /></p>
+</section>
+<section id="connect-the-sensor-to-the-breadboard">
+<h3>2. Connect the sensor to the breadboard<a class="headerlink" href="#connect-the-sensor-to-the-breadboard" title="Permalink to this headline">#</a></h3>
+<p>You should insert the 8 pins along a column on the breadboard as shown below.
+Then use the male ends of the 4 male to female jumper wires on the same rows of
+the breadboard as the pins labeled TXD, RXD, GND, and VCC.
+<img alt="Breadboard" src="../../_images/pm-sensor-breadboard.jpeg" /></p>
+</section>
+<section id="connect-the-breadboard-to-the-qwiic">
+<h3>3. Connect the breadboard to the Qwiic<a class="headerlink" href="#connect-the-breadboard-to-the-qwiic" title="Permalink to this headline">#</a></h3>
+<p>Connect the female end of the GND wire to GND on the Qwiic. Connect the female
+end of the VCC wire to 5V on the Qwiic. Connect the female end of the TXD wire
+to 14/TXO on the Qwiic. Connect the female end of the RXD wire to 15/RXI on the
+Qwiic.
+<img alt="Qwiic" src="../../_images/pm-sensor-qwiic.jpeg" /></p>
+</section>
+<section id="should-be-done">
+<h3>4. Should be done<a class="headerlink" href="#should-be-done" title="Permalink to this headline">#</a></h3>
+<p>You should now have a complete product that looks like the following with the
+pm sensor wired to the breadboard and the breadboard wired to the Qwiic.
+<img alt="Finished" src="../../_images/pm-sensor-complete.jpeg" /></p>
+</section>
+</section>
+<section id="python-3-code">
+<h2>Python 3 code<a class="headerlink" href="#python-3-code" title="Permalink to this headline">#</a></h2>
+<p>Before running the following code make sure you are in the proper virtual
+environment by running <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">~/code/4cscc-ln/venv/bin/activate</span></code> in your
+terminal. If this works you should see <code class="docutils literal notranslate"><span class="pre">(venv)</span></code> on the far left of the text in
+your terminal. This code was adapted from the files found
+<a class="reference external" href="https://github.com/pimoroni/pms5003-python/tree/master/examples">here</a>. This
+repo contains the source for the pms5003 module we use to read from the sensor.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import the library we use to access the sensor</span>
+<span class="kn">from</span> <span class="nn">pms5003</span> <span class="kn">import</span> <span class="n">PMS5003</span>
+<span class="c1"># We are going to wait between sensor readings so we don&#39;t spam too many</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
+
+
+<span class="c1"># Create an object representing our sensor</span>
+<span class="n">pms5003</span> <span class="o">=</span> <span class="n">PMS5003</span><span class="p">()</span>
+
+<span class="c1"># Repeat this as long as the program is running</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="c1"># Read the data from the sensor</span>
+    <span class="n">pms_reading</span> <span class="o">=</span> <span class="n">pms5003</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+    <span class="c1"># Print all of the data from the sensor</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">pms_reading</span><span class="p">)</span>
+
+    <span class="c1"># Access and print the specific pieces of data we are looking at in the</span>
+    <span class="c1"># dashboard</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">pms_reading</span><span class="o">.</span><span class="n">pm_ug_per_m3</span><span class="p">(</span><span class="mf">1.0</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">pms_reading</span><span class="o">.</span><span class="n">pm_ug_per_m3</span><span class="p">(</span><span class="mf">2.5</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">pms_reading</span><span class="o">.</span><span class="n">pm_ug_per_m3</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+
+    <span class="c1"># Wait for one second before attempting to read from the sensor again</span>
+    <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
