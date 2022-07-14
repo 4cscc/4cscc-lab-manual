@@ -1,4 +1,4 @@
-# Weather sensing
+# Atmospheric sensing, posting data to an online dashboard
 
 In this lesson we'll collect temperature, humidity, and air pressure data from
 a sensor and post it to an online dashboard.
