@@ -1,6 +1,12 @@
 # Particulate matter sensing to assess indoor air quality
 
-In this lesson...
+## Introduction
+
+In this lesson you will learn how to set up your PMS5003 air sensor with the
+hardware provided. You will learn how to connect it to your Raspberry Pi 400
+and the basics of how to get the sensor readings from it using Python 3. If you
+are interested in learning more about particulate matter sensing see
+[this](https://en.wikipedia.org/wiki/Particulates) page.
 
 ## Parts list
 
@@ -13,7 +19,8 @@ For this exercise you'll need:
 
 ## Assembly
 
-### 1. Get the sensor
+### 1. Get the sensorIn this lesson...
+
 You should have a pm sensor with the cable already attached as shown. On the
 other end of the cable there should be a green board with 8 pins.
 ![PM Sensor](images/pm-sensor-sensor.jpeg)
