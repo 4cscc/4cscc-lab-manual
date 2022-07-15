@@ -1,5 +1,5 @@
 # Multi-color LED
 
-In this lesson...
+This lesson is not yet developed. 😿
 
 ![Completed breadboard](images/breadboard-1.jpg)

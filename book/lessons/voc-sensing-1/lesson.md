@@ -10,6 +10,13 @@ For this exercise you'll need:
 * Sparkfun [SGP40 Air Quality Sensor](https://www.sparkfun.com/products/18345)
 * Sparkfun [Qwiic cable (50mm)](https://www.sparkfun.com/products/17260)
 
+## Wire pHAT and sensor
+
+Your set-up might look slightly different than this. This image shows the
+BME280 atomospheric sensor and the SGP40 sensors attached to the pHAT.
+
+![Wired sensor](images/connected-phat.jpeg)
+
 ## Python 3 code
 
 To use the following code, open a command terminal. Then enter the following command:

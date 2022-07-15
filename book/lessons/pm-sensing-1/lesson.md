@@ -31,16 +31,16 @@ Then use the male ends of the 4 male to female jumper wires on the same rows of
 the breadboard as the pins labeled TXD, RXD, GND, and VCC.
 ![Breadboard](images/pm-sensor-breadboard.jpeg)
 
-### 3. Connect the breadboard to the Qwiic
-Connect the female end of the GND wire to GND on the Qwiic. Connect the female
-end of the VCC wire to 5V on the Qwiic. Connect the female end of the TXD wire
-to 14/TXO on the Qwiic. Connect the female end of the RXD wire to 15/RXI on the
-Qwiic.
-![Qwiic](images/pm-sensor-qwiic.jpeg)
+### 3. Connect the breadboard to the pHAT
+Connect the female end of the GND wire to GND on the pHAT. Connect the female
+end of the VCC wire to 5V on the pHAT. Connect the female end of the TXD wire
+to 14/TXO on the pHAT. Connect the female end of the RXD wire to 15/RXI on the
+pHAT.
+![pHAT](images/pm-sensor-pHAT.jpeg)
 
 ### 4. Should be done
 You should now have a complete product that looks like the following with the
-pm sensor wired to the breadboard and the breadboard wired to the Qwiic.
+pm sensor wired to the breadboard and the breadboard wired to the pHAT.
 ![Finished](images/pm-sensor-complete.jpeg)
 
 ## Python 3 code
