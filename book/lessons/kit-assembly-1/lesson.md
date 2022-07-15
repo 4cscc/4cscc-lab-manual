@@ -112,6 +112,28 @@ Both monitor cables must be connected to the Raspberry Pi computer before connec
 If you have a larger computer monitor or a TV screen that has an HDMI input, you can connect that to the Raspberry Pi in place of the monitor mounted inside the tote.
 ```
 
+## Installing the pHAT
+
+When you're ready to start experimenting with digital circuits, you can install the pHAT into the Raspberry Pi.
+
+```{warning}
+Disconnect the power from your Raspberry Pi before installing the pHAT, and always disconnect the power from your Raspberry Pi before working on circuits. Otherwise it's possible to severely damage the Raspberry Pi.
+```
+
+On the back of your Raspberry Pi there is a series of 40 pins. These are the GPIO pins. There may or may not be covered by a small plastic cover over the GPIO pins. Remove the plastic cover if it's there, and put it in your tote for safe-keeping. The back of your Raspberry Pi should now look like the following.
+
+![GPIO](images/phat-installation-1.jpeg)
+
+The pHAT plugs into the GPIO - notice the 40 matching holes on the pHAT. (Your pHAT may look slightly different than the one shown here.)
+
+![pHAT detail](images/phat-installation-2.jpeg)
+
+Being careful to not bend any of the pins, firmly push the holes in pHAT onto the GPIO pins. You have to push fairly hard, but also be careful to not bend the pins at the same time.
+
+After installation, you can plug the Raspberry Pi power back in. It should now look like the following:
+
+![Installed pHAT](images/phat-installation-3.jpeg)
+
 ## Getting started
 
 Feel free to start reading the book and experimenting with the computer. If some parts of the book are too basic for you, feel free to skip ahead to the more advanced sections. In particular Chapters 4, 5 and 6 are good to read through and follow along with. These will introduce you to programming and building digital circuits.
