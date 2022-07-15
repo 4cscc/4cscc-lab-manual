@@ -52,8 +52,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Weather sensing" href="../weather-sensing-1/lesson.html" />
-    <link rel="prev" title="Multi-color LED" href="../multicolor-led-1/lesson.html" />
+    <link rel="next" title="Multi-color LED" href="../multicolor-led-1/lesson.html" />
+    <link rel="prev" title="VOC sensing" href="../voc-sensing-1/lesson.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -121,12 +121,17 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../hello-led-1/lesson.html">
-   Hello LED
+   Blinking an LED from Scratch and Python 3
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../multicolor-led-1/lesson.html">
-   Multi-color LED
+  <a class="reference internal" href="../atmospheric-sensing-1/lesson.html">
+   Atmospheric sensing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../voc-sensing-1/lesson.html">
+   VOC sensing
   </a>
  </li>
  <li class="toctree-l1 current active">
@@ -135,23 +140,13 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../weather-sensing-1/lesson.html">
-   Weather sensing
+  <a class="reference internal" href="../multicolor-led-1/lesson.html">
+   Multi-color LED
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../voc-sensing-1/lesson.html">
-   VOC and CO2 sensing
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../markdown.html">
-   Markdown Files
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../notebooks.html">
-   Content with notebooks
+  <a class="reference internal" href="../atmospheric-sensing-2/lesson.html">
+   Atmospheric sensing, posting data to an online dashboard
   </a>
  </li>
 </ul>
@@ -347,8 +342,8 @@ title="Print to PDF"
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#get-the-sensorin-this-lesson">
-     1. Get the sensorIn this lesson…
+    <a class="reference internal nav-link" href="#get-the-sensor">
+     1. Get the sensor
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -357,8 +352,8 @@ title="Print to PDF"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#connect-the-breadboard-to-the-qwiic">
-     3. Connect the breadboard to the Qwiic
+    <a class="reference internal nav-link" href="#connect-the-breadboard-to-the-phat">
+     3. Connect the breadboard to the pHAT
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -408,8 +403,8 @@ title="Print to PDF"
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#get-the-sensorin-this-lesson">
-     1. Get the sensorIn this lesson…
+    <a class="reference internal nav-link" href="#get-the-sensor">
+     1. Get the sensor
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -418,8 +413,8 @@ title="Print to PDF"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#connect-the-breadboard-to-the-qwiic">
-     3. Connect the breadboard to the Qwiic
+    <a class="reference internal nav-link" href="#connect-the-breadboard-to-the-phat">
+     3. Connect the breadboard to the pHAT
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -448,11 +443,11 @@ title="Print to PDF"
 <h1>Particulate matter sensing to assess indoor air quality<a class="headerlink" href="#particulate-matter-sensing-to-assess-indoor-air-quality" title="Permalink to this headline">#</a></h1>
 <section id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">#</a></h2>
-<p>In this lesson you will learn how to set up your PMS5003 air sensor with the
-hardware provided. You will learn how to connect it to your Raspberry Pi 400
-and the basics of how to get the sensor readings from it using Python 3. If you
-are interested in learning more about particulate matter sensing see
-<a class="reference external" href="https://en.wikipedia.org/wiki/Particulates">this</a> page.</p>
+<p>In this lesson you will learn how to set up your PMS5003 particular matter, or
+PM, sensor with the hardware provided. You will learn how to connect it to your
+Raspberry Pi 400 and the basics of how to get the sensor readings from it using
+Python 3. If you are interested in learning more about particulate matter
+sensing see <a class="reference external" href="https://en.wikipedia.org/wiki/Particulates">this</a> page.</p>
 </section>
 <section id="parts-list">
 <h2>Parts list<a class="headerlink" href="#parts-list" title="Permalink to this headline">#</a></h2>
@@ -460,15 +455,15 @@ are interested in learning more about particulate matter sensing see
 <ul class="simple">
 <li><p><a class="reference external" href="https://www.sparkfun.com/products/17377">Raspberry Pi 400</a> computer</p></li>
 <li><p>Sparkfun <a class="reference external" href="https://www.sparkfun.com/products/17512">Qwiic pHAT Extension</a></p></li>
-<li><p>PMS5003</p></li>
-<li><p>Breadboard</p></li>
-<li><p>4 male to female jumper wires</p></li>
+<li><p>PMS5003 particular matter sensor</p></li>
+<li><p><a class="reference external" href="https://www.sparkfun.com/products/12002">Breadboard</a></p></li>
+<li><p>4 <a class="reference external" href="https://www.sparkfun.com/products/9385">male to female jumper wires</a></p></li>
 </ul>
 </section>
 <section id="assembly">
 <h2>Assembly<a class="headerlink" href="#assembly" title="Permalink to this headline">#</a></h2>
-<section id="get-the-sensorin-this-lesson">
-<h3>1. Get the sensorIn this lesson…<a class="headerlink" href="#get-the-sensorin-this-lesson" title="Permalink to this headline">#</a></h3>
+<section id="get-the-sensor">
+<h3>1. Get the sensor<a class="headerlink" href="#get-the-sensor" title="Permalink to this headline">#</a></h3>
 <p>You should have a pm sensor with the cable already attached as shown. On the
 other end of the cable there should be a green board with 8 pins.
 <img alt="PM Sensor" src="../../_images/pm-sensor-sensor.jpeg" /></p>
@@ -480,29 +475,34 @@ Then use the male ends of the 4 male to female jumper wires on the same rows of
 the breadboard as the pins labeled TXD, RXD, GND, and VCC.
 <img alt="Breadboard" src="../../_images/pm-sensor-breadboard.jpeg" /></p>
 </section>
-<section id="connect-the-breadboard-to-the-qwiic">
-<h3>3. Connect the breadboard to the Qwiic<a class="headerlink" href="#connect-the-breadboard-to-the-qwiic" title="Permalink to this headline">#</a></h3>
-<p>Connect the female end of the GND wire to GND on the Qwiic. Connect the female
-end of the VCC wire to 5V on the Qwiic. Connect the female end of the TXD wire
-to 14/TXO on the Qwiic. Connect the female end of the RXD wire to 15/RXI on the
-Qwiic.
-<img alt="Qwiic" src="../../_images/pm-sensor-qwiic.jpeg" /></p>
+<section id="connect-the-breadboard-to-the-phat">
+<h3>3. Connect the breadboard to the pHAT<a class="headerlink" href="#connect-the-breadboard-to-the-phat" title="Permalink to this headline">#</a></h3>
+<p>Connect the female end of the GND wire to GND on the pHAT. Connect the female
+end of the VCC wire to 5V on the pHAT. Connect the female end of the TXD wire
+to 14/TXO on the pHAT. Connect the female end of the RXD wire to 15/RXI on the
+pHAT.
+<img alt="pHAT" src="lessons/pm-sensing-1/images/pm-sensor-pHAT.jpeg" /></p>
 </section>
 <section id="should-be-done">
 <h3>4. Should be done<a class="headerlink" href="#should-be-done" title="Permalink to this headline">#</a></h3>
 <p>You should now have a complete product that looks like the following with the
-pm sensor wired to the breadboard and the breadboard wired to the Qwiic.
+pm sensor wired to the breadboard and the breadboard wired to the pHAT.
 <img alt="Finished" src="../../_images/pm-sensor-complete.jpeg" /></p>
 </section>
 </section>
 <section id="python-3-code">
 <h2>Python 3 code<a class="headerlink" href="#python-3-code" title="Permalink to this headline">#</a></h2>
-<p>Before running the following code make sure you are in the proper virtual
-environment by running <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">~/code/4cscc-ln/venv/bin/activate</span></code> in your
-terminal. If this works you should see <code class="docutils literal notranslate"><span class="pre">(venv)</span></code> on the far left of the text in
-your terminal. This code was adapted from the files found
-<a class="reference external" href="https://github.com/pimoroni/pms5003-python/tree/master/examples">here</a>. This
-repo contains the source for the pms5003 module we use to read from the sensor.</p>
+<p>To use the following code, open a command terminal. Then enter the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">~/</span><span class="n">code</span><span class="o">/</span><span class="mi">4</span><span class="n">cscc</span><span class="o">-</span><span class="n">ln</span><span class="o">/</span><span class="n">venv</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
+</pre></div>
+</div>
+<p>If this works you should see <code class="docutils literal notranslate"><span class="pre">(venv)</span></code> on the far left of the text in
+your terminal.</p>
+<p>Then, enter the following command to start an ipython terminal:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ipython</span>
+</pre></div>
+</div>
+<p>Finally, copy paste the following code into the ipython terminal. This will collect data from your PM sensor every 1 second and display the data on the screen. It will run until you press “Control-c” (i.e., press the “control” and “c” keys at the same time).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import the library we use to access the sensor</span>
 <span class="kn">from</span> <span class="nn">pms5003</span> <span class="kn">import</span> <span class="n">PMS5003</span>
 <span class="c1"># We are going to wait between sensor readings so we don&#39;t spam too many</span>
@@ -517,20 +517,19 @@ repo contains the source for the pms5003 module we use to read from the sensor.<
     <span class="c1"># Read the data from the sensor</span>
     <span class="n">pms_reading</span> <span class="o">=</span> <span class="n">pms5003</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
-    <span class="c1"># Print all of the data from the sensor</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">pms_reading</span><span class="p">)</span>
-
-    <span class="c1"># Access and print the specific pieces of data we are looking at in the</span>
-    <span class="c1"># dashboard</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">pms_reading</span><span class="o">.</span><span class="n">pm_ug_per_m3</span><span class="p">(</span><span class="mf">1.0</span><span class="p">))</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">pms_reading</span><span class="o">.</span><span class="n">pm_ug_per_m3</span><span class="p">(</span><span class="mf">2.5</span><span class="p">))</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">pms_reading</span><span class="o">.</span><span class="n">pm_ug_per_m3</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+    <span class="c1"># Access and print three specific pieces of data returned by the PM sensor</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PM 1.0: </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">pms_reading</span><span class="o">.</span><span class="n">pm_ug_per_m3</span><span class="p">(</span><span class="mf">1.0</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PM 2.5: </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">pms_reading</span><span class="o">.</span><span class="n">pm_ug_per_m3</span><span class="p">(</span><span class="mf">2.5</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PM 10.0: </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">pms_reading</span><span class="o">.</span><span class="n">pm_ug_per_m3</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
 
     <span class="c1"># Wait for one second before attempting to read from the sensor again</span>
     <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
 </pre></div>
 </div>
+<p>This code was adapted from the files found
+<a class="reference external" href="https://github.com/pimoroni/pms5003-python/tree/master/examples">here</a>. This
+repo contains the source for the pms5003 module we use to read from the sensor.</p>
 </section>
 </section>
 
@@ -561,17 +560,17 @@ repo contains the source for the pms5003 module we use to read from the sensor.<
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="../multicolor-led-1/lesson.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="../voc-sensing-1/lesson.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Multi-color LED</p>
+            <p class="prev-next-title">VOC sensing</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="../weather-sensing-1/lesson.html" title="next page">
+    <a class='right-next' id="next-link" href="../multicolor-led-1/lesson.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Weather sensing</p>
+        <p class="prev-next-title">Multi-color LED</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Weather sensing &#8212; Four Corners Science and Computing Club Lab Notebook</title>
+    <title>Atmospheric sensing, posting data to an online dashboard &#8212; Four Corners Science and Computing Club Lab Notebook</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -52,8 +52,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="VOC and CO2 sensing" href="../voc-sensing-1/lesson.html" />
-    <link rel="prev" title="Particulate matter sensing to assess indoor air quality" href="../pm-sensing-1/lesson.html" />
+    <link rel="prev" title="Multi-color LED" href="../multicolor-led-1/lesson.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -121,12 +120,17 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../hello-led-1/lesson.html">
-   Hello LED
+   Blinking an LED from Scratch and Python 3
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../multicolor-led-1/lesson.html">
-   Multi-color LED
+  <a class="reference internal" href="../atmospheric-sensing-1/lesson.html">
+   Atmospheric sensing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../voc-sensing-1/lesson.html">
+   VOC sensing
   </a>
  </li>
  <li class="toctree-l1">
@@ -134,24 +138,14 @@ const thebe_selector_output = ".output, .cell_output"
    Particulate matter sensing to assess indoor air quality
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../multicolor-led-1/lesson.html">
+   Multi-color LED
+  </a>
+ </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Weather sensing
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../voc-sensing-1/lesson.html">
-   VOC and CO2 sensing
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../markdown.html">
-   Markdown Files
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../notebooks.html">
-   Content with notebooks
+   Atmospheric sensing, posting data to an online dashboard
   </a>
  </li>
 </ul>
@@ -244,7 +238,7 @@ title="Source repository"
       </li>
       
       <li>
-        <a href="https://github.com/gregcaporaso/4cscc-ln/issues/new?title=Issue%20on%20page%20%2Flessons/weather-sensing-1/lesson.html&body=Your%20issue%20content%20here."
+        <a href="https://github.com/gregcaporaso/4cscc-ln/issues/new?title=Issue%20on%20page%20%2Flessons/atmospheric-sensing-2/lesson.html&body=Your%20issue%20content%20here."
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -272,7 +266,7 @@ title="Open an issue"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../../_sources/lessons/weather-sensing-1/lesson.md"
+        <a href="../../_sources/lessons/atmospheric-sensing-2/lesson.md"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -360,7 +354,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Weather sensing</h1>
+                <h1>Atmospheric sensing, posting data to an online dashboard</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -400,10 +394,12 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="weather-sensing">
-<h1>Weather sensing<a class="headerlink" href="#weather-sensing" title="Permalink to this headline">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="atmospheric-sensing-posting-data-to-an-online-dashboard">
+<h1>Atmospheric sensing, posting data to an online dashboard<a class="headerlink" href="#atmospheric-sensing-posting-data-to-an-online-dashboard" title="Permalink to this headline">#</a></h1>
 <p>In this lesson we’ll collect temperature, humidity, and air pressure data from
-a sensor and post it to an online dashboard.</p>
+a sensor and post it to an online dashboard. You can also post data from your
+VOC and PM sensors to the same dashboard - for a challenge after getting this
+code to work, try sending other data to the dashboard.</p>
 <section id="parts-list">
 <h2>Parts list<a class="headerlink" href="#parts-list" title="Permalink to this headline">#</a></h2>
 <p>For this exercise you’ll need:</p>
@@ -423,6 +419,17 @@ a sensor and post it to an online dashboard.</p>
 </section>
 <section id="write-a-python-3-program">
 <h2>Write a Python 3 program<a class="headerlink" href="#write-a-python-3-program" title="Permalink to this headline">#</a></h2>
+<p>To use the following code, open a command terminal. Then enter the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">~/</span><span class="n">code</span><span class="o">/</span><span class="mi">4</span><span class="n">cscc</span><span class="o">-</span><span class="n">ln</span><span class="o">/</span><span class="n">venv</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
+</pre></div>
+</div>
+<p>If this works you should see <code class="docutils literal notranslate"><span class="pre">(venv)</span></code> on the far left of the text in
+your terminal.</p>
+<p>Then, enter the following command to start an ipython terminal:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ipython</span>
+</pre></div>
+</div>
+<p>Finally, copy paste the following code into the ipython terminal. This will collect data from your atmospheric sensor every 10 second and display on an online dashboard. It will run until you press “Control-c” (i.e., press the “control” and “c” keys at the same time).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">qwiic_bme280</span>
 <span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span><span class="p">,</span> <span class="n">time</span>
 <span class="kn">import</span> <span class="nn">sys</span>
@@ -515,9 +522,7 @@ a sensor and post it to an online dashboard.</p>
     <span class="k">except</span> <span class="p">(</span><span class="ne">KeyboardInterrupt</span><span class="p">,</span> <span class="ne">SystemExit</span><span class="p">):</span>
         <span class="n">report_status</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> offline.&quot;</span> <span class="o">%</span> <span class="n">hostname</span><span class="p">)</span>
 
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="n">run</span><span class="p">()</span>
+<span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
 </section>
@@ -540,7 +545,7 @@ a sensor and post it to an online dashboard.</p>
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./lessons/weather-sensing-1"
+            path: "./lessons/atmospheric-sensing-2"
         },
         predefinedOutput: true
     }
@@ -554,19 +559,12 @@ a sensor and post it to an online dashboard.</p>
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="../pm-sensing-1/lesson.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="../multicolor-led-1/lesson.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Particulate matter sensing to assess indoor air quality</p>
+            <p class="prev-next-title">Multi-color LED</p>
         </div>
-    </a>
-    <a class='right-next' id="next-link" href="../voc-sensing-1/lesson.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">VOC and CO2 sensing</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
     </a>
 </div>
             </footer>

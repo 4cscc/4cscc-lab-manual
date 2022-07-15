@@ -1,81 +1,50 @@
-# VOC and CO2 sensing
+# VOC sensing
 
-In this lesson...
+In this lesson you'll collect readings on air quality as measured by the concentration of volatile organic compounds, or VOCs, in the air around your computer (and around you, if you're sitting near your computer). You can learn more about VOCs on [this page](https://en.wikipedia.org/wiki/Volatile_organic_compound), and about the VOC Index, which the sensor we'll be using in this experiment provides, in [this document](https://bit.ly/3AE9qdE).
 
 ## Parts list
 
 For this exercise you'll need:
 * [Raspberry Pi 400](https://www.sparkfun.com/products/17377) computer
 * Sparkfun [Qwiic pHAT Extension](https://www.sparkfun.com/products/17512)
-* Sparkfun [SGP30 Air Quality Sensor](https://www.sparkfun.com/products/16531)
-* Sparkfun [Qwiic cable (500mm)](https://www.sparkfun.com/products/14429)
-* [Initial State](https://www.initialstate.com/) access and bucket keys
-* An internet connection
+* Sparkfun [SGP40 Air Quality Sensor](https://www.sparkfun.com/products/18345)
+* Sparkfun [Qwiic cable (50mm)](https://www.sparkfun.com/products/17260)
 
-If you haven't used Initial State before, start with their [_Getting Started_ documentation](https://support.initialstate.com/hc/en-us/categories/360000428291-Using-Initial-State).
+## Wire pHAT and sensor
+
+Your set-up might look slightly different than this. This image shows the
+BME280 atomospheric sensor and the SGP40 sensors attached to the pHAT.
+
+![Wired sensor](images/connected-phat.jpeg)
 
 ## Python 3 code
 
+To use the following code, open a command terminal. Then enter the following command:
+
+```
+source ~/code/4cscc-ln/venv/bin/activate
+```
+
+Then, enter the following command to start an ipython terminal:
+
+```
+ipython
+```
+
+Finally, copy paste the following code into the ipython terminal. This will collect from your SGP40 sensor every 2 seconds and display them on the screen. It will run until you press "Control-c" (i.e., press the "control" and "c" keys at the same time).
+
 ```python
-from sgp30 import SGP30
-from time import sleep, time
-import sys
-import urllib.request
-import urllib.parse
-import socket
-import math
+from time import sleep
+import qwiic_sgp40
 
-hostname = socket.gethostname()
+voc_sensor = qwiic_sgp40.QwiicSGP40()
 
-# The following values should be added from your Initial State account.
-# See https://www.initialstate.com/
-access_key = '' # EDIT: Add your Initial State API endpoint access key
-bucket_key = ''  # EDIT: Add your Initial State API endpoint bucket key
-inst_api_endpoint = "https://groker.init.st/api/events?accessKey=%s&bucketKey=%s" % (access_key, bucket_key)
+if voc_sensor.begin() != 0:
+    print('SGP 40 VOC sensor doesn\'t seem to be connected to the system.')
+    exit(-1)
 
-
-def report_string_inst(name, value):
-    name = urllib.parse.quote(name)
-    value = urllib.parse.quote(value)
-    urllib.request.urlopen(inst_api_endpoint + '&%s=%s' % (name, value))
-
-
-def report_status(value,quiet=False):
-    if not quiet:
-        print(value)
-    report_string_inst("status", value)
-
-
-def report_aq_inst(sensor):
-        result = sensor.get_air_quality()
-        print(result)
-
-        urllib.request.urlopen(inst_api_endpoint +\
-                               "&co2=%1.2f" % result.equivalent_co2 +\
-                               "&voc=%1.2f" % result.total_voc)
-
-
-
-def run(reporting_frequency=10):
-    print("Air quality sensor (SGP30) on %s:\n" % hostname)
-    sensor = SGP30()
-
-    # if not sensor.is_connected():
-    #     print("SGP30 device not detected. Is it connected?", \
-    #         file=sys.stderr)
-    #     return
-
-    sensor.start_measurement()
-    report_status("%s online." % hostname)
-
-    try:
-        while True:
-            sleep(reporting_frequency)
-            report_aq_inst(sensor)
-            report_status("%s reporting." % hostname, quiet=True)
-    except (KeyboardInterrupt, SystemExit):
-        report_status("%s offline." % hostname)
-
-if __name__ == "__main__":
-    run()
+while True:
+    voc_index = voc_sensor.get_VOC_index()
+    print('VOC Index: %d' % voc_index)
+    sleep(2) # pause for 2 seconds before collecting the next reading
 ```

@@ -52,7 +52,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Hello LED" href="../hello-led-1/lesson.html" />
+    <link rel="next" title="Blinking an LED from Scratch and Python 3" href="../hello-led-1/lesson.html" />
     <link rel="prev" title="The Four Corners Science and Computing Club (4CSCC) Lab Notebook" href="../../intro.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -121,12 +121,17 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../hello-led-1/lesson.html">
-   Hello LED
+   Blinking an LED from Scratch and Python 3
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../multicolor-led-1/lesson.html">
-   Multi-color LED
+  <a class="reference internal" href="../atmospheric-sensing-1/lesson.html">
+   Atmospheric sensing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../voc-sensing-1/lesson.html">
+   VOC sensing
   </a>
  </li>
  <li class="toctree-l1">
@@ -135,23 +140,13 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../weather-sensing-1/lesson.html">
-   Weather sensing
+  <a class="reference internal" href="../multicolor-led-1/lesson.html">
+   Multi-color LED
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../voc-sensing-1/lesson.html">
-   VOC and CO2 sensing
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../markdown.html">
-   Markdown Files
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../notebooks.html">
-   Content with notebooks
+  <a class="reference internal" href="../atmospheric-sensing-2/lesson.html">
+   Atmospheric sensing, posting data to an online dashboard
   </a>
  </li>
 </ul>
@@ -347,6 +342,11 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#installing-the-phat">
+   Installing the pHAT
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#getting-started">
    Getting started
   </a>
@@ -383,6 +383,11 @@ title="Print to PDF"
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#assembling-the-raspberry-pi-400">
    Assembling the Raspberry Pi 400
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#installing-the-phat">
+   Installing the pHAT
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -494,6 +499,21 @@ title="Print to PDF"
 <p>If you have a larger computer monitor or a TV screen that has an HDMI input, you can connect that to the Raspberry Pi in place of the monitor mounted inside the tote.</p>
 </div>
 </section>
+<section id="installing-the-phat">
+<h2>Installing the pHAT<a class="headerlink" href="#installing-the-phat" title="Permalink to this headline">#</a></h2>
+<p>When you’re ready to start experimenting with digital circuits, you can install the pHAT into the Raspberry Pi.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Disconnect the power from your Raspberry Pi before installing the pHAT, and always disconnect the power from your Raspberry Pi before working on circuits. Otherwise it’s possible to severely damage the Raspberry Pi.</p>
+</div>
+<p>On the back of your Raspberry Pi there is a series of 40 pins. These are the GPIO pins. There may or may not be covered by a small plastic cover over the GPIO pins. Remove the plastic cover if it’s there, and put it in your tote for safe-keeping. The back of your Raspberry Pi should now look like the following.</p>
+<p><img alt="GPIO" src="../../_images/phat-installation-1.jpeg" /></p>
+<p>The pHAT plugs into the GPIO - notice the 40 matching holes on the pHAT. (Your pHAT may look slightly different than the one shown here.)</p>
+<p><img alt="pHAT detail" src="../../_images/phat-installation-2.jpeg" /></p>
+<p>Being careful to not bend any of the pins, firmly push the holes in pHAT onto the GPIO pins. You have to push fairly hard, but also be careful to not bend the pins at the same time.</p>
+<p>After installation, you can plug the Raspberry Pi power back in. It should now look like the following:</p>
+<p><img alt="Installed pHAT" src="../../_images/phat-installation-3.jpeg" /></p>
+</section>
 <section id="getting-started">
 <h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">#</a></h2>
 <p>Feel free to start reading the book and experimenting with the computer. If some parts of the book are too basic for you, feel free to skip ahead to the more advanced sections. In particular Chapters 4, 5 and 6 are good to read through and follow along with. These will introduce you to programming and building digital circuits.</p>
@@ -537,7 +557,7 @@ title="Print to PDF"
     <a class='right-next' id="next-link" href="../hello-led-1/lesson.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Hello LED</p>
+        <p class="prev-next-title">Blinking an LED from Scratch and Python 3</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
