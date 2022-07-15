@@ -81,6 +81,7 @@ while True:
     print("PM 1.0: %d" % pms_reading.pm_ug_per_m3(1.0))
     print("PM 2.5: %d" % pms_reading.pm_ug_per_m3(2.5))
     print("PM 10.0: %d" % pms_reading.pm_ug_per_m3(10))
+    print("")
 
     # Wait for one second before attempting to read from the sensor again
     sleep(1)
@@ -90,3 +91,4 @@ while True:
 This code was adapted from the files found
 [here](https://github.com/pimoroni/pms5003-python/tree/master/examples). This
 repo contains the source for the pms5003 module we use to read from the sensor.
+

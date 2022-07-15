@@ -43,7 +43,7 @@ In this tote, you'll find the following:
 * A small carboard box. That box contains a silver bag and in that bag is a small circut board and a wire.
 ![Particular Matter sensor board](images/4cscc-parts-10-pm-board.jpeg)
 
-* In the carboard box there is also a regtangular metal box. This is a particular matter sensor, which we'll call a PM sensor. We'll learn more about this, and how to connect this to your computer later. Put all of this back in the cardboard box to keep it safe for now.
+* In the carboard box there is also a regtangular metal box. This is a particulate matter sensor, which we'll call a PM sensor. We'll learn more about this, and how to connect this to your computer later. Put all of this back in the cardboard box to keep it safe for now.
 ![Particular Matter sensor](images/4cscc-parts-11-pm-sensor.jpeg)
 
 * A breadboard. This is used to build digital circuts without having to solder wires.
