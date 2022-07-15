@@ -1,7 +1,9 @@
-# Weather sensing
+# Atmospheric sensing, posting data to an online dashboard
 
 In this lesson we'll collect temperature, humidity, and air pressure data from
-a sensor and post it to an online dashboard.
+a sensor and post it to an online dashboard. You can also post data from your
+VOC and PM sensors to the same dashboard - for a challenge after getting this
+code to work, try sending other data to the dashboard.
 
 ## Parts list
 
@@ -20,6 +22,24 @@ If you haven't used Initial State before, start with their [_Getting Started_ do
 ![Completed pHAT](images/pHAT-1.jpg)
 
 ## Write a Python 3 program
+
+To use the following code, open a command terminal. Then enter the following command:
+
+```
+source ~/code/4cscc-ln/venv/bin/activate
+```
+
+If this works you should see `(venv)` on the far left of the text in
+your terminal.
+
+Then, enter the following command to start an ipython terminal:
+
+```
+ipython
+```
+
+Finally, copy paste the following code into the ipython terminal. This will collect data from your atmospheric sensor every 10 second and display on an online dashboard. It will run until you press "Control-c" (i.e., press the "control" and "c" keys at the same time).
+
 
 ```python
 import qwiic_bme280
@@ -114,9 +134,7 @@ def run(reporting_frequency=10, warmup_time=60):
     except (KeyboardInterrupt, SystemExit):
         report_status("%s offline." % hostname)
 
-
-if __name__ == "__main__":
-    run()
+run()
 ```
 
 ## Dashboard output

@@ -1,4 +1,4 @@
-# Hello LED
+# Blinking an LED from Scratch and Python 3
 
 In this lesson we'll complete our first physical computing experiments: we'll
 connect an LED to our Raspberry Pi, and make it blink.
