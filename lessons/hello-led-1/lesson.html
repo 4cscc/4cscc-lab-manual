@@ -21,7 +21,7 @@
     href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
@@ -37,7 +37,7 @@
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
-    <script src="../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
@@ -327,18 +327,33 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#parts-list">
-   Parts list
+  <a class="reference internal nav-link" href="#getting-started">
+   Getting started
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#wire-phat">
-   Wire pHAT
+  <a class="reference internal nav-link" href="#assembling-the-phat">
+   Assembling the pHAT
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#wire-breadboard">
-   Wire breadboard
+  <a class="reference internal nav-link" href="#wire-to-the-breadboard">
+   Wire to the Breadboard
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#adding-the-330-ohm-resistor">
+   Adding the 330 ohm resistor
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#adding-the-led">
+   Adding the LED
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#power-the-system">
+   Power the system
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -349,6 +364,11 @@ title="Print to PDF"
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#write-a-python-3-program">
    Write a Python 3 program
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#reflection">
+   Reflection
   </a>
  </li>
 </ul>
@@ -371,18 +391,33 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#parts-list">
-   Parts list
+  <a class="reference internal nav-link" href="#getting-started">
+   Getting started
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#wire-phat">
-   Wire pHAT
+  <a class="reference internal nav-link" href="#assembling-the-phat">
+   Assembling the pHAT
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#wire-breadboard">
-   Wire breadboard
+  <a class="reference internal nav-link" href="#wire-to-the-breadboard">
+   Wire to the Breadboard
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#adding-the-330-ohm-resistor">
+   Adding the 330 ohm resistor
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#adding-the-led">
+   Adding the LED
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#power-the-system">
+   Power the system
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -393,6 +428,11 @@ title="Print to PDF"
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#write-a-python-3-program">
    Write a Python 3 program
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#reflection">
+   Reflection
   </a>
  </li>
 </ul>
@@ -407,34 +447,152 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="blinking-an-led-from-scratch-and-python-3">
 <h1>Blinking an LED from Scratch and Python 3<a class="headerlink" href="#blinking-an-led-from-scratch-and-python-3" title="Permalink to this headline">#</a></h1>
-<p>In this lesson we’ll complete our first physical computing experiments: we’ll
-connect an LED to our Raspberry Pi, and make it blink.</p>
-<section id="parts-list">
-<h2>Parts list<a class="headerlink" href="#parts-list" title="Permalink to this headline">#</a></h2>
-<p>For this exercise you’ll need:</p>
+<p>In this lesson we’ll complete our first physical computing experiment: we’ll connect an LED to our Raspberry Pi, and make it blink.</p>
+<section id="getting-started">
+<h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">#</a></h2>
+<p>For this exercise, you will need the following:</p>
 <ul class="simple">
 <li><p>Raspberry Pi 400 computer</p></li>
 <li><p>Sparkfun Qwiic pHAT Extension</p></li>
 <li><p>One single-color LED</p></li>
-<li><p>Two male-to-female jumper wires (one red and one black if possible)</p></li>
-<li><p>One male-to-male jumper wire (black if possible)</p></li>
+<li><p>Two male-to-female (M-to-F) jumper wires (on M-to-F only one end has a metal pin)</p></li>
+<li><p>One male-to-male jumper wire (on M-to-M both ends have a metal pin)</p></li>
 <li><p>One 330 Ohm resistor</p></li>
 </ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Start with your Raspberry Pi 400 computer turned off</p>
+</div>
 </section>
-<section id="wire-phat">
-<h2>Wire pHAT<a class="headerlink" href="#wire-phat" title="Permalink to this headline">#</a></h2>
-<p><img alt="Completed pHAT" src="../../_images/pHAT-12.jpg" /></p>
+<hr class="docutils" />
+<section id="assembling-the-phat">
+<h2>Assembling the pHAT<a class="headerlink" href="#assembling-the-phat" title="Permalink to this headline">#</a></h2>
+<p>We need to make connections from the Raspberry Pi 400 GPIO (general-purpose input-output) pins. While we could connect to the Raspberry Pi pins directly, using the Qwiic PHAT Extension makes this more convenient as the pins are labeled and more accessible. There are 40 male (metal) pins available to use for powering devices or communicating with hardware (i.e., collecting input from them or providing output to them).</p>
+<p><img alt="pHAT-board-plugged-into-Raspberry-pi-400" src="../../_images/01-gpio-board.png" /></p>
+<ol>
+<li><p>Collect one M-to-F pin. Take the female end (black) and insert it into the GND (ground) on the pHAT male pin.</p>
+<p><img alt="male-to-female-jumper-wires" src="../../_images/02-male-to-female.png" /></p>
+</li>
+<li><p>Collect the other M-to-F pin. Take the female end (black) and insert into 21 on the pHAT male pin.</p>
+<p><img alt="jumper-wires-plugged-into-gpio" src="../../_images/03-jumper-wires-gpio.png" /></p>
+</li>
+</ol>
 </section>
-<section id="wire-breadboard">
-<h2>Wire breadboard<a class="headerlink" href="#wire-breadboard" title="Permalink to this headline">#</a></h2>
-<p><img alt="Completed breadboard" src="../../_images/breadboard-1.jpg" /></p>
+<section id="wire-to-the-breadboard">
+<h2>Wire to the Breadboard<a class="headerlink" href="#wire-to-the-breadboard" title="Permalink to this headline">#</a></h2>
+<p>A breadboard lets you insert (plug) components and have them connect through metal tracks hidden beneath the surface. This makes it MUCH easier to build circuits.</p>
+<ol>
+<li><p>Take the male end of the M-to-F pin connected to GND and insert it into column (-) in row 1 of the breadboard.</p>
+<p><img alt="jumper-wire-1-plugged-into-breadboard" src="../../_images/04-male-end-1-breadboard.png" /></p>
+</li>
+<li><p>Take the male end of the other M-to-F pin connected to 21 and insert it into the column (a) in row 4 of the breadboard.</p>
+<p><img alt="jumper-wire-2-plugged-into-breadboard" src="../../_images/05-male-end-2-breadboard.png" /></p>
+</li>
+<li><p>Collect the M-to-M pin. Take one end and insert it into column (-) in row 30 of the breadboard.</p>
+<p><img alt="jumper-wire-3-plugged-into-breadboard" src="../../_images/06-male-end-3-breadboard.png" /></p>
+</li>
+<li><p>Take the other end of the M-to-M pin and insert it into column (j) in row 5 of the breadboard.</p>
+<p><img alt="jumper-wire-4-plugged-into-breadboard" src="../../_images/07-male-end-4-breadboard.png" /></p>
+</li>
+</ol>
+</section>
+<section id="adding-the-330-ohm-resistor">
+<h2>Adding the 330 ohm resistor<a class="headerlink" href="#adding-the-330-ohm-resistor" title="Permalink to this headline">#</a></h2>
+<p>A resistor are components that control the flow of electrical current. Each resistor has different values measured using ohms. the higher the number of ohms, the more resistance is provided. Resistors are used to protect different components (like an light emitting diode) from drawing too much current which can result in damaging components or even the Raspberry Pi 400.</p>
+<ol>
+<li><p>Pick up the resistor and look at the color combination. It reads orange, red, brown gold. To read the resistor color codes, you can watch the video <a class="reference external" href="https://www.youtube.com/watch?v=GLD7AgAYqwAv">“How to Read a Resistor”</a>.</p>
+<p><img alt="330-ohm-resistor" src="../../_images/08-330-ohm-resistor.png" /></p>
+</li>
+<li><p>Take the orange end of the resistor and insert it into column (e) in row 4 of the breadboard.</p></li>
+<li><p>Take the brown end of the resister and insert it into column (f) in row 4.</p>
+<p><img alt="330-ohm-resistor-plugged-into-breadboard" src="../../_images/09-330-ohm-resistor-breadboard.png" /></p>
+</li>
+</ol>
+</section>
+<section id="adding-the-led">
+<h2>Adding the LED<a class="headerlink" href="#adding-the-led" title="Permalink to this headline">#</a></h2>
+<p>A LED is a light emitting diode. It two legs, one is longer than the other. The longer leg is the anode, positively charged.</p>
+<p><img alt="LED" src="../../_images/10-led.png" /></p>
+<ol>
+<li><p>Take the longer leg of the LED and insert it into column (g) in row 4.</p></li>
+<li><p>Take the shorter leg of the LED and insert it into column (g) in row 5.</p>
+<p><img alt="LED-plugged-into-breadboard" src="../../_images/11-led-breadboard.png" /></p>
+</li>
+</ol>
+</section>
+<section id="power-the-system">
+<h2>Power the system<a class="headerlink" href="#power-the-system" title="Permalink to this headline">#</a></h2>
+<ol>
+<li><p>Your connection of the electronics is all set-up.</p>
+<p><img alt="wired-pHAT-and-breadboard" src="../../_images/12-complete-set-up.png" /></p>
+</li>
+<li><p>Turn on the Raspberry Pi 400. The pHAT and power will light up red.</p>
+<p><img alt="power-on-wired-pHAT-and-breadboard" src="../../_images/13-powered-set-up.png" /></p>
+</li>
+</ol>
 </section>
 <section id="write-a-scratch-3-program">
 <h2>Write a Scratch 3 program<a class="headerlink" href="#write-a-scratch-3-program" title="Permalink to this headline">#</a></h2>
-<p><img alt="Completed Scratch 3 code" src="../../_images/complete-s3-program.jpg" /></p>
+<p>For this part of the exercise, you will be using the <a class="reference external" href="https://scratch.mit.edu/">Scratch</a> programming language.</p>
+<ol>
+<li><p>Go to the Raspberry icon, click on Programming and select Scratch 3. This will pop-up a new window that will go through two messages “Scratch Desktop is loading” and “Creating Project”.</p>
+<p><img alt="scratch-opening-screen" src="../../_images/15-opening-scratch.png" /></p>
+</li>
+<li><p>The Scratch 3 program will open up to the home screen.</p>
+<p><img alt="scratch-home-screen" src="../../_images/16-scratch-opened-labeled.png" /></p>
+<ul class="simple">
+<li><p>The far left panel (A) is called the Blocks Palette. These are the available blocks for your program.</p></li>
+<li><p>The next panel (B) is called the Blocks. The blocks are pre-written chunks of program code that allow you to build your program.</p></li>
+<li><p>The center panel (C) is called the Code Area. This is the space where your program is build by dragging and dropping blocks from the Blocks Palette to form scripts.</p></li>
+<li><p>The two icons (D) are the green flag and red stop sign. The green flag icon will run the program. The red stop sign icon will stop the program.</p></li>
+<li><p>The button (E) is the Add Extension icon. This loads blocks that are part of extension features.</p></li>
+</ul>
+</li>
+<li><p>To access the blocks associated with the pHAT, we need to add the GPIO blocks. Go the blue Add Extension icon on the lower left corner.</p>
+<p><img alt="scratch-program-select-extension" src="../../_images/17-add-extension.png" /></p>
+</li>
+<li><p>Scroll down and select the Raspberry Pi GPIO. This will yield blocks to control the Raspberry Pi GPIO lines.</p>
+<p><img alt="scratch-program-gpio-extention" src="../../_images/18-select-gpio.png" /></p>
+</li>
+<li><p>If done successfully, the new icon Raspberry Pi GPIO will appear in the Blocks Palette panel.</p>
+<p><img alt="scratch-program-new-GPIO-icon" src="../../_images/19-view-gpio.png" /></p>
+</li>
+</ol>
+<p>Now let’s turn on the LED! Scratch is a drag-and-drop approach to writing code. The blocks have different shapes that allow them to be built in a modular connection.</p>
+<ol>
+<li><p>The first block to add is the <code class="docutils literal notranslate"><span class="pre">when</span> <span class="pre">clicked</span></code>. Click on the circle “Events” and find when clicked. Drag it over into the Code Area panel.</p>
+<p><img alt="scratch-program-select-events" src="../../_images/20-select-events.png" /></p>
+<p><img alt="scratch-program-select-gpio" src="../../_images/21-find-set-gpio.png" /></p>
+</li>
+<li><p>Next, click on the Raspberry Pi GPIO icon. Select the <code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">gpio</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">output</span> <span class="pre">high</span></code> block and drag it over into the Code Area panel.</p>
+<p><img alt="scratch-program-gpio-icon" src="../../_images/22-select-gpio.png" /></p>
+</li>
+<li><p>You’ll need to choose the number of the pin you’re using. Look at the GPIO m-to-f jumper wire, it is plugged into ‘21’. Click on the small arrow to open the drop-down selection and click on 21, this is the GPIO 21 pin.</p>
+<p><img alt="scratch-program-gpio-select-pin" src="../../_images/23-click-green-flag-go.png" /></p>
+</li>
+<li><p>Next, click on the click on the green flag icon to run the program. You should see the LED light up!</p>
+<p><img alt="scratch-program-green-flag-icon-run-program" src="../../_images/24-powered-set-up.png" /></p>
+</li>
+<li><p>To turn off the LED, click on the down arrow at the end of the block and choose ‘low’ from the list.</p>
+<p><img alt="scratch-program-adjust-gpio-block" src="../../_images/25-change-gpio-low.png" /></p>
+</li>
+<li><p>To flash the LED on and off every second, we have to use the <code class="docutils literal notranslate"><span class="pre">forever</span></code> block and two ‘wait 1 second’ blocks. Click on the circle “Control” to get the blocks.</p>
+<p><img alt="scratch-program-new-program-entry" src="../../_images/26-program-forever.png" /></p>
+</li>
+<li><p>Build the program as you see below. Then click on the green flag icon to run your program!</p>
+<p><img alt="scratch-program-final-program" src="../../_images/28-program-complete.png" /></p>
+</li>
+</ol>
+<p>Congrats on using Scratch 3 to program your blinking LED!</p>
 </section>
 <section id="write-a-python-3-program">
 <h2>Write a Python 3 program<a class="headerlink" href="#write-a-python-3-program" title="Permalink to this headline">#</a></h2>
+<p>For this part of the exercise, you will be using the <a class="reference external" href="https://thonny.org/">Thonny Python IDE</a>. IDE stands for “Integrated Development Environment” and is intended to provide everything you need to develop software.</p>
+<ol>
+<li><p>Go to the Raspberry icon, click on Programming and select Thonny Python IDE. This will pop-up a new window. The top panel (labeled <code class="docutils literal notranslate"><span class="pre">&lt;untitled&gt;</span></code>) is the code editor. The bottom panel (labeled <code class="docutils literal notranslate"><span class="pre">shell</span></code>) is where you can execute (or run) your script.</p>
+<p><img alt="thonny-home-screen" src="../../_images/29-thonny-opened.png" /></p>
+</li>
+<li><p>Copy the code below and paste into the untitled code editor.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gpiozero</span> <span class="kn">import</span> <span class="n">LED</span>
 <span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
 
@@ -447,6 +605,21 @@ connect an LED to our Raspberry Pi, and make it blink.</p>
     <span class="n">sleep</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
 </pre></div>
 </div>
+<p><img alt="code-in-code-editor" src="../../_images/30-gpio-code.png" /></p>
+<p><code class="docutils literal notranslate"><span class="pre">gpiozero</span></code> is called a library, and this library provides an object called <code class="docutils literal notranslate"><span class="pre">LED</span></code>, which helps you work with LEDs from within Python. The variable <code class="docutils literal notranslate"><span class="pre">led</span></code> lets the library know which GPIO pin (21) the LED is connected to.</p>
+</li>
+<li><p>Save the program with the name “blinking-led”. This will switch the file to a .py or .python file ending. Then click on “Run” to run the code.</p>
+<p><img alt="run-code-in-shell" src="../../_images/31-run-code.png" /></p>
+</li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="reflection">
+<h2>Reflection<a class="headerlink" href="#reflection" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>Look at the code above and adjust the values in <code class="docutils literal notranslate"><span class="pre">sleep(1.0)</span></code> of the Python program or <code class="docutils literal notranslate"><span class="pre">wait</span> <span class="pre">X</span> <span class="pre">second</span></code> in Scratch. How could you speed up or slow down the LED?</p></li>
+<li><p>In the Python code, what is the smallest amount of time that you can have the code sleep for while still being able to see the LED flashing?</p></li>
+</ul>
 </section>
 </section>
 
