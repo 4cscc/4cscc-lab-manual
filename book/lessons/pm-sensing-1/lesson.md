@@ -34,7 +34,7 @@ the breadboard as the pins labeled TXD, RXD, GND, and VCC.
 ### 3. Connect the breadboard to the pHAT
 Connect the female end of the GND wire to GND on the pHAT. Connect the female
 end of the VCC wire to 5V on the pHAT. Connect the female end of the TXD wire
-to 14/TXO on the pHAT. Connect the female end of the RXD wire to 15/RXI on the
+to 15/RXI on the pHAT. Connect the female end of the RXD wire to 14/TXO on the
 pHAT.
 ![pHAT](images/pm-sensor-pHAT.jpeg)
 
