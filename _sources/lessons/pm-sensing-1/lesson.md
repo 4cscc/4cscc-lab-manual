@@ -19,29 +19,61 @@ For this exercise you'll need:
 
 ## Assembly
 
-### 1. Get the sensor
+### 1. Assemble the sensor
 
-You should have a pm sensor with the cable already attached as shown. On the
-other end of the cable there should be a green board with 8 pins.
-![PM Sensor](images/pm-sensor-sensor.jpeg)
+The PM sensor has two openings on one side, the air inlet and fan air outlet.
+
+![PM Sensor inlet and fan](images/01-pm-sensor-fan.png)
+
+The PM sensor has a cable connection on the other side. If there is not a cable already connected, follow the _1a. Connecting the PM sensor cable_ instructions. Otherwise, skip that section.
+
+![PM Sensor cable connector](images/02-pm-sensor-connection.png)
+
+#### 1a. Connecting the PM sensor cable
+
+A small green board with 8 pins will connect to the breadboard via a cable connection.
+
+![Small green board](images/03-pm-pin-and-cable.png)
+
+Take the female end (white) of the cable and insert it into the green board connector.
+
+![Small green board with cable](images/04-pm-connecting-8pin-and-cable.png)
+
+Take the other female end (white) of the cable and insert it into the PM Sensor.
+
+![PM Sensor with cable](images/06-pm-connecting-to-cable.png)
+
+#### 1b. Assembled sensor
+
+You should now have a pm sensor with the cable attached as shown. On the other end of the cable there should be a green board with 8 pins.
+
+![PM Sensor connected via cable with small green board](images/07-final-pm-connected-to-8pin-by-cable.png)
 
 ### 2. Connect the sensor to the breadboard
-You should insert the 8 pins along a column on the breadboard as shown below.
-Then use the male ends of the 4 male to female jumper wires on the same rows of
-the breadboard as the pins labeled TXD, RXD, GND, and VCC.
-![Breadboard](images/pm-sensor-breadboard.jpeg)
+
+Insert the 8 pins from the small green board along a column on the breadboard as shown below.
+
+![Breadboard and 8 pins](images/08-8pin-plugged-breadboard.png)
+
+Collect 4 male-to-female jumper wires. On the small green board, identify the labels TXD, RXD, GND, and VCC.
+
+Insert the male ends of the into the the following breadboard on the same rows of the breadboard.
+
+![Breadboard](images/09-jumper-wires-plugged-breadboard.jpeg)
 
 ### 3. Connect the breadboard to the pHAT
 Connect the female end of the GND wire to GND on the pHAT. Connect the female
 end of the VCC wire to 5V on the pHAT. Connect the female end of the TXD wire
 to 15/RXI on the pHAT. Connect the female end of the RXD wire to 14/TXO on the
 pHAT.
-![pHAT](images/pm-sensor-pHAT.jpeg)
+
+![pHAT](images/10-jumper-wires-plugged-gpio.jpeg)
 
 ### 4. Should be done
 You should now have a complete product that looks like the following with the
 pm sensor wired to the breadboard and the breadboard wired to the pHAT.
-![Finished](images/pm-sensor-complete.jpeg)
+
+![Finished](images/11-pm-sensor-complete.jpeg)
 
 ## Python 3 code
 

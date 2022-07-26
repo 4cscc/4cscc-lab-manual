@@ -342,9 +342,21 @@ title="Print to PDF"
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#get-the-sensor">
-     1. Get the sensor
+    <a class="reference internal nav-link" href="#assemble-the-sensor">
+     1. Assemble the sensor
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#a-connecting-the-pm-sensor-cable">
+       1a. Connecting the PM sensor cable
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#b-assembled-sensor">
+       1b. Assembled sensor
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#connect-the-sensor-to-the-breadboard">
@@ -403,9 +415,21 @@ title="Print to PDF"
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#get-the-sensor">
-     1. Get the sensor
+    <a class="reference internal nav-link" href="#assemble-the-sensor">
+     1. Assemble the sensor
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#a-connecting-the-pm-sensor-cable">
+       1a. Connecting the PM sensor cable
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#b-assembled-sensor">
+       1b. Assembled sensor
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#connect-the-sensor-to-the-breadboard">
@@ -462,32 +486,48 @@ sensing see <a class="reference external" href="https://en.wikipedia.org/wiki/Pa
 </section>
 <section id="assembly">
 <h2>Assembly<a class="headerlink" href="#assembly" title="Permalink to this headline">#</a></h2>
-<section id="get-the-sensor">
-<h3>1. Get the sensor<a class="headerlink" href="#get-the-sensor" title="Permalink to this headline">#</a></h3>
-<p>You should have a pm sensor with the cable already attached as shown. On the
-other end of the cable there should be a green board with 8 pins.
-<img alt="PM Sensor" src="../../_images/pm-sensor-sensor.jpeg" /></p>
+<section id="assemble-the-sensor">
+<h3>1. Assemble the sensor<a class="headerlink" href="#assemble-the-sensor" title="Permalink to this headline">#</a></h3>
+<p>The PM sensor has two openings on one side, the air inlet and fan air outlet.</p>
+<p><img alt="PM Sensor inlet and fan" src="../../_images/01-pm-sensor-fan.png" /></p>
+<p>The PM sensor has a cable connection on the other side. If there is not a cable already connected, follow the <em>1a. Connecting the PM sensor cable</em> instructions. Otherwise, skip that section.</p>
+<p><img alt="PM Sensor cable connector" src="../../_images/02-pm-sensor-connection.png" /></p>
+<section id="a-connecting-the-pm-sensor-cable">
+<h4>1a. Connecting the PM sensor cable<a class="headerlink" href="#a-connecting-the-pm-sensor-cable" title="Permalink to this headline">#</a></h4>
+<p>A small green board with 8 pins will connect to the breadboard via a cable connection.</p>
+<p><img alt="Small green board" src="../../_images/03-pm-pin-and-cable.png" /></p>
+<p>Take the female end (white) of the cable and insert it into the green board connector.</p>
+<p><img alt="Small green board with cable" src="../../_images/04-pm-connecting-8pin-and-cable.png" /></p>
+<p>Take the other female end (white) of the cable and insert it into the PM Sensor.</p>
+<p><img alt="PM Sensor with cable" src="../../_images/06-pm-connecting-to-cable.png" /></p>
+</section>
+<section id="b-assembled-sensor">
+<h4>1b. Assembled sensor<a class="headerlink" href="#b-assembled-sensor" title="Permalink to this headline">#</a></h4>
+<p>You should now have a pm sensor with the cable attached as shown. On the other end of the cable there should be a green board with 8 pins.</p>
+<p><img alt="PM Sensor connected via cable with small green board" src="../../_images/07-final-pm-connected-to-8pin-by-cable.png" /></p>
+</section>
 </section>
 <section id="connect-the-sensor-to-the-breadboard">
 <h3>2. Connect the sensor to the breadboard<a class="headerlink" href="#connect-the-sensor-to-the-breadboard" title="Permalink to this headline">#</a></h3>
-<p>You should insert the 8 pins along a column on the breadboard as shown below.
-Then use the male ends of the 4 male to female jumper wires on the same rows of
-the breadboard as the pins labeled TXD, RXD, GND, and VCC.
-<img alt="Breadboard" src="../../_images/pm-sensor-breadboard.jpeg" /></p>
+<p>Insert the 8 pins from the small green board along a column on the breadboard as shown below.</p>
+<p><img alt="Breadboard and 8 pins" src="../../_images/08-8pin-plugged-breadboard.png" /></p>
+<p>Collect 4 male-to-female jumper wires. On the small green board, identify the labels TXD, RXD, GND, and VCC.</p>
+<p>Insert the male ends of the into the the following breadboard on the same rows of the breadboard.</p>
+<p><img alt="Breadboard" src="../../_images/09-jumper-wires-plugged-breadboard.jpeg" /></p>
 </section>
 <section id="connect-the-breadboard-to-the-phat">
 <h3>3. Connect the breadboard to the pHAT<a class="headerlink" href="#connect-the-breadboard-to-the-phat" title="Permalink to this headline">#</a></h3>
 <p>Connect the female end of the GND wire to GND on the pHAT. Connect the female
 end of the VCC wire to 5V on the pHAT. Connect the female end of the TXD wire
 to 15/RXI on the pHAT. Connect the female end of the RXD wire to 14/TXO on the
-pHAT.
-<img alt="pHAT" src="../../_images/pm-sensor-pHAT.jpeg" /></p>
+pHAT.</p>
+<p><img alt="pHAT" src="../../_images/10-jumper-wires-plugged-gpio.jpeg" /></p>
 </section>
 <section id="should-be-done">
 <h3>4. Should be done<a class="headerlink" href="#should-be-done" title="Permalink to this headline">#</a></h3>
 <p>You should now have a complete product that looks like the following with the
-pm sensor wired to the breadboard and the breadboard wired to the pHAT.
-<img alt="Finished" src="../../_images/pm-sensor-complete.jpeg" /></p>
+pm sensor wired to the breadboard and the breadboard wired to the pHAT.</p>
+<p><img alt="Finished" src="../../_images/11-pm-sensor-complete.jpeg" /></p>
 </section>
 </section>
 <section id="python-3-code">
