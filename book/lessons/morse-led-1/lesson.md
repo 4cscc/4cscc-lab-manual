@@ -66,7 +66,7 @@ ENCODING = {
     'L' : [DOT, DASH, DOT, DOT],
     'M' : [DASH, DASH],
     'N' : [DASH, DOT],
-    # Fun fact, you may be familiar with "SOS" as a call for help. Some people
+    # Fun fact: you may be familiar with "SOS" as a call for help. Some people
     # say it stands for "save our souls" or "save our ship." In reality, it was
     # chosen because in Morse code it is
     # "DOT DOT DOT DASH DASH DASH DOT DOT DOT" which stands out, so people
@@ -134,7 +134,7 @@ def process_input(sanitized_input, led):
 
 # If this file is the one that Python started execution with, run this code.
 # Otherwise it would start executing from the top of the file
-if __name__ == '__main__':Anthony
+if __name__ == '__main__':
     # Create an object in code representing our LED
     led = LED(LED_PIN)
 
@@ -187,7 +187,7 @@ s...o...s
 
 **Add Support for Spaces**
 
-You may have noticed that we are missing something very importany. We don't
+You may have noticed that we are missing something very important. We don't
 have spaces! In standard Morse code, a space is 7 dots long. This means that
 when we see a space we want the light to be off for 7 times the dot duration.
 Can you add this feature to the code?
@@ -244,7 +244,7 @@ ENCODING = {
     'L' : [DOT, DASH, DOT, DOT],
     'M' : [DASH, DASH],
     'N' : [DASH, DOT],
-    # Fun fact, you may be familiar with "SOS" as a call for help. Some people
+    # Fun fact: you may be familiar with "SOS" as a call for help. Some people
     # say it stands for "save our souls" or "save our ship." In reality, it was
     # chosen because in Morse code it is
     # "DOT DOT DOT DASH DASH DASH DOT DOT DOT" which stands out, so people
@@ -273,7 +273,7 @@ ENCODING = {
     '7' : [DASH, DASH, DOT, DOT, DOT],
     '8' : [DASH, DASH, DASH, DOT, DOT],
     '9' : [DASH, DASH, DASH, DASH, DOT],
-    # Fun fact, Morse code didn't originally have a sequence for the period,
+    # Fun fact: Morse code didn't originally have a sequence for the period,
     # so people would send "STOP" to indicate the end of a sentence.
     '.' : [DOT, DASH, DOT, DASH, DOT, DASH],
     ',' : [DASH, DASH, DOT, DOT, DASH, DASH],
