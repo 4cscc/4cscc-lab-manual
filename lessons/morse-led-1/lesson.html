@@ -1,0 +1,884 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>LED Morse Code in Python 3 &#8212; Four Corners Science and Computing Club Lab Notebook</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Atmospheric sensing, posting data to an online dashboard" href="../atmospheric-sensing-2/lesson.html" />
+    <link rel="prev" title="Multi-color LED" href="../multicolor-led-1/lesson.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Four Corners Science and Computing Club Lab Notebook</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    The Four Corners Science and Computing Club (4CSCC) Lab Notebook
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../kit-assembly-1/lesson.html">
+   Unpacking and assembling your supplies
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../hello-led-1/lesson.html">
+   Blinking an LED from Scratch and Python 3
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../atmospheric-sensing-1/lesson.html">
+   Atmospheric sensing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../voc-sensing-1/lesson.html">
+   VOC sensing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../pm-sensing-1/lesson.html">
+   Particulate matter sensing to assess indoor air quality
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../multicolor-led-1/lesson.html">
+   Multi-color LED
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   LED Morse Code in Python 3
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../atmospheric-sensing-2/lesson.html">
+   Atmospheric sensing, posting data to an online dashboard
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/gregcaporaso/4cscc-ln"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/gregcaporaso/4cscc-ln/issues/new?title=Issue%20on%20page%20%2Flessons/morse-led-1/lesson.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/lessons/morse-led-1/lesson.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#parts-list-and-setup">
+   Parts list and Setup
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#basic-morse-code-implementation">
+   Basic morse code implementation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#challenges-to-extend-the-code">
+   Challenges to extend the code
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#easy">
+     Easy
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#intermediate">
+     Intermediate
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#difficult">
+     Difficult
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#complete-code-implementation">
+   Complete Code Implementation
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>LED Morse Code in Python 3</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#parts-list-and-setup">
+   Parts list and Setup
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#basic-morse-code-implementation">
+   Basic morse code implementation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#challenges-to-extend-the-code">
+   Challenges to extend the code
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#easy">
+     Easy
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#intermediate">
+     Intermediate
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#difficult">
+     Difficult
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#complete-code-implementation">
+   Complete Code Implementation
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="led-morse-code-in-python-3">
+<h1>LED Morse Code in Python 3<a class="headerlink" href="#led-morse-code-in-python-3" title="Permalink to this headline">#</a></h1>
+<p>This lesson is an extension of the first LED blinking experiment. It will be
+done in Python3 exclusively and seeks to achieve something more complicated
+with the LED. Namely, we will be creating a program that accepts input from the
+user and blinks out that input in morse code on the LED. If you are unfamiliar
+with morse code <a class="reference external" href="https://en.wikipedia.org/wiki/Morse_code#:~:text=Morse%20code%20is%20a%20method,the%20inventors%20of%20the%20telegraph.">this</a> Wikipedia
+article does a good job of explaining it. Basically, it is a method of
+communicating where different characters (letters, numbers, etc.) are encoded
+as a series of long and short duration taps, or beeps, or in our case blinks on
+an LED. The short duration is called a dot and the long one is called a dash.
+If you know which sequences of dots and dashes correspond to which characters,
+you can communicate entire sentences this way. Indeed people used machines
+called telegraphs to communicate over long distances in morse code over a
+hundred years ago before phones were invented and commonplace.</p>
+<p><strong>NOTE:</strong> This lesson may be difficult especially if this is your fist exposure
+to Python. You are still encouraged to try it, just don’t feel bad if it’s a
+struggle! Also, you’re always welcome to just play with the finished code.</p>
+<section id="parts-list-and-setup">
+<h2>Parts list and Setup<a class="headerlink" href="#parts-list-and-setup" title="Permalink to this headline">#</a></h2>
+<p>This lesson requires identical parts and setup to the <a class="reference internal" href="../hello-led-1/lesson.html"><span class="doc std std-doc">hello led</span></a>
+lesson, so please follow that setup guide and make sure that exercise works
+before continuing with this one.</p>
+</section>
+<section id="basic-morse-code-implementation">
+<h2>Basic morse code implementation<a class="headerlink" href="#basic-morse-code-implementation" title="Permalink to this headline">#</a></h2>
+<p>Below is a basic implementation of a program that prompts the user to enter
+something at the command line then blinks it out in morse code on the LED. It
+will complain at the user if they supply a character it doesn’t have a Morse
+code encoding for.</p>
+<p>This basic code only supports letters with their encodings taken from the
+Wikipedia article linked previously. It is extensively commented and you are
+encouraged to read it and understand how it works.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get access to our LED</span>
+<span class="kn">from</span> <span class="nn">gpiozero</span> <span class="kn">import</span> <span class="n">LED</span>
+<span class="c1"># We need to sleep between blinks</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
+
+<span class="c1"># The pin our led is wired to. If you followed the hello led lesson exactly</span>
+<span class="c1"># this will be 21.</span>
+<span class="n">LED_PIN</span> <span class="o">=</span> <span class="mi">21</span>
+
+<span class="c1"># The duration of dots and dashes</span>
+<span class="c1"># The standard is for a dash to be three times the duration of a dot</span>
+<span class="n">DOT</span> <span class="o">=</span> <span class="mf">.25</span>
+<span class="n">DASH</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">DOT</span>
+
+<span class="c1"># This dictionary maps characters to their morse code representations</span>
+<span class="n">ENCODING</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;A&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DOT</span><span class="p">,</span> <span class="n">DASH</span><span class="p">],</span>
+    <span class="s1">&#39;B&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">],</span>
+    <span class="s1">&#39;C&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">],</span>
+    <span class="s1">&#39;D&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">],</span>
+    <span class="s1">&#39;E&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DOT</span><span class="p">],</span>
+    <span class="s1">&#39;F&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">],</span>
+    <span class="s1">&#39;G&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">],</span>
+    <span class="s1">&#39;H&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">],</span>
+    <span class="s1">&#39;I&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">],</span>
+    <span class="s1">&#39;J&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DOT</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">],</span>
+    <span class="s1">&#39;K&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DASH</span><span class="p">],</span>
+    <span class="s1">&#39;L&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DOT</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">],</span>
+    <span class="s1">&#39;M&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">],</span>
+    <span class="s1">&#39;N&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">],</span>
+    <span class="c1"># Fun fact: you may be familiar with &quot;SOS&quot; as a call for help. Some people</span>
+    <span class="c1"># say it stands for &quot;save our souls&quot; or &quot;save our ship.&quot; In reality, it was</span>
+    <span class="c1"># chosen because in Morse code it is</span>
+    <span class="c1"># &quot;DOT DOT DOT DASH DASH DASH DOT DOT DOT&quot; which stands out, so people</span>
+    <span class="c1"># would notice the pattern immediately. It didn&#39;t stand for anything.</span>
+    <span class="s1">&#39;O&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">],</span>
+    <span class="s1">&#39;P&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DOT</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">],</span>
+    <span class="s1">&#39;Q&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DASH</span><span class="p">],</span>
+    <span class="s1">&#39;R&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DOT</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">],</span>
+    <span class="s1">&#39;S&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">],</span>
+    <span class="s1">&#39;T&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DASH</span><span class="p">],</span>
+    <span class="s1">&#39;U&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DASH</span><span class="p">],</span>
+    <span class="s1">&#39;V&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">],</span>
+    <span class="s1">&#39;W&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DOT</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">],</span>
+    <span class="s1">&#39;X&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DASH</span><span class="p">],</span>
+    <span class="s1">&#39;Y&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">],</span>
+    <span class="s1">&#39;Z&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">]</span>
+<span class="p">}</span>
+
+
+<span class="c1"># Blink the LED for a specified duration</span>
+<span class="k">def</span> <span class="nf">blink</span><span class="p">(</span><span class="n">led</span><span class="p">,</span> <span class="n">duration</span><span class="p">):</span>
+    <span class="c1"># Turn led on</span>
+    <span class="n">led</span><span class="o">.</span><span class="n">on</span><span class="p">()</span>
+    <span class="c1"># Wait for blink duration</span>
+    <span class="n">sleep</span><span class="p">(</span><span class="n">duration</span><span class="p">)</span>
+    <span class="c1"># Turn led off</span>
+    <span class="n">led</span><span class="o">.</span><span class="n">off</span><span class="p">()</span>
+    <span class="c1"># The standard is to have a dot duration rest between elements of one</span>
+    <span class="c1"># character</span>
+    <span class="n">sleep</span><span class="p">(</span><span class="n">DOT</span><span class="p">)</span>
+
+
+<span class="c1"># Ensures our input contains only characters we currently support</span>
+<span class="k">def</span> <span class="nf">sanitize_input</span><span class="p">(</span><span class="n">user_input</span><span class="p">):</span>
+    <span class="c1"># First ensure all letters in the string are uppercase. We do this because</span>
+    <span class="c1"># Morse code doesn&#39;t typically differentiate between cases, and it&#39;s easier</span>
+    <span class="c1"># for us to tell what letter we have if we know what case it will be in</span>
+    <span class="n">sanitized_input</span> <span class="o">=</span> <span class="n">user_input</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+
+    <span class="c1"># Iterate over characters in our uppercased input</span>
+    <span class="k">for</span> <span class="n">character</span> <span class="ow">in</span> <span class="n">sanitized_input</span><span class="p">:</span>
+        <span class="c1"># If we don&#39;t have a morse code encoding for the character. . .</span>
+        <span class="k">if</span> <span class="n">character</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ENCODING</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="c1">#. . . Tell the user about it</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The character </span><span class="se">\&#39;</span><span class="si">{</span><span class="n">character</span><span class="si">}</span><span class="se">\&#39;</span><span class="s1"> does not have a morse code &#39;</span>
+                   <span class="s1">&#39;representation at this time! Either add one or only use &#39;</span>
+                  <span class="sa">f</span><span class="s1">&#39;valid characters: </span><span class="si">{</span><span class="p">[</span><span class="n">key</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">ENCODING</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span>
+            <span class="c1"># And return an empty string</span>
+            <span class="k">return</span> <span class="s1">&#39;&#39;</span>
+
+    <span class="c1"># Return our sanitized and validated input</span>
+    <span class="k">return</span> <span class="n">sanitized_input</span>
+
+
+<span class="c1"># Takes a string and blinks the LED for all characters in the string</span>
+<span class="k">def</span> <span class="nf">process_input</span><span class="p">(</span><span class="n">sanitized_input</span><span class="p">,</span> <span class="n">led</span><span class="p">):</span>
+    <span class="c1"># Iterate over characters</span>
+    <span class="k">for</span> <span class="n">character</span> <span class="ow">in</span> <span class="n">sanitized_input</span><span class="p">:</span>
+        <span class="c1"># Iterate over the blink durations for the character (found in the</span>
+        <span class="c1"># ENCODING dictionary)</span>
+        <span class="k">for</span> <span class="n">duration</span> <span class="ow">in</span> <span class="n">ENCODING</span><span class="p">[</span><span class="n">character</span><span class="p">]:</span>
+            <span class="c1"># Blink for the duration specified in the dictionary</span>
+            <span class="n">blink</span><span class="p">(</span><span class="n">led</span><span class="p">,</span> <span class="n">duration</span><span class="p">)</span>
+
+
+<span class="c1"># If this file is the one that Python started execution with, run this code.</span>
+<span class="c1"># Otherwise it would start executing from the top of the file</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="c1"># Create an object in code representing our LED</span>
+    <span class="n">led</span> <span class="o">=</span> <span class="n">LED</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">)</span>
+
+    <span class="c1"># Loop infinitely</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="c1"># Get a string from the user</span>
+        <span class="c1"># NOTE: This is a blocking operation meaning the code will halt here</span>
+        <span class="c1"># until the user types something in and presses &#39;enter&#39;</span>
+        <span class="n">user_input</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Please enter your string: &#39;</span><span class="p">)</span>
+        <span class="c1"># Ensure the input contains only things we expect to see</span>
+        <span class="n">sanitized_input</span> <span class="o">=</span> <span class="n">sanitize_input</span><span class="p">(</span><span class="n">user_input</span><span class="p">)</span>
+        <span class="c1"># Actually blink out the morse code corresponding to the input on the</span>
+        <span class="c1"># LED</span>
+        <span class="n">process_input</span><span class="p">(</span><span class="n">sanitized_input</span><span class="p">,</span> <span class="n">led</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="challenges-to-extend-the-code">
+<h2>Challenges to extend the code<a class="headerlink" href="#challenges-to-extend-the-code" title="Permalink to this headline">#</a></h2>
+<p>These are some ideas for fixes and extenstions to the basic code found above.
+At the bottom of the page there will be code that implements all of these
+challenges. Feel free to use it as a reference, or to compare your solutions to
+mine, or just to play with a more complete implementation of Morse code.</p>
+<section id="easy">
+<h3>Easy<a class="headerlink" href="#easy" title="Permalink to this headline">#</a></h3>
+<p><strong>Add additional Characters</strong></p>
+<p>Try looking at <a class="reference external" href="https://en.wikipedia.org/wiki/Morse_code#Mnemonics">this</a>
+section of the Morse code Wikipedia article and adding support for more
+characters like numbers and punctuation.</p>
+</section>
+<section id="intermediate">
+<h3>Intermediate<a class="headerlink" href="#intermediate" title="Permalink to this headline">#</a></h3>
+<p><strong>Remove the Trailing Short Rest</strong></p>
+<p>You may have noticed that after the end of the user input, we sleep with the
+light off for the duration of a single short rest (coming from the rest between
+character elements). This isn’t really a problem, but it is technically the
+incorrect behavior. Can you fix it?</p>
+</section>
+<section id="difficult">
+<h3>Difficult<a class="headerlink" href="#difficult" title="Permalink to this headline">#</a></h3>
+<p><strong>Add a Gap Between Characters</strong></p>
+<p>Standard Morse code has a gap that is 3 dot durations long between characters
+in the same word. Can you add this feature to the code? For example using the
+string “sos” (using ‘.’ as a dot duration rest) we should see:</p>
+<p>s…o…s</p>
+<p><strong>Add Support for Spaces</strong></p>
+<p>You may have noticed that we are missing something very important. We don’t
+have spaces! In standard Morse code, a space is 7 dots long. This means that
+when we see a space we want the light to be off for 7 times the dot duration.
+Can you add this feature to the code?</p>
+<p>Keep in mind that if you also added the gap between characters, we should still
+only see a 7 dot rest between words. For example using the string “hello world”
+(using ‘.’ as a dot duration rest) we should see:</p>
+<p>h…e…l…l…o…….w…o…r…l…d</p>
+<p>As opposed to something like:</p>
+<p>h…e…l…l…o………….w…o…r…l…d</p>
+<p>Where we have the 3 dot rest after the ‘o’ then the 7 dot space then the 3 dot
+duration after the space.</p>
+</section>
+</section>
+<section id="complete-code-implementation">
+<h2>Complete Code Implementation<a class="headerlink" href="#complete-code-implementation" title="Permalink to this headline">#</a></h2>
+<p>This code implements all of the extensions and fixes proposed above. Note that
+nothing about this code is the only way to do things or even necessarily the
+best way to do things. One of the great things about programming is that there
+are almost always many different solutions to a given probem and often no one
+solution is outright the best.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get access to our LED</span>
+<span class="kn">from</span> <span class="nn">gpiozero</span> <span class="kn">import</span> <span class="n">LED</span>
+<span class="c1"># We need to sleep between blinks</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
+
+<span class="c1"># The pin our led is wired to. If you followed the hello led lesson exactly</span>
+<span class="c1"># this will be 21.</span>
+<span class="n">LED_PIN</span> <span class="o">=</span> <span class="mi">21</span>
+
+<span class="c1"># The duration of dots and dashes</span>
+<span class="c1"># The standard is for a dash to be three times the duration of a dot</span>
+<span class="n">DOT</span> <span class="o">=</span> <span class="mf">.15</span>
+<span class="n">DASH</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">DOT</span>
+
+<span class="c1"># This dictionary maps characters to their morse code representations.</span>
+<span class="n">ENCODING</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;A&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DOT</span><span class="p">,</span> <span class="n">DASH</span><span class="p">],</span>
+    <span class="s1">&#39;B&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">],</span>
+    <span class="s1">&#39;C&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">],</span>
+    <span class="s1">&#39;D&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">],</span>
+    <span class="s1">&#39;E&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DOT</span><span class="p">],</span>
+    <span class="s1">&#39;F&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">],</span>
+    <span class="s1">&#39;G&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">],</span>
+    <span class="s1">&#39;H&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">],</span>
+    <span class="s1">&#39;I&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">],</span>
+    <span class="s1">&#39;J&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DOT</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">],</span>
+    <span class="s1">&#39;K&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DASH</span><span class="p">],</span>
+    <span class="s1">&#39;L&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DOT</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">],</span>
+    <span class="s1">&#39;M&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">],</span>
+    <span class="s1">&#39;N&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">],</span>
+    <span class="c1"># Fun fact: you may be familiar with &quot;SOS&quot; as a call for help. Some people</span>
+    <span class="c1"># say it stands for &quot;save our souls&quot; or &quot;save our ship.&quot; In reality, it was</span>
+    <span class="c1"># chosen because in Morse code it is</span>
+    <span class="c1"># &quot;DOT DOT DOT DASH DASH DASH DOT DOT DOT&quot; which stands out, so people</span>
+    <span class="c1"># would notice the pattern immediately. It didn&#39;t stand for anything.</span>
+    <span class="s1">&#39;O&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">],</span>
+    <span class="s1">&#39;P&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DOT</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">],</span>
+    <span class="s1">&#39;Q&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DASH</span><span class="p">],</span>
+    <span class="s1">&#39;R&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DOT</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">],</span>
+    <span class="s1">&#39;S&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">],</span>
+    <span class="s1">&#39;T&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DASH</span><span class="p">],</span>
+    <span class="s1">&#39;U&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DASH</span><span class="p">],</span>
+    <span class="s1">&#39;V&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">],</span>
+    <span class="s1">&#39;W&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DOT</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">],</span>
+    <span class="s1">&#39;X&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DASH</span><span class="p">],</span>
+    <span class="s1">&#39;Y&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">],</span>
+    <span class="s1">&#39;Z&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">],</span>
+    <span class="c1"># Below here are the characters I added. Could have done more, but I</span>
+    <span class="c1"># decided these would be enough</span>
+    <span class="s1">&#39;0&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">],</span>
+    <span class="s1">&#39;1&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DOT</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">],</span>
+    <span class="s1">&#39;2&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">],</span>
+    <span class="s1">&#39;3&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">],</span>
+    <span class="s1">&#39;4&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DASH</span><span class="p">],</span>
+    <span class="s1">&#39;5&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">],</span>
+    <span class="s1">&#39;6&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">],</span>
+    <span class="s1">&#39;7&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">],</span>
+    <span class="s1">&#39;8&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">],</span>
+    <span class="s1">&#39;9&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">],</span>
+    <span class="c1"># Fun fact: Morse code didn&#39;t originally have a sequence for the period,</span>
+    <span class="c1"># so people would send &quot;STOP&quot; to indicate the end of a sentence.</span>
+    <span class="s1">&#39;.&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DOT</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DASH</span><span class="p">],</span>
+    <span class="s1">&#39;,&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">],</span>
+    <span class="s1">&#39;?&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">],</span>
+    <span class="s1">&#39;`&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DOT</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">],</span>
+    <span class="s1">&#39;!&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DASH</span><span class="p">,</span> <span class="n">DASH</span><span class="p">],</span>
+    <span class="s1">&#39; &#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">,</span> <span class="n">DOT</span><span class="p">]</span>
+<span class="p">}</span>
+
+
+<span class="c1"># Blink the LED for a specified duration</span>
+<span class="k">def</span> <span class="nf">blink</span><span class="p">(</span><span class="n">led</span><span class="p">,</span> <span class="n">duration</span><span class="p">,</span> <span class="n">final</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="c1"># Turn led on</span>
+    <span class="n">led</span><span class="o">.</span><span class="n">on</span><span class="p">()</span>
+    <span class="c1"># Wait for blink duration</span>
+    <span class="n">sleep</span><span class="p">(</span><span class="n">duration</span><span class="p">)</span>
+    <span class="c1"># Turn led off</span>
+    <span class="n">led</span><span class="o">.</span><span class="n">off</span><span class="p">()</span>
+    <span class="c1"># The standard is to have a dot duration rest between elements of one</span>
+    <span class="c1"># character, but if this was the last element of the last character we can</span>
+    <span class="c1"># skip it</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">final</span><span class="p">:</span>
+        <span class="n">sleep</span><span class="p">(</span><span class="n">DOT</span><span class="p">)</span>
+
+
+<span class="c1"># Ensures our input contains only characters we currently support</span>
+<span class="k">def</span> <span class="nf">sanitize_input</span><span class="p">(</span><span class="n">user_input</span><span class="p">):</span>
+    <span class="c1"># First ensure all letters in the string are uppercase. We do this because</span>
+    <span class="c1"># Morse code doesn&#39;t typically differentiate between cases, and it&#39;s easier</span>
+    <span class="c1"># for us to tell what letter we have if we know what case it will be in</span>
+    <span class="n">sanitized_input</span> <span class="o">=</span> <span class="n">user_input</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+
+    <span class="c1"># Iterate over characters in our uppercased input</span>
+    <span class="k">for</span> <span class="n">character</span> <span class="ow">in</span> <span class="n">sanitized_input</span><span class="p">:</span>
+        <span class="c1"># If we don&#39;t have a morse code encoding for the character. . .</span>
+        <span class="k">if</span> <span class="n">character</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ENCODING</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="c1">#. . . Tell the user about it</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The character </span><span class="se">\&#39;</span><span class="si">{</span><span class="n">character</span><span class="si">}</span><span class="se">\&#39;</span><span class="s1"> does not have a morse code &#39;</span>
+                   <span class="s1">&#39;representation at this time! Either add one or only use &#39;</span>
+                  <span class="sa">f</span><span class="s1">&#39;valid characters: </span><span class="si">{</span><span class="p">[</span><span class="n">key</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">ENCODING</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span>
+            <span class="c1"># And return an empty string</span>
+            <span class="k">return</span> <span class="s1">&#39;&#39;</span>
+
+    <span class="c1"># Return our sanitized and validated input</span>
+    <span class="k">return</span> <span class="n">sanitized_input</span>
+
+
+<span class="c1"># This function determined if either the previous or next character is a space</span>
+<span class="k">def</span> <span class="nf">spaces_around</span><span class="p">(</span><span class="n">char_index</span><span class="p">,</span> <span class="n">sanitized_input</span><span class="p">):</span>
+    <span class="c1"># If we are on the first character we only need to check the next character</span>
+    <span class="c1"># We know we have a next character because this function isn&#39;t called if we</span>
+    <span class="c1"># are on the last character</span>
+    <span class="k">if</span> <span class="n">char_index</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">sanitized_input</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">isspace</span><span class="p">()</span>
+
+    <span class="c1"># If we are not on the first character we need to check if either the prior</span>
+    <span class="c1"># or next character is a space.</span>
+    <span class="k">return</span> <span class="n">sanitized_input</span><span class="p">[</span><span class="n">char_index</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">isspace</span><span class="p">()</span> <span class="ow">or</span> \
+        <span class="n">sanitized_input</span><span class="p">[</span><span class="n">char_index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">isspace</span><span class="p">()</span>
+
+
+<span class="c1"># Takes a string and blinks the LED for all characters in the string</span>
+<span class="k">def</span> <span class="nf">process_input</span><span class="p">(</span><span class="n">sanitized_input</span><span class="p">,</span> <span class="n">led</span><span class="p">):</span>
+    <span class="c1"># Get the index of the last character in the input. Since Python uses 0 to</span>
+    <span class="c1"># represent the first element (as do most programming languages) we need to</span>
+    <span class="c1"># subtract 1 from the length to get the index of the last element</span>
+    <span class="n">last_char_index</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sanitized_input</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="c1"># Get the index of the last element of the representation of the character</span>
+    <span class="c1"># in the same way</span>
+    <span class="n">last_elem_index</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ENCODING</span><span class="p">[</span><span class="n">sanitized_input</span><span class="p">[</span><span class="n">last_char_index</span><span class="p">]])</span> <span class="o">-</span> <span class="mi">1</span>
+
+    <span class="c1"># Iterate over characters</span>
+    <span class="k">for</span> <span class="n">char_index</span><span class="p">,</span> <span class="n">character</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sanitized_input</span><span class="p">):</span>
+        <span class="c1"># True if we are on the last character in the input</span>
+        <span class="n">last_char</span> <span class="o">=</span> <span class="n">char_index</span> <span class="o">==</span> <span class="n">last_char_index</span>
+
+        <span class="c1"># Iterate over the blink durations for the character (found in the</span>
+        <span class="c1"># ENCODING dictionary)</span>
+        <span class="k">for</span> <span class="n">elem_index</span><span class="p">,</span> <span class="n">duration</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ENCODING</span><span class="p">[</span><span class="n">character</span><span class="p">]):</span>
+            <span class="c1"># True if we are on the last index of the character</span>
+            <span class="n">last_elem</span> <span class="o">=</span> <span class="n">elem_index</span> <span class="o">==</span> <span class="n">last_elem_index</span>
+
+            <span class="c1"># If our character is a space we just sleep for the duration</span>
+            <span class="k">if</span> <span class="n">character</span> <span class="o">==</span> <span class="s1">&#39; &#39;</span><span class="p">:</span>
+                <span class="n">sleep</span><span class="p">(</span><span class="n">duration</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># If we are on the last element of the last character don&#39;t</span>
+                <span class="c1"># sleep after turning off the LED</span>
+                <span class="k">if</span> <span class="n">last_char</span> <span class="ow">and</span> <span class="n">last_elem</span><span class="p">:</span>
+                    <span class="n">blink</span><span class="p">(</span><span class="n">led</span><span class="p">,</span> <span class="n">duration</span><span class="p">,</span> <span class="n">final</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">blink</span><span class="p">(</span><span class="n">led</span><span class="p">,</span> <span class="n">duration</span><span class="p">)</span>
+
+        <span class="c1"># After each non-space character, we sleep for three dot durations</span>
+        <span class="c1"># unless this was the last character in the input</span>
+        <span class="k">if</span> <span class="n">character</span> <span class="o">==</span> <span class="s1">&#39; &#39;</span> <span class="ow">or</span> <span class="n">last_char</span> \
+                <span class="ow">or</span> <span class="ow">not</span> <span class="n">spaces_around</span><span class="p">(</span><span class="n">char_index</span><span class="p">,</span> <span class="n">sanitized_input</span><span class="p">):</span>
+            <span class="n">sleep</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">DOT</span><span class="p">)</span>
+
+
+<span class="c1"># If this file is the one that Python started execution with, run this code.</span>
+<span class="c1"># Otherwise it would start executing from the top of the file</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="c1"># Create an object in code representing our LED</span>
+    <span class="n">led</span> <span class="o">=</span> <span class="n">LED</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">)</span>
+
+    <span class="c1"># Loop infinitely</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="c1"># Get a string from the user</span>
+        <span class="c1"># NOTE: This is a blocking operation meaning the code will halt here</span>
+        <span class="c1"># until the user types something in and presses &#39;enter&#39;</span>
+        <span class="n">user_input</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Please enter your string: &#39;</span><span class="p">)</span>
+        <span class="c1"># Ensure the input contains only things we expect to see</span>
+        <span class="n">sanitized_input</span> <span class="o">=</span> <span class="n">sanitize_input</span><span class="p">(</span><span class="n">user_input</span><span class="p">)</span>
+        <span class="c1"># Actually blink out the morse code corresponding to the input on the</span>
+        <span class="c1"># LED</span>
+        <span class="n">process_input</span><span class="p">(</span><span class="n">sanitized_input</span><span class="p">,</span> <span class="n">led</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./lessons/morse-led-1"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="../multicolor-led-1/lesson.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Multi-color LED</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../atmospheric-sensing-2/lesson.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Atmospheric sensing, posting data to an online dashboard</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Four Corners Science and Computing Club<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
