@@ -126,30 +126,58 @@ app.layout = html.Div([
 
 ## Initialize data sensors
 tph_sensor = qwiic_bme280.QwiicBme280()
-if not tph_sensor.begin():
-    print('BME 280 Atmospheric sensor doesn\'t seem to be connected to the system.')
-    exit(-1)
-else:
-    # discard first readings from the sensor as they tend to be unreliable
-    _ = tph_sensor.temperature_fahrenheit
-    _ = tph_sensor.pressure
-    _ = tph_sensor.humidity
-
 voc_sensor = qwiic_sgp40.QwiicSGP40()
-if voc_sensor.begin() != 0:
-    print('SGP 40 VOC sensor doesn\'t seem to be connected to the system.')
-    exit(-1)
-else:
-    # discard first reading from the sensor as it tends to be unreliable
-    _ = voc_sensor.get_VOC_index()
-
-# This one has a different interface than the other two
 pm_sensor = pms5003.PMS5003()
-try:
-    pm_sensor.read()
-except pms5003.SerialTimeoutError:
-    print('PMS5003 doesn\'t seem to be connected to the system.')
-    exit(-1)
+
+
+def _check_tph_sensor():
+    if not tph_sensor.is_measuring():
+        try:
+            started = tph_sensor.begin()
+            # If we get here we are PROBABLY connected but idk maybe not
+            if not started:
+                print("BME 280 atmomspheric sensor failed to start. It may not be connected to the system.")
+        # When I have the sensor completed unplugged I get an OS error
+        except OSError:
+            print("BME 280 atmospheric sensor does not appead to be connected")
+            return None, None, None
+        else:
+            # discard first readings from the sensor as they tend to be unreliable
+            _ = tph_sensor.temperature_fahrenheit
+            _ = tph_sensor.pressure
+            _ = tph_sensor.humidity
+
+    return tph_sensor.temperature_farenheit, tph_sensor.humidity, tph_sensor.pressure / 101325 # convert Pascals to atmospheres 
+
+
+def _check_voc_sensor():
+    if not voc_sensor.is_measuring():
+        print("VOC NOT MEASURING")
+        try:
+            started = voc_sensor.begin()
+            # If we get here we are PROBABLY connected but idk maybe not
+            if not started:
+                print("SGP 40 VOC sensor failed to start. It may not be connected to the system.")
+        # When I have the sensor completed unplugged I get an OS error
+        except OSError:
+            print("SGP 40 VOC sensor does not appead to be connected")
+            return None
+        else:
+            # discard first readings from the sensor as they tend to be unreliable
+            _ = voc_sensor.get_VOC_index()
+
+    print("I GUESS IT IS MEASURING")
+    return voc_sensor.get_VOC_index()
+
+
+# This one has a different API from the other two
+def _get_pms5003():
+    try:
+        pm_reading = pm_sensor.read()
+        return pm_reading[3], pm_reading[4], pm_reading[5]
+    except (pms5003.ChecksumMisMatchError, pms5003.ReadTimeoutError, PMS5003.SerialTimeoutError):
+        print("Error reading from pms5003 sensor")
+        return None, None, None
 
 
 ## Define callbacks and help functions
@@ -168,22 +196,9 @@ def collect_sensor_data(jsonified_data, n):
     df = df.last('86400S')
 
     dt = pd.Timestamp.now()
-    tempF = tph_sensor.temperature_fahrenheit
-    humidity = tph_sensor.humidity
-    pressure_pa = tph_sensor.pressure
-    pressure_atm = pressure_pa / 101325 # conversion Pascals to atmospheres
-    voc = voc_sensor.get_VOC_index()
-
-    try:
-        pm_reading = pm_sensor.read()
-    except (pms5003.ChecksumMismatchError, pms5003.ReadTimeoutError, pms5003.SerialTimeoutError):
-        pm1 = None
-        pm2_5 = None
-        pm10 = None
-    else:
-        pm1 = pm_reading.data[3]
-        pm2_5 = pm_reading.data[4]
-        pm10 = pm_reading.data[5]
+    tempF, humidity, pressure_atm = _check_tph_sensor()
+    voc = _check_voc_sensor()
+    pm1, pm2_5, pm10 = _get_pms5003()
 
     new_entry = pd.DataFrame([[tempF, humidity, pressure_atm, voc, pm1, pm2_5, pm10]],
                              index=[dt],
