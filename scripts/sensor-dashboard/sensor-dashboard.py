@@ -137,7 +137,7 @@ def _check_tph_sensor():
             # If we get here we are PROBABLY connected but idk maybe not
             if not started:
                 print("BME 280 atmomspheric sensor failed to start. It may not be connected to the system.")
-        # When I have the sensor completed unplugged I get an OS error
+        # When I have the sensor completely unplugged I get an OS error
         except OSError:
             print("BME 280 atmospheric sensor does not appead to be connected")
             return None, None, None
@@ -158,7 +158,7 @@ def _check_voc_sensor():
             # If we get here we are PROBABLY connected but idk maybe not
             if not started:
                 print("SGP 40 VOC sensor failed to start. It may not be connected to the system.")
-        # When I have the sensor completed unplugged I get an OS error
+        # When I have the sensor completely unplugged I get an OS error
         except OSError:
             print("SGP 40 VOC sensor does not appead to be connected")
             return None
