@@ -131,7 +131,7 @@ pm_sensor = pms5003.PMS5003()
 
 
 def _check_tph_sensor():
-    if not tph_sensor.is_measuring():
+    if not tph_sensor.is_connected():
         try:
             started = tph_sensor.begin()
             # If we get here we are PROBABLY connected but idk maybe not
@@ -151,7 +151,7 @@ def _check_tph_sensor():
 
 
 def _check_voc_sensor():
-    if not voc_sensor.is_measuring():
+    if not voc_sensor.is_connected():
         try:
             started = voc_sensor.begin()
             # If we get here we are PROBABLY connected but idk maybe not
