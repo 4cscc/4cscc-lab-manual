@@ -17,6 +17,7 @@ import qwiic_sgp40
 import pms5003
 
 
+BEGIN_FAILURE = 'Failed to begin.'
 
 ## Initialize data dashboard
 _initial_data_store = pd.DataFrame(
@@ -58,7 +59,7 @@ app.layout = html.Div([
         html.Div(id='live-text'),
         html.Hr(),
         html.Span("Temperature (F) 🌡️", style=title_style),
-        dcc.Graph(id='live-temperature-graph', style={'background-color':'#f1f1f1'}),
+        dcc.Graph(id='live-temperature-graph', style={'backgroundColor':'#f1f1f1'}),
         html.Hr(),
         html.Span("Percent relative humidity ☁️", style=title_style),
         dcc.Graph(id='live-humidity-graph',),
@@ -124,58 +125,76 @@ app.layout = html.Div([
 ])
 
 
-## Initialize data sensors
-tph_sensor = qwiic_bme280.QwiicBme280()
-voc_sensor = qwiic_sgp40.QwiicSGP40()
-pm_sensor = pms5003.PMS5003()
-
-
-def _check_tph_sensor():
+## Helpers for reading from all sensors if they are connected and working
+def _get_tph_sensor(tph_sensor):
     if not tph_sensor.is_connected():
-        try:
-            started = tph_sensor.begin()
-            # If we get here we are PROBABLY connected but idk maybe not
-            if not started:
-                print("BME 280 atmomspheric sensor failed to start. It may not be connected to the system.")
-        # When I have the sensor completely unplugged I get an OS error
-        except OSError:
-            print("BME 280 atmospheric sensor does not appead to be connected")
-            return None, None, None
-        else:
-            # discard first readings from the sensor as they tend to be unreliable
-            _ = tph_sensor.temperature_fahrenheit
-            _ = tph_sensor.pressure
-            _ = tph_sensor.humidity
+        print("It looks like the tph sensor isn't connected. Please connect it and refresh the dashboard.")
+        return float('nan'), float('nan'), float('nan')
 
     return tph_sensor.temperature_fahrenheit, tph_sensor.humidity, tph_sensor.pressure / 101325 # convert Pascals to atmospheres 
 
 
-def _check_voc_sensor():
+def _get_voc_sensor(voc_sensor):
     if not voc_sensor.is_connected():
-        try:
-            started = voc_sensor.begin()
-            # If we get here we are PROBABLY connected but idk maybe not
-            if not started:
-                print("SGP 40 VOC sensor failed to start. It may not be connected to the system.")
-        # When I have the sensor completely unplugged I get an OS error
-        except OSError:
-            print("SGP 40 VOC sensor does not appead to be connected")
-            return None
-        else:
-            # discard first readings from the sensor as they tend to be unreliable
-            _ = voc_sensor.get_VOC_index()
+        print("It looks like the tph sensor isn't connected. Please connect it and refresh the dashboard.")
+        return float('nan')
 
     return voc_sensor.get_VOC_index()
 
 
-# This one has a different API from the other two
-def _get_pms5003():
+def _get_pm_sensor(pm_sensor):
     try:
+        pm_sensor.reset()
         pm_reading = pm_sensor.read()
-        return pm_reading[3], pm_reading[4], pm_reading[5]
-    except (pms5003.ChecksumMisMatchError, pms5003.ReadTimeoutError, PMS5003.SerialTimeoutError):
-        print("Error reading from pms5003 sensor")
-        return None, None, None
+        return pm_reading.pm_ug_per_m3(1.0), pm_reading.pm_ug_per_m3(2.5), pm_reading.pm_ug_per_m3(10.0)
+    except (pms5003.ChecksumMismatchError, pms5003.ReadTimeoutError, pms5003.SerialTimeoutError):
+        print("It looks like the pm sensor isn't conencted. Please connect it and refresh the dashboard.")
+        return float('nan'), float('nan'), float('nan')
+## End helpers
+
+
+## Init the sensors and discard their first readings. Complain if they aren't connected
+tph_sensor = qwiic_bme280.QwiicBme280()
+try:
+    started = tph_sensor.begin()
+    if not started:
+        raise ValueError(BEGIN_FAILURE)
+# This happens if the sensor isn't connected at all
+except OSError as e:
+    if e.errno == 121:
+        print("It looks like the tph sensor isn't connected. Please connect it and refresh the dashboard.")
+    else:
+        raise e
+except ValueError as e:
+    if str(e) == BEGIN_FAILURE:
+        print("The tph sensor failed to start but appears to be connected. Please check the connection and refresh the dashboard.")
+    else:
+        raise e
+else:
+    _get_tph_sensor(tph_sensor)
+
+voc_sensor = qwiic_sgp40.QwiicSGP40()
+try:
+    started = voc_sensor.begin()
+    if not started:
+        raise ValueError(BEGIN_FAILURE)
+# This happens if the sensor isn't connected at all
+except OSError as e:
+    if e.errno == 121:
+        print("It looks like the voc sensor isn't connected. Please connect it and refresh the dashboard.")
+    else:
+        raise e
+except ValueError as e:
+    if str(e) == BEGIN_FAILURE:
+        print("The voc sensor failed to start but appears to be connected. Please check the connection and refresh the dashboard.")
+    else:
+        raise e
+else:
+    _get_voc_sensor(voc_sensor)
+
+pm_sensor = pms5003.PMS5003()
+_get_pm_sensor(pm_sensor)
+## End init
 
 
 ## Define callbacks and help functions
@@ -194,9 +213,9 @@ def collect_sensor_data(jsonified_data, n):
     df = df.last('86400S')
 
     dt = pd.Timestamp.now()
-    tempF, humidity, pressure_atm = _check_tph_sensor()
-    voc = _check_voc_sensor()
-    pm1, pm2_5, pm10 = _get_pms5003()
+    tempF, humidity, pressure_atm = _get_tph_sensor(tph_sensor)
+    voc = _get_voc_sensor(voc_sensor)
+    pm1, pm2_5, pm10 = _get_pm_sensor(pm_sensor)
 
     new_entry = pd.DataFrame([[tempF, humidity, pressure_atm, voc, pm1, pm2_5, pm10]],
                              index=[dt],
