@@ -147,7 +147,7 @@ def _check_tph_sensor():
             _ = tph_sensor.pressure
             _ = tph_sensor.humidity
 
-    return tph_sensor.temperature_farenheit, tph_sensor.humidity, tph_sensor.pressure / 101325 # convert Pascals to atmospheres 
+    return tph_sensor.temperature_fahrenheit, tph_sensor.humidity, tph_sensor.pressure / 101325 # convert Pascals to atmospheres 
 
 
 def _check_voc_sensor():
