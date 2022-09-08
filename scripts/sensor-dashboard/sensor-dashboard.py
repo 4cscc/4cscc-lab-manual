@@ -152,7 +152,6 @@ def _check_tph_sensor():
 
 def _check_voc_sensor():
     if not voc_sensor.is_measuring():
-        print("VOC NOT MEASURING")
         try:
             started = voc_sensor.begin()
             # If we get here we are PROBABLY connected but idk maybe not
@@ -166,7 +165,6 @@ def _check_voc_sensor():
             # discard first readings from the sensor as they tend to be unreliable
             _ = voc_sensor.get_VOC_index()
 
-    print("I GUESS IT IS MEASURING")
     return voc_sensor.get_VOC_index()
 
 
