@@ -132,6 +132,7 @@ def _get_tph_sensor(tph_sensor):
         print("It looks like the tph sensor isn't connected. Please connect it and refresh the dashboard.")
         return float('nan'), float('nan'), float('nan')
 
+    # This sensor won't start reading again after unplugging unless reinitialized
     if not tph_sensor.is_measuring():
         tph_sensor.begin()
         # Wait a bit to try to get the thing reading correctly b/c it reads garbage initially
@@ -164,6 +165,7 @@ tph_sensor = qwiic_bme280.QwiicBme280()
 try:
     started = tph_sensor.begin()
     if not started:
+        # Raise error instead of printing so we don't trigger the else
         raise ValueError(BEGIN_FAILURE)
 # This happens if the sensor isn't connected at all
 except OSError as e:
@@ -183,6 +185,7 @@ voc_sensor = qwiic_sgp40.QwiicSGP40()
 try:
     started = voc_sensor.begin()
     if not started:
+        # Raise error instead of printing so we don't trigger the else
         raise ValueError(BEGIN_FAILURE)
 # This happens if the sensor isn't connected at all
 except OSError as e:
