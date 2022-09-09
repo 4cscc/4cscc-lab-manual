@@ -11,6 +11,7 @@ from dash.dependencies import Input, Output
 import pandas as pd
 from plotly.subplots import make_subplots
 import plotly.express as px
+import time
 
 import qwiic_bme280
 import qwiic_sgp40
@@ -126,13 +127,15 @@ app.layout = html.Div([
 
 
 ## Helpers for reading from all sensors if they are connected and working
-def _get_tph_sensor(tph_sensor, last_tph_nan=False):
+def _get_tph_sensor(tph_sensor):
     if not tph_sensor.is_connected():
         print("It looks like the tph sensor isn't connected. Please connect it and refresh the dashboard.")
         return float('nan'), float('nan'), float('nan')
 
-    if last_tph_nan:
+    if not tph_sensor.is_measuring():
         tph_sensor.begin()
+        # Wait a bit to try to get the thing reading correctly b/c it reads garbage initially
+        time.sleep(.1)
 
     return tph_sensor.temperature_fahrenheit, tph_sensor.humidity, tph_sensor.pressure / 101325 # convert Pascals to atmospheres 
 
@@ -215,16 +218,8 @@ def collect_sensor_data(jsonified_data, n):
     df = _load_data(jsonified_data)
     df = df.last('86400S')
 
-    last_tph_nan = False
-    # Don't try to get the last row in the dataframe unless we actually have rows
-    if len(df.index) > 0:
-        last = df.iloc[-1]
-
-        if pd.isna(last['Temperature']):
-            last_tph_nan = True
-
     dt = pd.Timestamp.now()
-    tempF, humidity, pressure_atm = _get_tph_sensor(tph_sensor, last_tph_nan)
+    tempF, humidity, pressure_atm = _get_tph_sensor(tph_sensor)
     voc = _get_voc_sensor(voc_sensor)
     pm1, pm2_5, pm10 = _get_pm_sensor(pm_sensor)
 
@@ -261,6 +256,33 @@ def update_current_values(jsonified_data):
         results.append(
             html.Span(dcc.Markdown(
                 "**It's too hot!** Please remove heat source to avoid damaging computer or sensor! 🥵"),
+                style=style)
+        )
+
+    if pd.isna(most_recent_entry['Temperature'][0]) or pd.isna(most_recent_entry['Humidity'][0]) or pd.isna(most_recent_entry['Pressure'][0]):
+        style = {'color':'red'}
+        style.update(span_style)
+        results.append(
+            html.Span(dcc.Markdown(
+                "**Your tph sensor is disconnected!** Please reconnect it!"),
+                style=style)
+        )
+
+    if pd.isna(most_recent_entry['VOC'][0]):
+        style = {'color':'red'}
+        style.update(span_style)
+        results.append(
+            html.Span(dcc.Markdown(
+                "**Your voc sensor is disconnected!** Please reconnect it!"),
+                style=style)
+        )
+
+    if pd.isna(most_recent_entry['PM1.0'][0]) or pd.isna(most_recent_entry['PM2.5'][0]) or pd.isna(most_recent_entry['PM10'][0]):
+        style = {'color':'red'}
+        style.update(span_style)
+        results.append(
+            html.Span(dcc.Markdown(
+                "**Your particulate matter sensor is disconnected!** Please reconnect it!"),
                 style=style)
         )
 
