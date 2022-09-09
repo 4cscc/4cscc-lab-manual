@@ -126,10 +126,13 @@ app.layout = html.Div([
 
 
 ## Helpers for reading from all sensors if they are connected and working
-def _get_tph_sensor(tph_sensor):
+def _get_tph_sensor(tph_sensor, last_tph_nan=False):
     if not tph_sensor.is_connected():
         print("It looks like the tph sensor isn't connected. Please connect it and refresh the dashboard.")
         return float('nan'), float('nan'), float('nan')
+
+    if last_tph_nan:
+        tph_sensor.begin()
 
     return tph_sensor.temperature_fahrenheit, tph_sensor.humidity, tph_sensor.pressure / 101325 # convert Pascals to atmospheres 
 
@@ -212,8 +215,16 @@ def collect_sensor_data(jsonified_data, n):
     df = _load_data(jsonified_data)
     df = df.last('86400S')
 
+    last_tph_nan = False
+    # Don't try to get the last row in the dataframe unless we actually have rows
+    if len(df.index) > 0:
+        last = df.iloc[-1]
+
+        if pd.isna(last['Temperature']):
+            last_tph_nan = True
+
     dt = pd.Timestamp.now()
-    tempF, humidity, pressure_atm = _get_tph_sensor(tph_sensor)
+    tempF, humidity, pressure_atm = _get_tph_sensor(tph_sensor, last_tph_nan)
     voc = _get_voc_sensor(voc_sensor)
     pm1, pm2_5, pm10 = _get_pm_sensor(pm_sensor)
 
