@@ -18,8 +18,6 @@ import qwiic_sgp40
 import pms5003
 
 
-BEGIN_FAILURE = 'Failed to begin.'
-
 ## Initialize data dashboard
 _initial_data_store = pd.DataFrame(
         [],
@@ -134,7 +132,8 @@ def _get_tph_sensor(tph_sensor):
 
     # This sensor won't start reading again after unplugging unless reinitialized
     if not tph_sensor.is_measuring():
-        tph_sensor.begin()
+        if not _wrapped_begin(tph_sensor, 'tph'):
+            return float('nan'), float('nan'), float('nan')
         # Wait a bit to try to get the thing reading correctly b/c it reads garbage initially
         time.sleep(.1)
 
@@ -160,46 +159,33 @@ def _get_pm_sensor(pm_sensor):
 ## End helpers
 
 
-## Init the sensors and discard their first readings. Complain if they aren't connected
+## Init the sensors and complain if they aren't connected
+def _wrapped_begin(sensor, sensor_type, warm_up_time=None):
+    try:
+        if warm_up_time:
+            started = sensor.begin(warm_up_time=warm_up_time)
+        else:
+            started = sensor.begin()
+
+        if not started:
+            print("The {sensor_type} sensor failed to start. Please check the connection and refresh the dashboard.")
+    # This is what I was getting when I had the sensor completely disconnected
+    except OSError as e:
+        if e.errno == 121:
+            print("It looks like the tph sensor isn't connected. Please connect it and refresh the dashboard.")
+        else:
+            raise e
+    else:
+        return started
+
+    return False
+
+
 tph_sensor = qwiic_bme280.QwiicBme280()
-try:
-    started = tph_sensor.begin()
-    if not started:
-        # Raise error instead of printing so we don't trigger the else
-        raise ValueError(BEGIN_FAILURE)
-# This happens if the sensor isn't connected at all
-except OSError as e:
-    if e.errno == 121:
-        print("It looks like the tph sensor isn't connected. Please connect it and refresh the dashboard.")
-    else:
-        raise e
-except ValueError as e:
-    if str(e) == BEGIN_FAILURE:
-        print("The tph sensor failed to start but appears to be connected. Please check the connection and refresh the dashboard.")
-    else:
-        raise e
-else:
-    _get_tph_sensor(tph_sensor)
+_wrapped_begin(tph_sensor, 'tph')
 
 voc_sensor = qwiic_sgp40.QwiicSGP40()
-try:
-    started = voc_sensor.begin()
-    if not started:
-        # Raise error instead of printing so we don't trigger the else
-        raise ValueError(BEGIN_FAILURE)
-# This happens if the sensor isn't connected at all
-except OSError as e:
-    if e.errno == 121:
-        print("It looks like the voc sensor isn't connected. Please connect it and refresh the dashboard.")
-    else:
-        raise e
-except ValueError as e:
-    if str(e) == BEGIN_FAILURE:
-        print("The voc sensor failed to start but appears to be connected. Please check the connection and refresh the dashboard.")
-    else:
-        raise e
-else:
-    _get_voc_sensor(voc_sensor)
+_wrapped_begin(voc_sensor, 'voc')
 
 pm_sensor = pms5003.PMS5003()
 _get_pm_sensor(pm_sensor)
@@ -276,7 +262,7 @@ def update_current_values(jsonified_data):
         style.update(span_style)
         results.append(
             html.Span(dcc.Markdown(
-                "**Your voc sensor is disconnected!** Please reconnect it!"),
+                "**Your voc sensor is disconnected!** Please reconnect it! Note that the voc sensor needs to be plugged in when the system is powered on."),
                 style=style)
         )
 
