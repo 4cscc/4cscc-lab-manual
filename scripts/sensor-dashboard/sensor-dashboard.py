@@ -7,7 +7,7 @@ import datetime
 import dash
 from dash import dcc, html
 import plotly
-from dash.dependencies import Input, Output
+from dash.dependencies import Input, Output, State
 import pandas as pd
 from plotly.subplots import make_subplots
 import plotly.express as px
@@ -26,6 +26,7 @@ _initial_data_store = pd.DataFrame(
 timestamp_fmt = '%-d %B %Y at %-I:%M:%S %p.'
 start_time = pd.Timestamp.now()
 span_style = {'padding': '5px', 'fontSize': '16px'}
+button_style = {'margin': '5px', 'fontSize': '16px'}
 title_style = {'padding': '5px', 'fontSize': '20px'}
 
 app = dash.Dash(
@@ -52,6 +53,9 @@ app.layout = html.Div([
             ('Data is logged for a maximum period of 24 hours. Data older than 24 hours '
              'will be automatically discarded. Refreshing your browser will clear all '
              'previous data.' ), style=span_style),
+        html.Br(),
+        html.Button('Download Data', id='download_data', style=button_style),
+        dcc.Download(id='dataframe_to_csv'),
         html.Hr()
     ]),
     html.Div([
@@ -195,6 +199,15 @@ def _load_data(jsonified_data):
     df.index = pd.DatetimeIndex(df.index)
     df.index.name = 'Time'
     return df
+
+
+@app.callback(Output('dataframe_to_csv', 'data'),
+        Input('download_data', 'n_clicks'),
+        State('sensor-data', 'data'),
+        prevent_initial_call=True)
+def download_csv(n_clicks, jsonified_data):
+    df = _load_data(jsonified_data)
+    return dcc.send_data_frame(df.to_csv, 'sensor_data.csv')
 
 
 @app.callback(Output('sensor-data', 'data'),
