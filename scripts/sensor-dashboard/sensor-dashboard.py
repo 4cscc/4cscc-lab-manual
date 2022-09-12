@@ -160,12 +160,9 @@ def _get_pm_sensor(pm_sensor):
 
 
 ## Init the sensors and complain if they aren't connected
-def _wrapped_begin(sensor, sensor_type, warm_up_time=None):
+def _wrapped_begin(sensor, sensor_type):
     try:
-        if warm_up_time:
-            started = sensor.begin(warm_up_time=warm_up_time)
-        else:
-            started = sensor.begin()
+        started = sensor.begin()
 
         if not started:
             print("The {sensor_type} sensor failed to start. Please check the connection and refresh the dashboard.")
