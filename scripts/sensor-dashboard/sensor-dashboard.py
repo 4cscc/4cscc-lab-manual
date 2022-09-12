@@ -11,11 +11,11 @@ from dash.dependencies import Input, Output
 import pandas as pd
 from plotly.subplots import make_subplots
 import plotly.express as px
+import time
 
 import qwiic_bme280
 import qwiic_sgp40
 import pms5003
-
 
 
 ## Initialize data dashboard
@@ -58,7 +58,7 @@ app.layout = html.Div([
         html.Div(id='live-text'),
         html.Hr(),
         html.Span("Temperature (F) 🌡️", style=title_style),
-        dcc.Graph(id='live-temperature-graph', style={'background-color':'#f1f1f1'}),
+        dcc.Graph(id='live-temperature-graph', style={'backgroundColor':'#f1f1f1'}),
         html.Hr(),
         html.Span("Percent relative humidity ☁️", style=title_style),
         dcc.Graph(id='live-humidity-graph',),
@@ -124,32 +124,69 @@ app.layout = html.Div([
 ])
 
 
-## Initialize data sensors
+## Helpers for reading from all sensors if they are connected and working
+def _get_tph_sensor(tph_sensor):
+    if not tph_sensor.is_connected():
+        print("It looks like the tph sensor isn't connected. Please connect it.")
+        return float('nan'), float('nan'), float('nan')
+
+    # This sensor won't start reading again after unplugging unless reinitialized
+    if not tph_sensor.is_measuring():
+        if not _wrapped_begin(tph_sensor, 'tph'):
+            return float('nan'), float('nan'), float('nan')
+        # Wait a bit to try to get the thing reading correctly b/c it reads garbage initially
+        time.sleep(.1)
+
+    return tph_sensor.temperature_fahrenheit, tph_sensor.humidity, tph_sensor.pressure / 101325 # convert Pascals to atmospheres 
+
+
+def _get_voc_sensor(voc_sensor):
+    if not voc_sensor.is_connected():
+        print("It looks like the tph sensor isn't connected. Please connect it.")
+        return float('nan')
+
+    return voc_sensor.get_VOC_index()
+
+
+def _get_pm_sensor(pm_sensor):
+    try:
+        pm_sensor.reset()
+        pm_reading = pm_sensor.read()
+        return pm_reading.pm_ug_per_m3(1.0), pm_reading.pm_ug_per_m3(2.5), pm_reading.pm_ug_per_m3(10.0)
+    except (pms5003.ChecksumMismatchError, pms5003.ReadTimeoutError, pms5003.SerialTimeoutError):
+        print("It looks like the pm sensor isn't conencted. Please connect it.")
+        return float('nan'), float('nan'), float('nan')
+## End helpers
+
+
+## Init the sensors and complain if they aren't connected
+def _wrapped_begin(sensor, sensor_type):
+    try:
+        started = sensor.begin()
+
+        if not started:
+            print("The {sensor_type} sensor failed to start. Please check the connection.")
+    # This is what I was getting when I had the sensor completely disconnected
+    except OSError as e:
+        if e.errno == 121:
+            print(f"It looks like the {sensor_type} sensor isn't connected. Please connect it. Please note the voc sensor must be connected on boot.")
+        else:
+            raise e
+    else:
+        return started
+
+    return False
+
+
 tph_sensor = qwiic_bme280.QwiicBme280()
-if not tph_sensor.begin():
-    print('BME 280 Atmospheric sensor doesn\'t seem to be connected to the system.')
-    exit(-1)
-else:
-    # discard first readings from the sensor as they tend to be unreliable
-    _ = tph_sensor.temperature_fahrenheit
-    _ = tph_sensor.pressure
-    _ = tph_sensor.humidity
+_wrapped_begin(tph_sensor, 'tph')
 
 voc_sensor = qwiic_sgp40.QwiicSGP40()
-if voc_sensor.begin() != 0:
-    print('SGP 40 VOC sensor doesn\'t seem to be connected to the system.')
-    exit(-1)
-else:
-    # discard first reading from the sensor as it tends to be unreliable
-    _ = voc_sensor.get_VOC_index()
+_wrapped_begin(voc_sensor, 'voc')
 
-# This one has a different interface than the other two
 pm_sensor = pms5003.PMS5003()
-try:
-    pm_sensor.read()
-except pms5003.SerialTimeoutError:
-    print('PMS5003 doesn\'t seem to be connected to the system.')
-    exit(-1)
+_get_pm_sensor(pm_sensor)
+## End init
 
 
 ## Define callbacks and help functions
@@ -168,22 +205,9 @@ def collect_sensor_data(jsonified_data, n):
     df = df.last('86400S')
 
     dt = pd.Timestamp.now()
-    tempF = tph_sensor.temperature_fahrenheit
-    humidity = tph_sensor.humidity
-    pressure_pa = tph_sensor.pressure
-    pressure_atm = pressure_pa / 101325 # conversion Pascals to atmospheres
-    voc = voc_sensor.get_VOC_index()
-
-    try:
-        pm_reading = pm_sensor.read()
-    except (pms5003.ChecksumMismatchError, pms5003.ReadTimeoutError, pms5003.SerialTimeoutError):
-        pm1 = None
-        pm2_5 = None
-        pm10 = None
-    else:
-        pm1 = pm_reading.data[3]
-        pm2_5 = pm_reading.data[4]
-        pm10 = pm_reading.data[5]
+    tempF, humidity, pressure_atm = _get_tph_sensor(tph_sensor)
+    voc = _get_voc_sensor(voc_sensor)
+    pm1, pm2_5, pm10 = _get_pm_sensor(pm_sensor)
 
     new_entry = pd.DataFrame([[tempF, humidity, pressure_atm, voc, pm1, pm2_5, pm10]],
                              index=[dt],
@@ -218,6 +242,33 @@ def update_current_values(jsonified_data):
         results.append(
             html.Span(dcc.Markdown(
                 "**It's too hot!** Please remove heat source to avoid damaging computer or sensor! 🥵"),
+                style=style)
+        )
+
+    if pd.isna(most_recent_entry['Temperature'][0]) or pd.isna(most_recent_entry['Humidity'][0]) or pd.isna(most_recent_entry['Pressure'][0]):
+        style = {'color':'red'}
+        style.update(span_style)
+        results.append(
+            html.Span(dcc.Markdown(
+                "**Your tph sensor is disconnected!** Please reconnect it!"),
+                style=style)
+        )
+
+    if pd.isna(most_recent_entry['VOC'][0]):
+        style = {'color':'red'}
+        style.update(span_style)
+        results.append(
+            html.Span(dcc.Markdown(
+                "**Your voc sensor is disconnected!** Please reconnect it! Note that the voc sensor needs to be plugged in when the system is powered on."),
+                style=style)
+        )
+
+    if pd.isna(most_recent_entry['PM1.0'][0]) or pd.isna(most_recent_entry['PM2.5'][0]) or pd.isna(most_recent_entry['PM10'][0]):
+        style = {'color':'red'}
+        style.update(span_style)
+        results.append(
+            html.Span(dcc.Markdown(
+                "**Your particulate matter sensor is disconnected!** Please reconnect it!"),
                 style=style)
         )
 
