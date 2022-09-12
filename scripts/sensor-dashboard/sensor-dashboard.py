@@ -127,7 +127,7 @@ app.layout = html.Div([
 ## Helpers for reading from all sensors if they are connected and working
 def _get_tph_sensor(tph_sensor):
     if not tph_sensor.is_connected():
-        print("It looks like the tph sensor isn't connected. Please connect it and refresh the dashboard.")
+        print("It looks like the tph sensor isn't connected. Please connect it.")
         return float('nan'), float('nan'), float('nan')
 
     # This sensor won't start reading again after unplugging unless reinitialized
@@ -142,7 +142,7 @@ def _get_tph_sensor(tph_sensor):
 
 def _get_voc_sensor(voc_sensor):
     if not voc_sensor.is_connected():
-        print("It looks like the tph sensor isn't connected. Please connect it and refresh the dashboard.")
+        print("It looks like the tph sensor isn't connected. Please connect it.")
         return float('nan')
 
     return voc_sensor.get_VOC_index()
@@ -154,7 +154,7 @@ def _get_pm_sensor(pm_sensor):
         pm_reading = pm_sensor.read()
         return pm_reading.pm_ug_per_m3(1.0), pm_reading.pm_ug_per_m3(2.5), pm_reading.pm_ug_per_m3(10.0)
     except (pms5003.ChecksumMismatchError, pms5003.ReadTimeoutError, pms5003.SerialTimeoutError):
-        print("It looks like the pm sensor isn't conencted. Please connect it and refresh the dashboard.")
+        print("It looks like the pm sensor isn't conencted. Please connect it.")
         return float('nan'), float('nan'), float('nan')
 ## End helpers
 
@@ -165,11 +165,11 @@ def _wrapped_begin(sensor, sensor_type):
         started = sensor.begin()
 
         if not started:
-            print("The {sensor_type} sensor failed to start. Please check the connection and refresh the dashboard.")
+            print("The {sensor_type} sensor failed to start. Please check the connection.")
     # This is what I was getting when I had the sensor completely disconnected
     except OSError as e:
         if e.errno == 121:
-            print("It looks like the tph sensor isn't connected. Please connect it and refresh the dashboard.")
+            print(f"It looks like the {sensor_type} sensor isn't connected. Please connect it. Please note the voc sensor must be connected on boot.")
         else:
             raise e
     else:
