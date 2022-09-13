@@ -4,6 +4,7 @@
 
 import datetime
 
+import os
 import dash
 from dash import dcc, html
 import plotly
@@ -17,6 +18,9 @@ import qwiic_bme280
 import qwiic_sgp40
 import pms5003
 
+
+# The location we are automatically logging data to over time
+log_file_path = '/home/pi/Documents/sensor_log.csv'
 
 ## Initialize data dashboard
 _initial_data_store = pd.DataFrame(
@@ -56,6 +60,7 @@ app.layout = html.Div([
         html.Br(),
         html.Button('Download Data', id='download_data', style=button_style),
         dcc.Download(id='dataframe_to_csv'),
+        html.Span(f'Data is being automatically saved to the file at {log_file_path}.', style=span_style),
         html.Hr()
     ]),
     html.Div([
@@ -225,6 +230,7 @@ def collect_sensor_data(jsonified_data, n):
     new_entry = pd.DataFrame([[tempF, humidity, pressure_atm, voc, pm1, pm2_5, pm10]],
                              index=[dt],
                              columns=['Temperature', 'Humidity', 'Pressure', 'VOC', 'PM1.0', 'PM2.5', 'PM10'])
+    new_entry.to_csv(log_file_path, mode='a', header=not os.path.exists(log_file_path))
 
     df = pd.concat([df, new_entry])
     return df.to_json(orient='split')
