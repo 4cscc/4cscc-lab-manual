@@ -169,7 +169,7 @@ def _wrapped_begin(sensor, sensor_type):
         started = sensor.begin()
 
         if not started:
-            print("The {sensor_type} sensor failed to start. Please check the connection.")
+            print(f"The {sensor_type} sensor failed to start. Please check the connection.")
     # This is what I was getting when I had the sensor completely disconnected
     except OSError as e:
         if e.errno == 121:
