@@ -1,0 +1,28 @@
+# Use of this service assumes that you:
+#  - you have the 4cscc-ln repository under /home/pi/code/
+#  - you have a venv, stored under /home/pi/code/, which has 4cscc-ln pip installed
+# If your environment differs, you should be able to make all configuration changes
+# in this file.
+#
+# Run the following commands to enable this service: 
+# sudo ln -s /home/pi/code/4cscc-ln/scripts/AISES-notebook/AISES-notebook.service /usr/lib/systemd/system/AISES-notebook.service
+# sudo systemctl enable AISES-notebook.service
+#
+# You should then be able to access the notebook at:
+# http://localhost:8888
+# There needs to be a password created for this. If you have a cloned card the password will be 123456
+# If you need to create one run the following steps
+#
+# jupyter notebook --generate-config
+# jupyter notebook password
+# Then enter the password and verify it
+[Unit]
+After=network.service
+
+[Service]
+ExecStart=/home/pi/code/4cscc-ln/venv/bin/jupyter notebook /home/pi/code/4cscc-ln/scripts/AISES-notebook/AISES-notebook.ipynb
+User=pi
+
+[Install]
+WantedBy=default.target 
+
