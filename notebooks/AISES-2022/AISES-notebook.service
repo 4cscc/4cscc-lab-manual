@@ -5,7 +5,7 @@
 # in this file.
 #
 # Run the following commands to enable this service: 
-# sudo ln -s /home/pi/code/4cscc-ln/scripts/AISES-notebook/AISES-notebook.service /usr/lib/systemd/system/AISES-notebook.service
+# sudo ln -s /home/pi/code/4cscc-ln/notebooks/AISES-2022/AISES-notebook.service /usr/lib/systemd/system/AISES-notebook.service
 # sudo systemctl enable AISES-notebook.service
 #
 # You should then be able to access the notebook at:
@@ -20,9 +20,8 @@
 After=network.service
 
 [Service]
-ExecStart=/home/pi/code/4cscc-ln/venv/bin/jupyter notebook /home/pi/code/4cscc-ln/scripts/AISES-notebook/AISES-notebook.ipynb
+ExecStart=/home/pi/code/4cscc-ln/venv/bin/jupyter notebook /home/pi/code/4cscc-ln/notebooks/AISES-2022/AISES-notebook.ipynb
 User=pi
 
 [Install]
 WantedBy=default.target 
-
