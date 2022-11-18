@@ -52,8 +52,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="LED Morse Code in Python 3" href="../morse-led-1/lesson.html" />
-    <link rel="prev" title="Particulate matter sensing to assess indoor air quality" href="../pm-sensing-1/lesson.html" />
+    <link rel="next" title="Atmospheric sensing" href="../atmospheric-sensing-1/lesson.html" />
+    <link rel="prev" title="Blinking an LED from Scratch and Python 3" href="../hello-led-1/lesson.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -124,6 +124,11 @@ const thebe_selector_output = ".output, .cell_output"
    Blinking an LED from Scratch and Python 3
   </a>
  </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Multi-color LED
+  </a>
+ </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../atmospheric-sensing-1/lesson.html">
    Atmospheric sensing
@@ -137,11 +142,6 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="../pm-sensing-1/lesson.html">
    Particulate matter sensing to assess indoor air quality
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Multi-color LED
   </a>
  </li>
  <li class="toctree-l1">
@@ -309,12 +309,46 @@ title="Print to PDF"
     </ul>
   </div>
 </div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
 
     </div>
 </div>
 
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#getting-started">
+   Getting started
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#connecting-the-led">
+   Connecting the LED
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#write-a-python-3-program">
+   Write a Python 3 program
+  </a>
+ </li>
+</ul>
+
+    </nav>
 </div>
     </div>
     <div class="article row">
@@ -326,6 +360,29 @@ title="Print to PDF"
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#getting-started">
+   Getting started
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#connecting-the-led">
+   Connecting the LED
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#write-a-python-3-program">
+   Write a Python 3 program
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -335,8 +392,148 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="multi-color-led">
 <h1>Multi-color LED<a class="headerlink" href="#multi-color-led" title="Permalink to this headline">#</a></h1>
-<p>This lesson is not yet developed. 😿</p>
-<p><img alt="Completed breadboard" src="../../_images/breadboard-1.jpg" /></p>
+<section id="getting-started">
+<h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">#</a></h2>
+<p>For this exercise, you will need the following:</p>
+<ul class="simple">
+<li><p>Raspberry Pi 400 computer</p></li>
+<li><p>Sparkfun Qwiic pHAT Extension</p></li>
+<li><p>One multi-color LED</p></li>
+<li><p>Four M-to-F Jumper Wire (1 Black, 1 Red, 1 Green, 1 Blue)</p></li>
+<li><p>Four 330 Ohm resistor</p></li>
+</ul>
+</section>
+<section id="connecting-the-led">
+<h2>Connecting the LED<a class="headerlink" href="#connecting-the-led" title="Permalink to this headline">#</a></h2>
+<ol>
+<li><p>With the pHAT already connected (See Blinking LED Lesson above):</p>
+<ul class="simple">
+<li><p>View the multi-colored LED, the longest pin is the anode.
+<a class="reference external" href="https://www.admfactory.com/rgb-led-on-raspberry-pi-using-python/">LED LESSON ON LED CATHODE/ANODE</a></p></li>
+<li><p>The other pins represent RGB, respectively, so we read the pin as follows:
+Red, Anode, Green, Blue.
+We will have the jumper wires complement each pin color for easier coordination, we will also line up these pins on the GPIO pins.</p></li>
+</ul>
+</li>
+<li><p>Install RGB-LED.</p>
+<ul class="simple">
+<li><p>Insert anode vertically into the Column I, Row 21.</p></li>
+</ul>
+<p><img alt="connection-to-breadboard" src="../../_images/to-breadboard.jpg" /></p>
+</li>
+<li><p>Gather your resistors to allow a steady current for our LED.</p>
+<ul class="simple">
+<li><p>Insert either end of the resistor into the Column H, Row 20.</p></li>
+<li><p>Bridge the gap of the breadboard with the resistor, and insert the other end into Column D, Row 19.</p></li>
+<li><p>We will continue adding resistors for the anode, green, and blue pins.</p>
+<ul>
+<li><p>For the anode, insert either end of the resistor into Column H, Row 21, and the other end into Column D, Row 21.</p></li>
+<li><p>For the GREEN pin, insert either end of the resistor into Column H, Row 22, and the other end into Column D, Row 23.</p></li>
+<li><p>Finally, for the BLUE pin, insert either end of the resistor into Column H, Row 23, and the other end into Column D, Row 25.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Collect your M-to-F Jumper Wires.</p>
+<ul class="simple">
+<li><p>This step will connect the anode, the resistor is to make sure the 3V does not wear out the LED.</p>
+<ul>
+<li><p>With your Black M-to-F Jumper Cable, attach the FEMALE end into the 3V pin of the pHAT</p></li>
+<li><p>Attach opposing side (Male end) and insert into Column C, Row 21 of the breadboard.</p></li>
+</ul>
+</li>
+<li><p>We will continue adding M-to-F Jumper Wires for the Red, Green, and Blue pins.</p>
+<ul>
+<li><p>Insert Male pin of RED wire into Column C, Row 19, attaching the opposite end to Pin 17 of the pHAT.</p></li>
+<li><p>Insert Male pin of GREEN wire into Column C, Row 23, attaching the opposite end to Pin 27 of the pHAT.</p></li>
+<li><p>Insert Male pin of BLUE wire into Column C, Row 25, the opposite end will be attached to Pin 22 of the pHAT.</p></li>
+</ul>
+</li>
+</ul>
+<p><img alt="connection-to-pHAT" src="../../_images/to-pHAT.jpg" /></p>
+</li>
+</ol>
+</section>
+<section id="write-a-python-3-program">
+<h2>Write a Python 3 program<a class="headerlink" href="#write-a-python-3-program" title="Permalink to this headline">#</a></h2>
+<p>Follow the instructions in the previous lesson, open the Thonny Python IDE, and copy and paste the following code into it.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>```python
+#libraries
+import RPi.GPIO as GPIO
+from time import sleep
+#disable warnings (optional)
+GPIO.setwarnings(False)
+#Select GPIO Mode
+GPIO.setmode(GPIO.BCM)
+#set red,green and blue pins
+redPin = 17
+greenPin = 27
+bluePin = 22
+#set pins as outputs
+GPIO.setup(redPin,GPIO.OUT)
+GPIO.setup(greenPin,GPIO.OUT)
+GPIO.setup(bluePin,GPIO.OUT)
+
+def turnOff():
+    GPIO.output(redPin,GPIO.HIGH)
+    GPIO.output(greenPin,GPIO.HIGH)
+    GPIO.output(bluePin,GPIO.HIGH)
+
+def white():
+    GPIO.output(redPin,GPIO.LOW)
+    GPIO.output(greenPin,GPIO.LOW)
+    GPIO.output(bluePin,GPIO.LOW)
+
+def red():
+    GPIO.output(redPin,GPIO.LOW)
+    GPIO.output(greenPin,GPIO.HIGH)
+    GPIO.output(bluePin,GPIO.HIGH)
+
+def green():
+    GPIO.output(redPin,GPIO.HIGH)
+    GPIO.output(greenPin,GPIO.LOW)
+    GPIO.output(bluePin,GPIO.HIGH)
+
+def blue():
+    GPIO.output(redPin,GPIO.HIGH)
+    GPIO.output(greenPin,GPIO.HIGH)
+    GPIO.output(bluePin,GPIO.LOW)
+
+def yellow():
+    GPIO.output(redPin,GPIO.LOW)
+    GPIO.output(greenPin,GPIO.LOW)
+    GPIO.output(bluePin,GPIO.HIGH)
+
+def purple():
+    GPIO.output(redPin,GPIO.LOW)
+    GPIO.output(greenPin,GPIO.HIGH)
+    GPIO.output(bluePin,GPIO.LOW)
+
+def lightBlue():
+    GPIO.output(redPin,GPIO.HIGH)
+    GPIO.output(greenPin,GPIO.LOW)
+    GPIO.output(bluePin,GPIO.LOW)
+
+while True:
+    turnOff()
+    sleep(1) #1second
+    white()
+    sleep(1)
+    red()
+    sleep(1)
+    green()
+    sleep(1)
+    blue()
+    sleep(1)
+```
+</pre></div>
+</div>
+<p>The following are examples of the LED lighting up yellow, purple, and light blue using the
+provided code.</p>
+<p><img alt="yellow" src="../../_images/yellow.jpg" /></p>
+<p><img alt="purple" src="../../_images/purple.jpg" /></p>
+<p><img alt="light-blue" src="../../_images/lightblue.jpg" /></p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -366,17 +563,17 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="../pm-sensing-1/lesson.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="../hello-led-1/lesson.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Particulate matter sensing to assess indoor air quality</p>
+            <p class="prev-next-title">Blinking an LED from Scratch and Python 3</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="../morse-led-1/lesson.html" title="next page">
+    <a class='right-next' id="next-link" href="../atmospheric-sensing-1/lesson.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">LED Morse Code in Python 3</p>
+        <p class="prev-next-title">Atmospheric sensing</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
