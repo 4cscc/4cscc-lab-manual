@@ -23,12 +23,12 @@ We will have the jumper wires complement each pin color for easier coordination,
     ![connection-to-breadboard](images/to-breadboard.jpg)
 
 3. Gather your resistors to allow a steady current for our LED.
-    * Insert the resistor with the orange ends facing toward the LED pins, the first will will go into the Column H, Row 20.
-    * Bridge the gap of the breadboard with the gold band of the resistor, into Column D, Row 19.
+    * Insert either end of the resistor into the Column H, Row 20.
+    * Bridge the gap of the breadboard with the resistor, and insert the other end into Column D, Row 19.
     * We will continue adding resistors for the anode, green, and blue pins.
-        * For the anode, insert orange end of the resistor into Column H, Row 21, and the gold end into Column D, Row 21.
-        * For the GREEN pin, insert orange end of the resistor into Column H, Row 22, with the gold band into Column D, Row 23.
-        * Finally, for the BLUE pin, insert orange end of the resistor into Column H, Row 23, with the gold band into Column D, Row 25.
+        * For the anode, insert either end of the resistor into Column H, Row 21, and the other end into Column D, Row 21.
+        * For the GREEN pin, insert either end of the resistor into Column H, Row 22, and the other end into Column D, Row 23.
+        * Finally, for the BLUE pin, insert either end of the resistor into Column H, Row 23, and the other end into Column D, Row 25.
 
 4. Collect your M-to-F Jumper Wires.
     * This step will connect the anode, the resistor is to make sure the 3V does not wear out the LED.
