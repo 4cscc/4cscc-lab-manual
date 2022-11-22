@@ -8,10 +8,17 @@ To use this, you should have already assembled your Raspberry Pi and sensor kit,
 
 After powering on your computer, click the globe icon toward the top-left of your screen (to the right of Raspberry icon).
 That will open a web browser.
-The web browser should have a bookmark in the _Bookmark Bar_ for a dashboard.
+
+![open-web-browser](./images/1-open-web-browser.png)
+
+The web browser should have a bookmark in the _Bookmark Bar_ for _Sensor Dashboard_.
 Click that link to open the dashboard.
 
+![open-dashboard](./images/2-open-dashboard.png)
+
 ## Using the built-in dashboard
+
+![sensor-dashboard](./images/3-sensor-dashboard.png)
 
 The built-in dashboard will start collecting data from the sensors you've connected to your computer when you open it.
 Toward the top of the display, you'll see current readings for all of the sensors that are connected correctly to the computer.
