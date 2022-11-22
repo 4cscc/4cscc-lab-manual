@@ -1,3 +1,4 @@
+(online-dashboard)=
 # Atmospheric sensing, posting data to an online dashboard
 
 In this lesson we'll collect temperature, humidity, and air pressure data from
