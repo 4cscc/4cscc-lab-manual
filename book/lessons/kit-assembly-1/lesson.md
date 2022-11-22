@@ -1,4 +1,5 @@
 
+(kit-assembly)=
 # Unpacking and assembling your supplies
 
 When you open your shipping box, you should see two plastic totes:
@@ -134,6 +135,8 @@ After installation, you can plug the Raspberry Pi power back in. It should now l
 
 ![Installed pHAT](images/phat-installation-3.jpeg)
 
-## Getting started
+## Reading data from the sensors using the built-in dashboard
 
-Feel free to start reading the book and experimenting with the computer. If some parts of the book are too basic for you, feel free to skip ahead to the more advanced sections. In particular Chapters 4, 5 and 6 are good to read through and follow along with. These will introduce you to programming and building digital circuits.
+Now that you have some sensors connected to your computer, you can read data from them using a built-in data dashboard. See [](dashboard-1) for instructions on how to access the dashboard.
+
+

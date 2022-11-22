@@ -5,6 +5,7 @@ format: jb-book
 root: intro
 chapters:
 - file: lessons/kit-assembly-1/lesson.md
+- file: lessons/builtin-dashboard-1/lesson.md
 - file: lessons/hello-led-1/lesson.md
 - file: lessons/multicolor-led-1/lesson.md
 - file: lessons/atmospheric-sensing-1/lesson.md
