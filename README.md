@@ -1,8 +1,8 @@
-# Four Corners Science and Computing Club Lab Notebook
+# Four Corners Science and Computing Club Lab Manual
 
 Introductory exercises in scientific computing.
 
-This is the source code repository for the Four Corners Science and Computing Club (4CSCC) Lab Notebook. The published book is available at https://gregcaporaso.github.io/4cscc-ln/.
+This is the source code repository for the Four Corners Science and Computing Club (4CSCC) Lab Notebook. The published book is available at https://four-corners-scientific-computing.org/4cscc-lab-manual/.
 
 ## Usage
 
@@ -26,7 +26,7 @@ For GitHub and GitLab deployment specifically, the [cookiecutter-jupyter-book](h
 
 ## Contributors
 
-We welcome and recognize all contributions. You can see a list of current contributors in the [contributors tab](https://github.com/gregcaporaso/4cscc-ln/graphs/contributors).
+We welcome and recognize all contributions. You can see a list of current contributors in the [contributors tab](https://github.com/4cscc/4cscc-lab-manual/graphs/contributors).
 
 ## Credits
 
