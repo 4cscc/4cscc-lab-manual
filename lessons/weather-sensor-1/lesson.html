@@ -1,0 +1,862 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Weather Sensor &#8212; Four Corners Science and Computing Club Lab Notebook</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="Atmospheric sensing, posting data to an online dashboard" href="../atmospheric-sensing-2/lesson.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Four Corners Science and Computing Club Lab Notebook</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    The Four Corners Science and Computing Club (4CSCC) Lab Notebook
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../kit-assembly-1/lesson.html">
+   Unpacking and assembling your supplies
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../builtin-dashboard-1/lesson.html">
+   Using the built-in sensor dashboard
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../hello-led-1/lesson.html">
+   Blinking an LED from Scratch and Python 3
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../multicolor-led-1/lesson.html">
+   Multi-color LED
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../atmospheric-sensing-1/lesson.html">
+   Atmospheric sensing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../voc-sensing-1/lesson.html">
+   VOC sensing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../pm-sensing-1/lesson.html">
+   Particulate matter sensing to assess indoor air quality
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../morse-led-1/lesson.html">
+   LED Morse Code in Python 3
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../atmospheric-sensing-2/lesson.html">
+   Atmospheric sensing, posting data to an online dashboard
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Weather Sensor
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/gregcaporaso/4cscc-ln"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/gregcaporaso/4cscc-ln/issues/new?title=Issue%20on%20page%20%2Flessons/weather-sensor-1/lesson.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/lessons/weather-sensor-1/lesson.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Weather Sensor
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#introduction">
+     Introduction
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#materials-and-resources">
+     Materials and Resources
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#connecting-hardware">
+     Connecting Hardware
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#wiring-diagram">
+     Wiring Diagram
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#scripts-for-weather-meter">
+   Scripts for Weather Meter
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#rainfall">
+     Rainfall
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#wind-meter-direction-and-speed">
+     Wind Meter - Direction and Speed
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#wind-speed">
+       Wind Speed:
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#wind-direction">
+       Wind Direction
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#all-sensors-for-weather-meter">
+     All Sensors for Weather Meter
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Weather Sensor</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Weather Sensor
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#introduction">
+     Introduction
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#materials-and-resources">
+     Materials and Resources
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#connecting-hardware">
+     Connecting Hardware
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#wiring-diagram">
+     Wiring Diagram
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#scripts-for-weather-meter">
+   Scripts for Weather Meter
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#rainfall">
+     Rainfall
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#wind-meter-direction-and-speed">
+     Wind Meter - Direction and Speed
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#wind-speed">
+       Wind Speed:
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#wind-direction">
+       Wind Direction
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#all-sensors-for-weather-meter">
+     All Sensors for Weather Meter
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="weather-sensor">
+<h1>Weather Sensor<a class="headerlink" href="#weather-sensor" title="Permalink to this headline">#</a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">#</a></h2>
+<p>For this next exercise we will use a Raspberry Pi Pico W,
+MicroPython, and the Thonny IDE to gather analog readings
+from an anenometer, a wind vane, and a rainfall bucket.  This exercise requires
+the following materials:</p>
+<ul class="simple">
+<li><p>One Raspberry Pi Pico W, with micro-USB cable and small breadboard</p></li>
+<li><p>One <a class="reference external" href="https://www.sparkfun.com/products/15901">Sparkfun Weather Meter Kit</a></p></li>
+<li><p>Eight M-to-M jumper wires</p></li>
+<li><p>One 4.7 kOhm resistor</p></li>
+<li><p>Two RJ-11 connectors soldered to a breakoutboard</p></li>
+</ul>
+</section>
+<section id="materials-and-resources">
+<h2>Materials and Resources<a class="headerlink" href="#materials-and-resources" title="Permalink to this headline">#</a></h2>
+<p>Documentation for getting started with your Pico can be found <a class="reference external" href="https://www.raspberrypi.com/documentation/microcontrollers/raspberry-pi-pico.html#raspberry-pi-pico-w">here</a>.
+We will also download and install MicroPython, <a class="reference external" href="https://www.raspberrypi.com/documentation/microcontrollers/raspberry-pi-pico.html">click here</a>
+for further instructions.</p>
+<p>Once MicroPython is setup on your Raspberry Pi, open your Thonny IDE.<br />
+We will configure Thonny’s Interpreter to ensure MicroPython is properly installed.</p>
+<ul class="simple">
+<li><p>Click near the bottom-right corner of the Thonny window.</p></li>
+<li><p>Select Configure Interpreter…, then navigate to the Interpreter tab if needed,</p></li>
+<li><p>Next, click the drop-down menu and select MicroPython (Raspberry Pi Pico).</p></li>
+<li><p>Click OK to close the window.</p></li>
+</ul>
+<p>Gathering analog readings from our anemometer and rainfall bucket is a neat feature the Pico W enables.
+These readings are acquired from reed switches, magnetic signals are sent through the cables.
+Converting analog-to-digital (ADC) is a built-in feature, which requires less materials for our exercise.</p>
+</section>
+<section id="connecting-hardware">
+<h2>Connecting Hardware<a class="headerlink" href="#connecting-hardware" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>Collect and firmly attach your Raspberry Pi Pico W to your small breadboard.</p></li>
+<li><p>Attach RJ-11 connectors to breadboard, alignng the pins horizontally, starting on Column A, Row 27 to 30.</p></li>
+<li><p>Attach the second RJ-11 connector to the opposing side, Column J Row 27-30.</p></li>
+<li><p>For this exercise, we will connect both cables and run their respective scripts separately.</p></li>
+<li><p>Connect the cable with 4 pins to the left connector.</p></li>
+<li><p>Connect the  cable with pins to the right connector.</p></li>
+</ul>
+</section>
+<section id="wiring-diagram">
+<h2>Wiring Diagram<a class="headerlink" href="#wiring-diagram" title="Permalink to this headline">#</a></h2>
+<p>View the following diagram of the rainfall and wind cables connected, notice where the resistor is used.
+<img alt="wiring-diagram" src="../../_images/WeatherStation_BothSensors.png" /></p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="scripts-for-weather-meter">
+<h1>Scripts for Weather Meter<a class="headerlink" href="#scripts-for-weather-meter" title="Permalink to this headline">#</a></h1>
+<section id="rainfall">
+<h2>Rainfall<a class="headerlink" href="#rainfall" title="Permalink to this headline">#</a></h2>
+<ol class="simple">
+<li><p>First, we will test the rainfall readings produced by the bucket tips.
+View the wiring diagram for the rainfall sensor (below).</p>
+<ul class="simple">
+<li><p>Follow this wiring diagram to help assist thorough execution.
+<img alt="rainfall-diagram" src="../../_images/WeatherStation_WiringDiagram_Rainfall.png" /></p></li>
+</ul>
+</li>
+<li><p>Open a new file, copy and paste the following script, then save and run the program.</p>
+<ul class="simple">
+<li><p>Make sure your Thonny Intepreter is set to MicroPython.</p></li>
+</ul>
+</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">machine</span> <span class="kn">import</span> <span class="n">Pin</span>
+<span class="kn">import</span> <span class="nn">utime</span>
+
+<span class="n">rain_sensor</span> <span class="o">=</span> <span class="n">Pin</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">Pin</span><span class="o">.</span><span class="n">IN</span><span class="p">,</span> <span class="n">Pin</span><span class="o">.</span><span class="n">PULL_UP</span><span class="p">)</span>
+<span class="n">BUCKET_SIZE</span> <span class="o">=</span> <span class="mf">0.2794</span>
+<span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">previous_value</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="k">def</span> <span class="nf">bucket_tipped</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">count</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;data.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">count</span> <span class="o">*</span> <span class="n">BUCKET_SIZE</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="n">count</span> <span class="o">*</span> <span class="n">BUCKET_SIZE</span><span class="p">)</span>
+    
+<span class="k">def</span> <span class="nf">reset_rainfall</span> <span class="p">():</span>
+    <span class="k">global</span> <span class="n">count</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>    
+    <span class="n">value</span> <span class="o">=</span> <span class="n">rain_sensor</span><span class="o">.</span><span class="n">value</span><span class="p">()</span>
+    
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">previous_value</span><span class="p">:</span>
+        <span class="n">bucket_tipped</span><span class="p">()</span>
+        
+    <span class="n">previous_value</span> <span class="o">=</span> <span class="n">value</span>
+</pre></div>
+</div>
+</section>
+<section id="wind-meter-direction-and-speed">
+<h2>Wind Meter - Direction and Speed<a class="headerlink" href="#wind-meter-direction-and-speed" title="Permalink to this headline">#</a></h2>
+<p>We will use the following wiring diagram and scripts to display wind speed and wind direction.<br />
+* View the following wiring diagram to help you execute the program:
+<img alt="rainfall-diagram" src="../../_images/WeatherStation_WiringDiagram_WindSensor.png" /></p>
+<section id="wind-speed">
+<h3>Wind Speed:<a class="headerlink" href="#wind-speed" title="Permalink to this headline">#</a></h3>
+<p>Copy and paste into your Thonny IDE, run the script and wait five seconds for readings.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">machine</span> <span class="kn">import</span> <span class="n">Pin</span>
+<span class="kn">import</span> <span class="nn">utime</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+<span class="n">wind_count</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">radius_cm</span> <span class="o">=</span> <span class="mf">9.0</span>
+<span class="n">wind_interval</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">CM_IN_A_KM</span> <span class="o">=</span> <span class="mf">10000.0</span>
+<span class="n">SECS_IN_AN_HOUR</span> <span class="o">=</span> <span class="mi">3600</span>
+<span class="n">ADJUSTMENT</span> <span class="o">=</span> <span class="mf">1.18</span>
+<span class="n">value</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">previous_value</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="k">def</span> <span class="nf">spin</span><span class="p">(</span><span class="n">pin</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">wind_count</span>
+    <span class="n">wind_count</span> <span class="o">=</span> <span class="n">wind_count</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="c1">#print(&quot;spin&quot; + str(wind_count))</span>
+
+<span class="k">def</span> <span class="nf">calculate_speed</span><span class="p">(</span><span class="n">time_sec</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">wind_count</span>
+    <span class="n">circumference_cm</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">*</span> <span class="n">radius_cm</span>
+    <span class="n">rotations</span> <span class="o">=</span> <span class="n">wind_count</span> <span class="o">/</span> <span class="mf">2.0</span>
+    
+    <span class="n">dist_km</span> <span class="o">=</span> <span class="p">(</span><span class="n">circumference_cm</span> <span class="o">*</span> <span class="n">rotations</span><span class="p">)</span> <span class="o">/</span> <span class="n">CM_IN_A_KM</span>
+    
+    <span class="n">km_per_sec</span> <span class="o">=</span> <span class="n">dist_km</span> <span class="o">/</span> <span class="n">time_sec</span>
+    <span class="n">km_per_hour</span> <span class="o">=</span> <span class="n">km_per_sec</span> <span class="o">*</span> <span class="n">SECS_IN_AN_HOUR</span>
+    <span class="k">return</span> <span class="n">km_per_hour</span> <span class="o">*</span> <span class="n">ADJUSTMENT</span>
+
+<span class="n">wind_speed_sensor</span> <span class="o">=</span> <span class="n">Pin</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">Pin</span><span class="o">.</span><span class="n">IN</span><span class="p">,</span> <span class="n">Pin</span><span class="o">.</span><span class="n">PULL_UP</span><span class="p">)</span>
+<span class="n">wind_speed_sensor</span><span class="o">.</span><span class="n">irq</span><span class="p">(</span><span class="n">handler</span><span class="o">=</span><span class="n">spin</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">wind_count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">utime</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">wind_interval</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">calculate_speed</span><span class="p">(</span><span class="n">wind_interval</span><span class="p">),</span> <span class="s2">&quot;cm/h&quot;</span><span class="p">,</span> <span class="n">wind_count</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="wind-direction">
+<h3>Wind Direction<a class="headerlink" href="#wind-direction" title="Permalink to this headline">#</a></h3>
+<p>Copy and paste into your Thonny IDE, run the script and wait five seconds to get readings.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">machine</span> <span class="kn">import</span> <span class="n">ADC</span><span class="p">,</span> <span class="n">Pin</span>
+<span class="kn">import</span> <span class="nn">utime</span>
+
+<span class="n">REFERENCE_VOLTAGE</span> <span class="o">=</span> <span class="mf">3.3</span>
+
+<span class="n">adc</span> <span class="o">=</span> <span class="n">ADC</span><span class="p">(</span><span class="mi">28</span><span class="p">)</span>
+<span class="n">MAX</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">**</span> <span class="mi">16</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="n">smps</span> <span class="o">=</span> <span class="n">Pin</span><span class="p">(</span><span class="mi">23</span><span class="p">,</span> <span class="n">Pin</span><span class="o">.</span><span class="n">OUT</span><span class="p">)</span>
+<span class="n">smps</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+
+<span class="c1"># These voltages are for a 3.3v power supply and</span>
+<span class="c1"># a 4.7kOhm r1</span>
+<span class="n">volts</span> <span class="o">=</span> <span class="p">{</span><span class="mf">2.9</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+         <span class="mf">1.9</span><span class="p">:</span> <span class="mf">22.5</span><span class="p">,</span>
+         <span class="mf">2.1</span><span class="p">:</span> <span class="mf">45.0</span><span class="p">,</span>
+         <span class="mf">.5</span><span class="p">:</span> <span class="mf">67.5</span><span class="p">,</span>
+         <span class="mf">.6</span><span class="p">:</span> <span class="mf">90.0</span><span class="p">,</span>
+         <span class="mf">.4</span><span class="p">:</span> <span class="mf">112.5</span><span class="p">,</span>
+         <span class="mf">1.1</span><span class="p">:</span> <span class="mf">135.0</span><span class="p">,</span>
+         <span class="mf">.8</span><span class="p">:</span> <span class="mf">157.5</span><span class="p">,</span>
+         <span class="mf">1.5</span><span class="p">:</span> <span class="mf">180.0</span><span class="p">,</span>
+         <span class="mf">1.3</span><span class="p">:</span> <span class="mf">202.5</span><span class="p">,</span>
+         <span class="mf">2.6</span><span class="p">:</span> <span class="mf">225.0</span><span class="p">,</span>
+         <span class="mf">2.5</span><span class="p">:</span> <span class="mf">247.5</span><span class="p">,</span>
+         <span class="mf">3.2</span><span class="p">:</span> <span class="mf">270.0</span><span class="p">,</span>
+         <span class="mf">3.0</span><span class="p">:</span> <span class="mf">292.5</span><span class="p">,</span>
+         <span class="mf">3.1</span><span class="p">:</span> <span class="mf">315.0</span><span class="p">,</span>
+         <span class="mf">2.7</span> <span class="p">:</span> <span class="mf">337.5</span><span class="p">}</span>
+
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">adc_val</span> <span class="o">=</span> <span class="n">adc</span><span class="o">.</span><span class="n">read_u16</span><span class="p">()</span> <span class="o">/</span> <span class="n">MAX</span>
+    <span class="n">wind</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">adc_val</span> <span class="o">*</span> <span class="mf">3.3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">volts</span><span class="p">[</span><span class="n">wind</span><span class="p">]))</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">wind</span><span class="p">)</span>
+    <span class="n">utime</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">.2</span><span class="p">)</span>    
+</pre></div>
+</div>
+</section>
+</section>
+<section id="all-sensors-for-weather-meter">
+<h2>All Sensors for Weather Meter<a class="headerlink" href="#all-sensors-for-weather-meter" title="Permalink to this headline">#</a></h2>
+<p>Now that we have both cables inserted and running separately, let’s run a single script for ALL sensors!</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">machine</span> <span class="kn">import</span> <span class="n">ADC</span><span class="p">,</span> <span class="n">Pin</span>
+<span class="kn">import</span> <span class="nn">utime</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+<span class="c1"># In seconds</span>
+<span class="n">interval</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="c1"># Rain globals</span>
+<span class="n">RAIN_PIN</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="n">BUCKET_SIZE</span> <span class="o">=</span> <span class="mf">0.2794</span>
+<span class="n">rain_count</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">rain_previous_value</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="c1"># Wind speed globals</span>
+<span class="n">WIND_PIN</span> <span class="o">=</span> <span class="mi">22</span>
+<span class="n">wind_count</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">radius_cm</span> <span class="o">=</span> <span class="mf">9.0</span>
+<span class="n">CM_IN_A_KM</span> <span class="o">=</span> <span class="mf">10000.0</span>
+<span class="n">MI_IN_A_KM</span> <span class="o">=</span> <span class="mf">0.621371</span>
+<span class="n">SECS_IN_AN_HOUR</span> <span class="o">=</span> <span class="mi">3600</span>
+<span class="n">ADJUSTMENT</span> <span class="o">=</span> <span class="mf">1.18</span>
+
+<span class="c1"># Wind direction globals</span>
+<span class="n">ADC_PIN</span> <span class="o">=</span> <span class="mi">28</span>
+<span class="n">adc</span> <span class="o">=</span> <span class="n">ADC</span><span class="p">(</span><span class="n">ADC_PIN</span><span class="p">)</span>
+<span class="n">MAX</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">**</span> <span class="mi">16</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="c1"># Setting this high makes the readings on</span>
+<span class="c1"># the adc more consistent by forcing 3.3v</span>
+<span class="c1"># on the power supply</span>
+<span class="n">smps</span> <span class="o">=</span> <span class="n">Pin</span><span class="p">(</span><span class="mi">23</span><span class="p">,</span> <span class="n">Pin</span><span class="o">.</span><span class="n">OUT</span><span class="p">)</span>
+<span class="n">smps</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># These voltages are for a 3.3v power supply and</span>
+<span class="c1"># a 4.7kOhm r1</span>
+<span class="n">volts</span> <span class="o">=</span> <span class="p">{</span><span class="mf">2.9</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+         <span class="mf">1.9</span><span class="p">:</span> <span class="mf">22.5</span><span class="p">,</span>
+         <span class="mf">2.1</span><span class="p">:</span> <span class="mf">45.0</span><span class="p">,</span>
+         <span class="mf">.5</span><span class="p">:</span> <span class="mf">67.5</span><span class="p">,</span>
+         <span class="mf">.6</span><span class="p">:</span> <span class="mf">90.0</span><span class="p">,</span>
+         <span class="mf">.4</span><span class="p">:</span> <span class="mf">112.5</span><span class="p">,</span>
+         <span class="mf">1.1</span><span class="p">:</span> <span class="mf">135.0</span><span class="p">,</span>
+         <span class="mf">.8</span><span class="p">:</span> <span class="mf">157.5</span><span class="p">,</span>
+         <span class="mf">1.5</span><span class="p">:</span> <span class="mf">180.0</span><span class="p">,</span>
+         <span class="mf">1.3</span><span class="p">:</span> <span class="mf">202.5</span><span class="p">,</span>
+         <span class="mf">2.6</span><span class="p">:</span> <span class="mf">225.0</span><span class="p">,</span>
+         <span class="mf">2.5</span><span class="p">:</span> <span class="mf">247.5</span><span class="p">,</span>
+         <span class="mf">3.2</span><span class="p">:</span> <span class="mf">270.0</span><span class="p">,</span>
+         <span class="mf">3.0</span><span class="p">:</span> <span class="mf">292.5</span><span class="p">,</span>
+         <span class="mf">3.1</span><span class="p">:</span> <span class="mf">315.0</span><span class="p">,</span>
+         <span class="mf">2.7</span> <span class="p">:</span> <span class="mf">337.5</span><span class="p">}</span>
+
+
+<span class="k">def</span> <span class="nf">bucket_tipped</span><span class="p">(</span><span class="n">pin</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">rain_count</span>
+    <span class="k">global</span> <span class="n">rain_previous_value</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">rain_sensor</span><span class="o">.</span><span class="n">value</span><span class="p">()</span>
+    
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">rain_previous_value</span><span class="p">:</span>
+        <span class="n">rain_count</span> <span class="o">=</span> <span class="n">rain_count</span> <span class="o">+</span> <span class="mi">1</span>
+
+    <span class="n">rain_previous_value</span> <span class="o">=</span> <span class="n">value</span>
+
+
+<span class="k">def</span> <span class="nf">reset_rainfall</span> <span class="p">():</span>
+    <span class="k">global</span> <span class="n">rain_count</span>
+    <span class="n">rain_count</span> <span class="o">=</span> <span class="mi">0</span>
+
+
+<span class="k">def</span> <span class="nf">spin</span><span class="p">(</span><span class="n">pin</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">wind_count</span>
+    <span class="n">wind_count</span> <span class="o">=</span> <span class="n">wind_count</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="c1">#print(&quot;spin&quot; + str(wind_count))</span>
+
+
+<span class="k">def</span> <span class="nf">calculate_speed</span><span class="p">(</span><span class="n">time_sec</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">wind_count</span>
+    <span class="n">circumference_cm</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">*</span> <span class="n">radius_cm</span>
+    <span class="n">rotations</span> <span class="o">=</span> <span class="n">wind_count</span> <span class="o">/</span> <span class="mf">2.0</span>
+    
+    <span class="n">dist_km</span> <span class="o">=</span> <span class="p">(</span><span class="n">circumference_cm</span> <span class="o">*</span> <span class="n">rotations</span><span class="p">)</span> <span class="o">/</span> <span class="n">CM_IN_A_KM</span>
+    
+    <span class="n">km_per_sec</span> <span class="o">=</span> <span class="n">dist_km</span> <span class="o">/</span> <span class="n">time_sec</span>
+    <span class="n">km_per_hour</span> <span class="o">=</span> <span class="n">km_per_sec</span> <span class="o">*</span> <span class="n">SECS_IN_AN_HOUR</span>
+    <span class="n">mi_per_hour</span> <span class="o">=</span> <span class="n">km_per_hour</span> <span class="o">*</span> <span class="n">MI_IN_A_KM</span>
+    <span class="k">return</span> <span class="n">km_per_hour</span> <span class="o">*</span> <span class="n">ADJUSTMENT</span>
+
+
+<span class="n">rain_sensor</span> <span class="o">=</span> <span class="n">Pin</span><span class="p">(</span><span class="n">RAIN_PIN</span><span class="p">,</span> <span class="n">Pin</span><span class="o">.</span><span class="n">IN</span><span class="p">,</span> <span class="n">Pin</span><span class="o">.</span><span class="n">PULL_UP</span><span class="p">)</span>
+<span class="n">rain_sensor</span><span class="o">.</span><span class="n">irq</span><span class="p">(</span><span class="n">handler</span><span class="o">=</span><span class="n">bucket_tipped</span><span class="p">)</span>
+
+<span class="n">wind_speed_sensor</span> <span class="o">=</span> <span class="n">Pin</span><span class="p">(</span><span class="n">WIND_PIN</span><span class="p">,</span> <span class="n">Pin</span><span class="o">.</span><span class="n">IN</span><span class="p">,</span> <span class="n">Pin</span><span class="o">.</span><span class="n">PULL_UP</span><span class="p">)</span>
+<span class="n">wind_speed_sensor</span><span class="o">.</span><span class="n">irq</span><span class="p">(</span><span class="n">handler</span><span class="o">=</span><span class="n">spin</span><span class="p">)</span>
+
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">rain_count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">wind_count</span> <span class="o">=</span> <span class="mi">0</span>
+    
+    <span class="n">utime</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">interval</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">calculate_speed</span><span class="p">(</span><span class="n">interval</span><span class="p">),</span> <span class="s2">&quot;cm/h&quot;</span><span class="p">,</span> <span class="n">wind_count</span><span class="p">,</span> <span class="s2">&quot;ticks.&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">rain_count</span> <span class="o">*</span> <span class="n">BUCKET_SIZE</span><span class="p">,</span> <span class="s2">&quot;mm of rain&quot;</span><span class="p">,</span> <span class="n">rain_count</span><span class="p">,</span> <span class="s2">&quot;tips.&quot;</span><span class="p">)</span>
+
+    <span class="n">adc_val</span> <span class="o">=</span> <span class="n">adc</span><span class="o">.</span><span class="n">read_u16</span><span class="p">()</span> <span class="o">/</span> <span class="n">MAX</span>
+    <span class="n">wind_dir</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">adc_val</span> <span class="o">*</span> <span class="mf">3.3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">volts</span><span class="p">[</span><span class="n">wind_dir</span><span class="p">]),</span> <span class="s2">&quot;degree heading.&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">wind</span><span class="p">,</span> <span class="s2">&quot;volts, unknown heading.&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./lessons/weather-sensor-1"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="../atmospheric-sensing-2/lesson.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Atmospheric sensing, posting data to an online dashboard</p>
+        </div>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Four Corners Science and Computing Club<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
