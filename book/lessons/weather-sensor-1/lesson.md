@@ -1,5 +1,7 @@
 # Weather Sensor
 
+![Weather Station Mounted to Workshop](./images/IMG_2097.jpeg)
+
 ## Introduction
 For this next exercise we will use a Raspberry Pi Pico W,
 MicroPython, and the Thonny IDE to gather analog readings
@@ -9,7 +11,9 @@ the following materials:
 * One [Sparkfun Weather Meter Kit](https://www.sparkfun.com/products/15901)
 * Eight M-to-M jumper wires
 * One 4.7 kOhm resistor
-* Two RJ-11 connectors soldered to a breakoutboard
+* Two RJ-11 connectors soldered to a breakout-board
+
+![Pico Setup to Receive Weather Station Data](./images/20221202_131814.jpg)
 
 ## Materials and Resources
 Documentation for getting started with your Pico can be found [here](https://www.raspberrypi.com/documentation/microcontrollers/raspberry-pi-pico.html#raspberry-pi-pico-w).
@@ -42,6 +46,9 @@ View the following diagram of the rainfall and wind cables connected, notice whe
 
 # Scripts for Weather Meter
 ## Rainfall
+
+![Code to Monitor the Weather Station](./images/20221029_120600.jpg)
+
 1. First, we will test the rainfall readings produced by the bucket tips.
 View the wiring diagram for the rainfall sensor (below).
     * Follow this wiring diagram to help assist thorough execution.
