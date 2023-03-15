@@ -1,6 +1,6 @@
 # Weather Sensor
 
-![Weather Station Mounted to Workshop](./images/IMG_2097.jpeg)
+![Weather Station Mounted to Workshop](./images/IMG_2317.gif)
 
 ## Introduction
 For this next exercise we will use a Raspberry Pi Pico W,
@@ -13,7 +13,7 @@ the following materials:
 * One 4.7 kOhm resistor
 * Two RJ-11 connectors soldered to a breakout-board
 
-![Pico Setup to Receive Weather Station Data](./images/20221202_131814.jpg)
+![Pico Setup to Receive Weather Station](./images/20221202_133032.jpg)
 
 ## Materials and Resources
 Documentation for getting started with your Pico can be found [here](https://www.raspberrypi.com/documentation/microcontrollers/raspberry-pi-pico.html#raspberry-pi-pico-w).
@@ -32,6 +32,7 @@ These readings are acquired from reed switches, magnetic signals are sent throug
 Converting analog-to-digital (ADC) is a built-in feature, which requires less materials for our exercise.
 
 ## Connecting Hardware
+![Connecting the Pico](./images/20221202_131814.jpg)
 * Collect and firmly attach your Raspberry Pi Pico W to your small breadboard.
 * Attach RJ-11 connectors to breadboard, alignng the pins horizontally, starting on Column A, Row 27 to 30. 
 * Attach the second RJ-11 connector to the opposing side, Column J Row 27-30.
@@ -45,10 +46,10 @@ View the following diagram of the rainfall and wind cables connected, notice whe
     
 
 # Scripts for Weather Meter
-## Rainfall
 
 ![Code to Monitor the Weather Station](./images/20221029_120600.jpg)
 
+## Rainfall
 1. First, we will test the rainfall readings produced by the bucket tips.
 View the wiring diagram for the rainfall sensor (below).
     * Follow this wiring diagram to help assist thorough execution.
