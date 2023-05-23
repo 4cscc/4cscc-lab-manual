@@ -1,0 +1,731 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>LED and PM Sensor Exercise &#8212; Four Corners Science and Computing Club Lab Notebook</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lessons/led-with-pm-sensor/lesson';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    The Four Corners Science and Computing Club (4CSCC) Lab Notebook
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../kit-assembly-1/lesson.html">Unpacking and assembling your supplies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../builtin-dashboard-1/lesson.html">Using the built-in sensor dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hello-led-1/lesson.html">Blinking an LED from Scratch and Python 3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../multicolor-led-1/lesson.html">Multi-color LED</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../atmospheric-sensing-1/lesson.html">Atmospheric sensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../voc-sensing-1/lesson.html">VOC sensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pm-sensing-1/lesson.html">Particulate matter sensing to assess indoor air quality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../morse-led-1/lesson.html">LED Morse Code in Python 3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../atmospheric-sensing-2/lesson.html">Atmospheric sensing, posting data to an online dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../weather-sensor-1/lesson.html">Weather Sensor</a></li>
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/gregcaporaso/4cscc-ln" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/gregcaporaso/4cscc-ln/issues/new?title=Issue%20on%20page%20%2Flessons/led-with-pm-sensor/lesson.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/lessons/led-with-pm-sensor/lesson.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>LED and PM Sensor Exercise</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">LED and PM Sensor Exercise</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">Getting Started</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#for-this-exercise-youll-need">For this exercise you’ll need:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#led-setup">LED Setup</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#connecting-hardware">1. Connecting Hardware</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-led-and-resistor">2. Adding LED and Resistor</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-led-in-the-thonny-ide">3. Testing LED in the Thonny IDE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wiring-for-pm-sensor">5. Wiring for PM Sensor</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#powering-and-grounding-to-pm-sensor">Powering and Grounding to PM Sensor</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#transmitting-and-receiving-data-for-pm-sensor">Transmitting and Receiving Data for PM Sensor</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-exercise-setup">Pre-Exercise Setup</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pms5003-library-installation">6. PMS5003 Library Installation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#led-and-pms5003-activity">LED and PMS5003 Activity</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-and-running-our-python-code">7. Building and Running Our Python Code</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expanding-our-learning">8. Expanding Our Learning</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#final-wiring-diagram">Final Wiring Diagram</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="led-and-pm-sensor-exercise">
+<h1>LED and PM Sensor Exercise<a class="headerlink" href="#led-and-pm-sensor-exercise" title="Permalink to this heading">#</a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h2>
+<p>This lesson builds our knowledge of manipulating our LED and particulate matter (PM) sensor.
+We will be using our pHAT Extension board, an LED, and PM sensor.
+By using a script, we will activate our LED once the
+PM sensor hits a particular variable. Our example reacts and measures PM of 2.5 microns,
+our sensor threshold value is set to 30.
+<img alt="Photo of Final Product" src="../../_images/led-pm-lesson-photo.jpeg" /></p>
+</section>
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h2>
+<section id="for-this-exercise-youll-need">
+<h3>For this exercise you’ll need:<a class="headerlink" href="#for-this-exercise-youll-need" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Raspberry Pi 400 computer</p></li>
+<li><p>Sparkfun Qwiic pHAT Extension</p></li>
+<li><p>PMS5003 – Particulate Matter sensor</p></li>
+<li><p>Breadboard</p></li>
+<li><p>5 Male to Female (M-F) jumper wires</p></li>
+<li><p>3 Male to Male (M-M) jumper wires</p></li>
+<li><p>One 330-ohm resistor</p></li>
+<li><p>One single-colored LED</p></li>
+</ul>
+</section>
+</section>
+<section id="led-setup">
+<h2>LED Setup<a class="headerlink" href="#led-setup" title="Permalink to this heading">#</a></h2>
+<section id="connecting-hardware">
+<h3>1. Connecting Hardware<a class="headerlink" href="#connecting-hardware" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>First, ground the pHAT to the breadboard by attaching one black M-F wire to the GND Pin of the pHAT.<br />
+Attach the opposite end pin to our breadboard’s negative ( - ) rail.</p></li>
+<li><p>Next, attach a red wire to ‘Pin 21’ of the pHAT. Insert the opposite end into ‘A-4’ of the breadboard.</p></li>
+<li><p>Follow our diagrams below throughout the exercise and make sure all connections are secure.
+<img alt="pHAT to Breadboard Full View" src="../../_images/01Wires.jpeg" />
+<img alt="pHAT to Breadboard Close Up" src="../../_images/01WiresCloseUp.jpeg" /></p></li>
+</ul>
+</section>
+<section id="adding-led-and-resistor">
+<h3>2. Adding LED and Resistor<a class="headerlink" href="#adding-led-and-resistor" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Collect a black M-to-M wire, insert one end into the negative rail of the breadboard.
+Then insert the opposite end into ‘J-5’ of the breadboard.
+<img alt="GND Rail to J-5" src="../../_images/01Wires02.jpeg" /></p></li>
+<li><p>Take a 330-ohm resistor, insert into ‘E-4’ and ‘F-4.’
+(We can insert our resister in either direction.)</p></li>
+<li><p>Grab your LED and insert the anode, longer leg, into ‘G-4,’ and insert the
+cathode, the shorter leg, into ‘G-5.’</p></li>
+<li><p>Note the anode is inserted into the same rail as the resistor and the pin 21
+jumper wire. We also see that the cathode aligns on the same rail as the GND wire.
+<img alt="pHAT to Breadboard" src="../../_images/02LED.jpeg" /></p></li>
+</ul>
+</section>
+<section id="testing-led-in-the-thonny-ide">
+<h3>3. Testing LED in the Thonny IDE<a class="headerlink" href="#testing-led-in-the-thonny-ide" title="Permalink to this heading">#</a></h3>
+<p>Open your Thonny IDE, we will create a script to test the LED.
+Paste the following code, save and run your file.</p>
+<ul class="simple">
+<li><p>Ensure that all wires are inserted properly into their desired positions.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># This code is to blink LED,</span>
+<span class="c1"># make sure all pins are connected properly.</span>
+
+<span class="kn">from</span> <span class="nn">gpiozero</span> <span class="kn">import</span> <span class="n">LED</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
+
+<span class="n">led</span> <span class="o">=</span> <span class="n">LED</span><span class="p">(</span><span class="mi">21</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">led</span><span class="o">.</span><span class="n">on</span><span class="p">()</span>
+    <span class="n">sleep</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">led</span><span class="o">.</span><span class="n">off</span><span class="p">()</span>
+    <span class="n">sleep</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>##PM Sensor
+###4. Connecting PM Sensor</p>
+<ul class="simple">
+<li><p>Collect your PMS 5003 Sensor, have the PM’s ribbon cable inserted securely to
+the rear of the PM sensor box.</p></li>
+<li><p>Attach the PM sensor pins vertically to the breadboard.<br />
+We have ours aligned and connected from ‘J-23’ to ‘J-30.’
+<img alt="PM Sensor to Breadboard" src="../../_images/04PMsensorboard.jpeg" /></p></li>
+</ul>
+</section>
+<section id="wiring-for-pm-sensor">
+<h3>5. Wiring for PM Sensor<a class="headerlink" href="#wiring-for-pm-sensor" title="Permalink to this heading">#</a></h3>
+<p>We will add multiple wires to power, ground, transmit, and receive data.</p>
+<section id="powering-and-grounding-to-pm-sensor">
+<h4>Powering and Grounding to PM Sensor<a class="headerlink" href="#powering-and-grounding-to-pm-sensor" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Ground the PM sensor with a black M-M jumper wire, insert one end into the
+GND ( – ) rail.</p></li>
+<li><p>Insert the opposite end into ‘G-24’ of the breadboard.
+This rail is corresponding to the GND row of the PM sensor.</p></li>
+<li><p>Attach a M-M jumper wire into the breadboard’s positive ( + ) rail.</p></li>
+<li><p>Insert the opposite end into ‘G-23,’ corresponding the PM VCC pin.
+<img alt="GND and VCC Connections for PM Sensor" src="../../_images/05PM5VandGND.jpeg" /></p></li>
+<li><p>Connect a M-F cable into the positive ( + ) rail of the breadboard.</p></li>
+<li><p>Attach the opposite end to the 5V pin of the pHAT. This provides accessible power if we were to add more components.
+<img alt="PM Sensor to Breadboard" src="../../_images/05power-to-PMsensorboard.jpeg" /></p></li>
+</ul>
+</section>
+<section id="transmitting-and-receiving-data-for-pm-sensor">
+<h4>Transmitting and Receiving Data for PM Sensor<a class="headerlink" href="#transmitting-and-receiving-data-for-pm-sensor" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Insert another M-F wire pin into ‘G-26’ of the breadboard, aligning with the ‘RXD’ rail.  Attach the opposite end to ‘Pin 14/TXO’ of the pHAT.<br />
+(Our example here uses the blue wire in the diagram below.)</p></li>
+<li><p>Add another M-F jumper wire, insert the pin into ‘G-27,’
+attach the opposite end to ‘Pin 15/RXI’ of the pHAT.<br />
+(We used yellow in the diagram below.)
+<img alt="PM Breadboard Wiring" src="../../_images/06PMsensorboard.jpeg" />
+<img alt="pHAT Pins with PM Wiring" src="../../_images/06pHAT.jpeg" /></p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="pre-exercise-setup">
+<h2>Pre-Exercise Setup<a class="headerlink" href="#pre-exercise-setup" title="Permalink to this heading">#</a></h2>
+<section id="pms5003-library-installation">
+<h3>6. PMS5003 Library Installation<a class="headerlink" href="#pms5003-library-installation" title="Permalink to this heading">#</a></h3>
+<p>We’ll make sure the pms5003 library is imported and installed on Thonny.</p>
+<ul class="simple">
+<li><p>Click on ‘Tools’ in your Thonny IDE, and select ‘Manage plug-ins’ to install packages for the exercise.</p></li>
+<li><p>Search ‘pms5003’ into the text field then click ‘Search on PyPI.’
+<img alt="Search pms5003 Extension" src="../../_images/06pmsensor00.jpeg" /></p></li>
+<li><p>Choose the ‘pms5003 - PMS5003 Particulate Sensor’ link to install or update this plug-in for our PM Sensor.
+<img alt="Install pms5003 Extension" src="../../_images/06pmsensor01.jpeg" /></p></li>
+<li><p>Close the Plug-In window.</p></li>
+</ul>
+</section>
+</section>
+<section id="led-and-pms5003-activity">
+<h2>LED and PMS5003 Activity<a class="headerlink" href="#led-and-pms5003-activity" title="Permalink to this heading">#</a></h2>
+<section id="building-and-running-our-python-code">
+<h3>7. Building and Running Our Python Code<a class="headerlink" href="#building-and-running-our-python-code" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Insert the following code into your editor, save your python file, then run your program.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Import GPIO for LED</span>
+<span class="kn">from</span> <span class="nn">gpiozero</span> <span class="kn">import</span> <span class="n">LED</span>
+<span class="c1"># Import the library we use to access the sensor</span>
+<span class="kn">from</span> <span class="nn">pms5003</span> <span class="kn">import</span> <span class="n">PMS5003</span>
+<span class="c1"># We are going to wait between sensor readings so we don&#39;t spam too many</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
+<span class="c1">#LED Variable for pin 21</span>
+<span class="n">led</span> <span class="o">=</span> <span class="n">LED</span><span class="p">(</span><span class="mi">21</span><span class="p">)</span>
+<span class="c1"># Create an object representing our sensor</span>
+<span class="n">pms5003</span> <span class="o">=</span> <span class="n">PMS5003</span><span class="p">()</span>
+<span class="c1"># Repeat this as long as the program is running</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="c1"># Read the data from the sensor</span>
+    <span class="n">pms_reading</span> <span class="o">=</span> <span class="n">pms5003</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">current_value</span> <span class="o">=</span> <span class="n">pms_reading</span><span class="o">.</span><span class="n">pm_ug_per_m3</span><span class="p">(</span><span class="mf">2.5</span><span class="p">)</span>
+    <span class="c1"># Access and print three specific pieces of data returned by the PM sensor</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PM 2.5: </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">current_value</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">current_value</span> <span class="o">&gt;</span> <span class="mi">30</span><span class="p">:</span>
+        <span class="n">led</span><span class="o">.</span><span class="n">on</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">led</span><span class="o">.</span><span class="n">off</span><span class="p">()</span>
+    <span class="c1"># Wait for one second before attempting to read from the sensor again</span>
+    <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><img alt="Run Script" src="../../_images/06pmsensor02.jpeg" /></p>
+<ul class="simple">
+<li><p>Note: The ‘current value &gt; 30’ on line 19 activates our LED.
+We are measuring PM of 2.5 microns.
+As the threshold reaches a value of &gt; 30, our LED will activate.
+<img alt="Code Running" src="../../_images/06pmsensor03.jpeg" /></p></li>
+</ul>
+</section>
+<section id="expanding-our-learning">
+<h3>8. Expanding Our Learning<a class="headerlink" href="#expanding-our-learning" title="Permalink to this heading">#</a></h3>
+<p>The previous script is specific to measuring PM of 2.5 microns,
+try measuring other sizes.  Our PMS 5003 measures PM from 1.0 to  2.5 or 10 microns.
+You can even adjust the variable for the LED by changing its ‘current value.’</p>
+<ul class="simple">
+<li><p>Go to your script and edit line 15, change (2.5) to (1.0),
+this changes our PM to measure smaller particles</p></li>
+<li><p>Next, edit line 17 to print the string “PM 1.0” to display that we are measuring in 1.0 microns.</p></li>
+<li><p>Then adjust line 19 to a different value, we set threshold to ‘3’ in our example below.
+This will measure PM of 1.0 microns, and activate the LED once the ‘current value &gt; 3’ is reached.
+<img alt="Expanding Our Learning Example" src="../../_images/led-pm-sensor-at-1.jpeg" /></p></li>
+</ul>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="final-wiring-diagram">
+<h1>Final Wiring Diagram<a class="headerlink" href="#final-wiring-diagram" title="Permalink to this heading">#</a></h1>
+<p><img alt="Final View" src="../../_images/PM_LED_Lesson.jpeg" /></p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./lessons/led-with-pm-sensor"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">LED and PM Sensor Exercise</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">Getting Started</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#for-this-exercise-youll-need">For this exercise you’ll need:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#led-setup">LED Setup</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#connecting-hardware">1. Connecting Hardware</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-led-and-resistor">2. Adding LED and Resistor</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-led-in-the-thonny-ide">3. Testing LED in the Thonny IDE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wiring-for-pm-sensor">5. Wiring for PM Sensor</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#powering-and-grounding-to-pm-sensor">Powering and Grounding to PM Sensor</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#transmitting-and-receiving-data-for-pm-sensor">Transmitting and Receiving Data for PM Sensor</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-exercise-setup">Pre-Exercise Setup</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pms5003-library-installation">6. PMS5003 Library Installation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#led-and-pms5003-activity">LED and PMS5003 Activity</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-and-running-our-python-code">7. Building and Running Our Python Code</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expanding-our-learning">8. Expanding Our Learning</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#final-wiring-diagram">Final Wiring Diagram</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Four Corners Science and Computing Club
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
