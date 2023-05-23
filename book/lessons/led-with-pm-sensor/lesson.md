@@ -30,20 +30,20 @@ layout: post
 Attach the opposite end pin to our breadboard's negative ( - ) rail.
 *   Next, attach a red wire to 'Pin 21' of the pHAT. Insert the opposite end into 'A-4' of the breadboard.
 *   Follow our diagrams below throughout the exercise and make sure all connections are secure.
-![pHAT to Breadboard Full View](images/01Wires.png)
-![pHAT to Breadboard Close Up](images/01WiresCloseUp.png)
+![pHAT to Breadboard Full View](images/01Wires.jpg)
+![pHAT to Breadboard Close Up](images/01WiresCloseUp.jpg)
 
 ### 2. Adding LED and Resistor
 *	Collect a black M-to-M wire, insert one end into the negative rail of the breadboard. 
 Then insert the opposite end into ‘J-5’ of the breadboard.
-![GND Rail to J-5](images/01Wires02.png)
+![GND Rail to J-5](images/01Wires02.jpg)
 *   Take a 330-ohm resistor, insert into ‘E-4’ and ‘F-4.’
 (We can insert our resister in either direction.)
 *   Grab your LED and insert the anode, longer leg, into ‘G-4,’ and insert the
 cathode, the shorter leg, into ‘G-5.’
 *   Note the anode is inserted into the same rail as the resistor and the pin 21
 jumper wire. We also see that the cathode aligns on the same rail as the GND wire.
-![pHAT to Breadboard](images/02LED.png)
+![pHAT to Breadboard](images/02LED.jpg)
 
 ### 3. Testing LED in the Thonny IDE
 Open your Thonny IDE, we will create a script to test the LED.
@@ -71,7 +71,7 @@ while True:
  the rear of the PM sensor box.
 *   Attach the PM sensor pins vertically to the breadboard.  
 We have ours aligned and connected from ‘J-23’ to ‘J-30.’
-![PM Sensor to Breadboard](/images/04PMsensorboard.png)
+![PM Sensor to Breadboard](/images/04PMsensorboard.jpg)
 
 ### 5. Wiring for PM Sensor
 We will add multiple wires to power, ground, transmit, and receive data.
@@ -82,26 +82,26 @@ GND ( – ) rail.
 This rail is corresponding to the GND row of the PM sensor.
 *   Attach a M-M jumper wire into the breadboard’s positive ( + ) rail. 
 *   Insert the opposite end into ‘G-23,’ corresponding the PM VCC pin.
-![GND and VCC Connections for PM Sensor](/images/05PM5VandGND.png)
+![GND and VCC Connections for PM Sensor](/images/05PM5VandGND.jpg)
 *   Connect a M-F cable into the positive ( + ) rail of the breadboard.
 *   Attach the opposite end to the 5V pin of the pHAT. This provides accessible power if we were to add more components.
-![PM Sensor to Breadboard](/images/05power-to-PMsensorboard.png)
+![PM Sensor to Breadboard](/images/05power-to-PMsensorboard.jpg)
 #### Transmitting and Receiving Data for PM Sensor
 *   Insert another M-F wire pin into ‘G-26’ of the breadboard, aligning with the 'RXD' rail.  Attach the opposite end to 'Pin 14/TXO’ of the pHAT.  
 (Our example here uses the blue wire in the diagram below.)
 *   Add another M-F jumper wire, insert the pin into ‘G-27,’ 
 attach the opposite end to 'Pin 15/RXI’ of the pHAT.  
 (We used yellow in the diagram below.)
-![PM Breadboard Wiring](/images/06PMsensorboard.png)
-![pHAT Pins with PM Wiring](/images/06pHAT.png)
+![PM Breadboard Wiring](/images/06PMsensorboard.jpg)
+![pHAT Pins with PM Wiring](/images/06pHAT.jpg)
 ## Pre-Exercise Setup
 ### 6. PMS5003 Library Installation
 We’ll make sure the pms5003 library is imported and installed on Thonny.
 *   Click on ‘Tools’ in your Thonny IDE, and select ‘Manage plug-ins’ to install packages for the exercise.
 *   Search ‘pms5003’ into the text field then click ‘Search on PyPI.’
-![Search pms5003 Extension](/images/06pmsensor00.png)
+![Search pms5003 Extension](/images/06pmsensor00.jpg)
 *   Choose the ‘pms5003 - PMS5003 Particulate Sensor' link to install or update this plug-in for our PM Sensor.
-![Install pms5003 Extension](/images/06pmsensor01.png)
+![Install pms5003 Extension](/images/06pmsensor01.jpg)
 *   Close the Plug-In window.
 ## LED and PMS5003 Activity
 ### 7. Building and Running Our Python Code
@@ -132,11 +132,11 @@ while True:
     # Wait for one second before attempting to read from the sensor again
     sleep(1)
 ```
-![Run Script](images/06pmsensor02.png)
+![Run Script](images/06pmsensor02.jpg)
 *   Note: The ‘current value > 30’ on line 19 activates our LED.
     We are measuring PM of 2.5 microns.
     As the threshold reaches a value of > 30, our LED will activate.
-![Code Running](images/06pmsensor03.png)
+![Code Running](images/06pmsensor03.jpg)
 
 ### 8. Expanding Our Learning
 The previous script is specific to measuring PM of 2.5 microns,
@@ -149,4 +149,4 @@ this changes our PM to measure smaller particles
 This will measure PM of 1.0 microns, and activate the LED once the ‘current value > 3’ is reached.
 ![Expanding Our Learning Example](images/led-pm-sensor-at-1.jpg)
 # Final Wiring Diagram
-![Final View](images/PM_LED_Lesson.png)
+![Final View](images/PM_LED_Lesson.jpg)
