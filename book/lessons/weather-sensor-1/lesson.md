@@ -46,12 +46,9 @@ View the following diagram of the rainfall and wind cables connected, notice whe
     
 
 # Scripts for Weather Meter
-<<<<<<< HEAD
-=======
 
 ![Code to Monitor the Weather Station](./images/20221029_120600.jpg)
 
->>>>>>> 4corners/main
 ## Rainfall
 1. First, we will test the rainfall readings produced by the bucket tips.
 View the wiring diagram for the rainfall sensor (below).
