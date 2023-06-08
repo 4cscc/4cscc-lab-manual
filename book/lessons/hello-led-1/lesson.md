@@ -1,7 +1,7 @@
 # Blinking an LED from Scratch and Python 3
 
 In this lesson we’ll complete our first physical computing experiment: we’ll connect an LED to our Raspberry Pi, and make it blink.
-
+    ![Wiring Diagram](images/blinking-led-lesson-00.jpeg)
 ## Getting started
 For this exercise, you will need the following:
 * Raspberry Pi 400 computer
@@ -21,35 +21,26 @@ Start with your Raspberry Pi 400 computer turned off
 
 We need to make connections from the Raspberry Pi 400 GPIO (general-purpose input-output) pins. While we could connect to the Raspberry Pi pins directly, using the Qwiic PHAT Extension makes this more convenient as the pins are labeled and more accessible. There are 40 male (metal) pins available to use for powering devices or communicating with hardware (i.e., collecting input from them or providing output to them).
 
-![pHAT-board-plugged-into-Raspberry-pi-400](images/01-gpio-board.png)
-
-1. Collect one M-to-F pin. Take the female end (black) and insert it into the GND (ground) on the pHAT male pin.
-
-    ![male-to-female-jumper-wires](images/02-male-to-female.png)
-
-1. Collect the other M-to-F pin. Take the female end (black) and insert into 21 on the pHAT male pin.
-
-    ![jumper-wires-plugged-into-gpio](images/03-jumper-wires-gpio.png)
+    ![pHAT-board-plugged-into-Raspberry-pi-400](images/01-gpio-board.png)
 
 ## Wire to the Breadboard
 
 A breadboard lets you insert (plug) components and have them connect through metal tracks hidden beneath the surface. This makes it MUCH easier to build circuits.
 
-1. Take the male end of the M-to-F pin connected to GND and insert it into column (-) in row 1 of the breadboard.
+1. Collect one M-to-F pin. Take the female end and attach it into the GND (ground) on the pHAT male pin.
+2. Collect another M-to-F pin. Attach the female end (yellow) to 21 on the pHAT male pin.
+3. Take the male end of the M-to-F pin connected to GND and insert it into column (-) in row 1 of the breadboard.
+4. Take the male end of the other M-to-F pin connected to 21 and insert it into the column (a) in row 4 of the breadboard.
 
-    ![jumper-wire-1-plugged-into-breadboard](images/04-male-end-1-breadboard.png)
+    ![Wiring Diagram](images/blinking-led-lesson-02.jpeg)
 
-1. Take the male end of the other M-to-F pin connected to 21 and insert it into the column (a) in row 4 of the breadboard.
+5. Collect the M-to-M pin. Take one end and insert it into column (-) in row 30 of the breadboard.
 
-    ![jumper-wire-2-plugged-into-breadboard](images/05-male-end-2-breadboard.png)
+    ![Wiring Diagram](images/blinking-led-lesson-03.jpeg)
 
-1. Collect the M-to-M pin. Take one end and insert it into column (-) in row 30 of the breadboard.
+6. Take the other end of the M-to-M pin and insert it into column (j) in row 5 of the breadboard.
 
-    ![jumper-wire-3-plugged-into-breadboard](images/06-male-end-3-breadboard.png)
-
-1. Take the other end of the M-to-M pin and insert it into column (j) in row 5 of the breadboard.
-
-    ![jumper-wire-4-plugged-into-breadboard](images/07-male-end-4-breadboard.png)
+    ![Wiring Diagram](images/blinking-led-lesson-04.jpeg)
 
 ## Adding the 330 ohm resistor
 
@@ -57,33 +48,28 @@ A resistor are components that control the flow of electrical current. Each resi
 
 1. Pick up the resistor and look at the color combination. It reads orange, red, brown gold. To read the resistor color codes, you can watch the video ["How to Read a Resistor"](https://www.youtube.com/watch?v=GLD7AgAYqwAv).
 
-    ![330-ohm-resistor](images/08-330-ohm-resistor.png)
+   
+2. Take the brown end of the resistor and insert it into column (e) in row 4 of the breadboard.
 
-1. Take the orange end of the resistor and insert it into column (e) in row 4 of the breadboard.
-
-1. Take the brown end of the resister and insert it into column (f) in row 4.
-
-    ![330-ohm-resistor-plugged-into-breadboard](images/09-330-ohm-resistor-breadboard.png)
+3. Take the orange end of the resistor and insert it into column (f) in row 4.
+    ![Wiring Diagram](images/blinking-led-lesson-05.jpeg)
 
 ## Adding the LED
 
 A LED is a light emitting diode. It two legs, one is longer than the other. The longer leg is the anode, positively charged.
 
-![LED](images/10-led.png)
-
 1. Take the longer leg of the LED and insert it into column (g) in row 4.
 
-1. Take the shorter leg of the LED and insert it into column (g) in row 5.
-
-    ![LED-plugged-into-breadboard](images/11-led-breadboard.png)
+2. Take the shorter leg of the LED and insert it into column (g) in row 5.
+    ![Wiring Diagram](images/blinking-led-lesson-06.png)
 
 ## Power the system
 
 1. Your connection of the electronics is all set-up.
 
-    ![wired-pHAT-and-breadboard](images/12-complete-set-up.png)
+    ![Wiring Diagram](images/blinking-led-lesson-07.jpeg)
 
-1. Turn on the Raspberry Pi 400. The pHAT and power will light up red.
+2. Turn on the Raspberry Pi 400. The pHAT and power will light up red.
 
     ![power-on-wired-pHAT-and-breadboard](images/13-powered-set-up.png)
 
