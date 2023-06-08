@@ -1,4 +1,5 @@
 # Multi-color LED
+![RGB Lesson](images/multi-led-lesson-00b.jpg)
 
 ## Getting started
 For this exercise, you will need the following:
@@ -20,32 +21,45 @@ We will have the jumper wires complement each pin color for easier coordination,
 2. Install RGB-LED.
     * Insert anode vertically into the Column I, Row 21.
 
-    ![connection-to-breadboard](images/to-breadboard.jpg)
+    ![Insert LED](images/multi-led-lesson-1.jpeg)
 
 3. Gather your resistors to allow a steady current for our LED.
     * Insert either end of the resistor into the Column H, Row 20.
     * Bridge the gap of the breadboard with the resistor, and insert the other end into Column D, Row 19.
+    ![Insert First Resistor](images/multi-led-lesson-2.jpeg)
     * We will continue adding resistors for the anode, green, and blue pins.
         * For the anode, insert either end of the resistor into Column H, Row 21, and the other end into Column D, Row 21.
-        * For the GREEN pin, insert either end of the resistor into Column H, Row 22, and the other end into Column D, Row 23.
-        * Finally, for the BLUE pin, insert either end of the resistor into Column H, Row 23, and the other end into Column D, Row 25.
+          ![Insert Second Resistor](images/multi-led-lesson-3.jpeg)
+        * For the BLUE pin, insert either end of the resistor into Column H, Row 23, and the other end into Column D, Row 25.
+          ![Insert Third Resistor](images/multi-led-lesson-4.jpeg)
+        * Finally, for the GREEN pin, insert either end of the resistor into Column H, Row 22, and the other end into Column D, Row 23.
+          ![Insert Fourth Resistor](images/multi-led-lesson-5.jpeg)
 
 4. Collect your M-to-F Jumper Wires.
-    * This step will connect the anode, the resistor is to make sure the 3V does not wear out the LED.
-        * With your Black M-to-F Jumper Cable, attach the FEMALE end into the 3V pin of the pHAT
-        * Attach opposing side (Male end) and insert into Column C, Row 21 of the breadboard.
-    * We will continue adding M-to-F Jumper Wires for the Red, Green, and Blue pins.
-        * Insert Male pin of RED wire into Column C, Row 19, attaching the opposite end to Pin 17 of the pHAT.
+    * This step will connect the wires to resistors, so the 3V does not wear out the LED.
+        * With your RED M-to-F Jumper Cable, attach the Male end into  Column C, Row 19 of the breadboard. then attach the Female end to Pin 17 of the pHAT.
+        ![Red Wire to Breadboard](images/multi-led-lesson-6.jpeg)
+        ![Red Wire to pHAT](images/multi-led-lesson-13.jpeg)
+    * We will continue adding M-to-F Jumper Wires for the Anode, Green, and Blue pins.
+        * Insert Male pin of Black wire into Column C, Row 21, attaching the opposite end to 3V3 of the pHAT.
+         ![Black Wire to Breadboard](images/multi-led-lesson-7.jpeg)
+         ![Black Wire to pHAT](images/multi-led-lesson-12.jpeg)
         * Insert Male pin of GREEN wire into Column C, Row 23, attaching the opposite end to Pin 27 of the pHAT.
+         ![Green Wire to Breadboard](images/multi-led-lesson-8.jpeg)
+         ![Green Wire to pHAT](images/multi-led-lesson-11.jpeg)
         * Insert Male pin of BLUE wire into Column C, Row 25, the opposite end will be attached to Pin 22 of the pHAT.
+         ![Blue Wire to Breadboard](images/multi-led-lesson-9.jpeg)
+         ![Blue Wire to pHAT](images/multi-led-lesson-10.jpeg)
 
-    ![connection-to-pHAT](images/to-pHAT.jpg)
+## Final Wiring Diagram
+![Final Wiring Diagram](images/multi-led-lesson-14.jpeg)
 
 ## Write a Python 3 program
 
 Follow the instructions in the previous lesson, open the Thonny Python IDE, and copy and paste the following code into it.
 
-    ```python
+    ```
+    python
     #libraries
     import RPi.GPIO as GPIO
     from time import sleep
