@@ -363,6 +363,7 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">Getting started</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#connecting-the-led">Connecting the LED</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#final-wiring-diagram">Final Wiring Diagram</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-a-python-3-program">Write a Python 3 program</a></li>
 </ul>
             </nav>
@@ -377,6 +378,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="multi-color-led">
 <h1>Multi-color LED<a class="headerlink" href="#multi-color-led" title="Permalink to this heading">#</a></h1>
+<p><img alt="RGB Lesson" src="../../_images/multi-led-lesson-00b.jpg" /></p>
 <section id="getting-started">
 <h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h2>
 <p>For this exercise, you will need the following:</p>
@@ -404,45 +406,60 @@ We will have the jumper wires complement each pin color for easier coordination,
 <ul class="simple">
 <li><p>Insert anode vertically into the Column I, Row 21.</p></li>
 </ul>
-<p><img alt="connection-to-breadboard" src="../../_images/to-breadboard.jpg" /></p>
+<p><img alt="Insert LED" src="../../_images/multi-led-lesson-1.jpeg" /></p>
 </li>
 <li><p>Gather your resistors to allow a steady current for our LED.</p>
 <ul class="simple">
 <li><p>Insert either end of the resistor into the Column H, Row 20.</p></li>
-<li><p>Bridge the gap of the breadboard with the resistor, and insert the other end into Column D, Row 19.</p></li>
+<li><p>Bridge the gap of the breadboard with the resistor, and insert the other end into Column D, Row 19.
+<img alt="Insert First Resistor" src="../../_images/multi-led-lesson-2.jpeg" /></p></li>
 <li><p>We will continue adding resistors for the anode, green, and blue pins.</p>
 <ul>
-<li><p>For the anode, insert either end of the resistor into Column H, Row 21, and the other end into Column D, Row 21.</p></li>
-<li><p>For the GREEN pin, insert either end of the resistor into Column H, Row 22, and the other end into Column D, Row 23.</p></li>
-<li><p>Finally, for the BLUE pin, insert either end of the resistor into Column H, Row 23, and the other end into Column D, Row 25.</p></li>
+<li><p>For the anode, insert either end of the resistor into Column H, Row 21, and the other end into Column D, Row 21.
+<img alt="Insert Second Resistor" src="../../_images/multi-led-lesson-3.jpeg" /></p></li>
+<li><p>For the BLUE pin, insert either end of the resistor into Column H, Row 23, and the other end into Column D, Row 25.
+<img alt="Insert Third Resistor" src="../../_images/multi-led-lesson-4.jpeg" /></p></li>
+<li><p>Finally, for the GREEN pin, insert either end of the resistor into Column H, Row 22, and the other end into Column D, Row 23.
+<img alt="Insert Fourth Resistor" src="../../_images/multi-led-lesson-5.jpeg" /></p></li>
 </ul>
 </li>
 </ul>
 </li>
 <li><p>Collect your M-to-F Jumper Wires.</p>
 <ul class="simple">
-<li><p>This step will connect the anode, the resistor is to make sure the 3V does not wear out the LED.</p>
+<li><p>This step will connect the wires to resistors, so the 3V does not wear out the LED.</p>
 <ul>
-<li><p>With your Black M-to-F Jumper Cable, attach the FEMALE end into the 3V pin of the pHAT</p></li>
-<li><p>Attach opposing side (Male end) and insert into Column C, Row 21 of the breadboard.</p></li>
+<li><p>With your RED M-to-F Jumper Cable, attach the Male end into  Column C, Row 19 of the breadboard. then attach the Female end to Pin 17 of the pHAT.
+<img alt="Red Wire to Breadboard" src="../../_images/multi-led-lesson-6.jpeg" />
+<img alt="Red Wire to pHAT" src="../../_images/multi-led-lesson-13.jpeg" /></p></li>
 </ul>
 </li>
-<li><p>We will continue adding M-to-F Jumper Wires for the Red, Green, and Blue pins.</p>
+<li><p>We will continue adding M-to-F Jumper Wires for the Anode, Green, and Blue pins.</p>
 <ul>
-<li><p>Insert Male pin of RED wire into Column C, Row 19, attaching the opposite end to Pin 17 of the pHAT.</p></li>
-<li><p>Insert Male pin of GREEN wire into Column C, Row 23, attaching the opposite end to Pin 27 of the pHAT.</p></li>
-<li><p>Insert Male pin of BLUE wire into Column C, Row 25, the opposite end will be attached to Pin 22 of the pHAT.</p></li>
+<li><p>Insert Male pin of Black wire into Column C, Row 21, attaching the opposite end to 3V3 of the pHAT.
+<img alt="Black Wire to Breadboard" src="../../_images/multi-led-lesson-7.jpeg" />
+<img alt="Black Wire to pHAT" src="../../_images/multi-led-lesson-12.jpeg" /></p></li>
+<li><p>Insert Male pin of GREEN wire into Column C, Row 23, attaching the opposite end to Pin 27 of the pHAT.
+<img alt="Green Wire to Breadboard" src="../../_images/multi-led-lesson-8.jpeg" />
+<img alt="Green Wire to pHAT" src="../../_images/multi-led-lesson-11.jpeg" /></p></li>
+<li><p>Insert Male pin of BLUE wire into Column C, Row 25, the opposite end will be attached to Pin 22 of the pHAT.
+<img alt="Blue Wire to Breadboard" src="../../_images/multi-led-lesson-9.jpeg" />
+<img alt="Blue Wire to pHAT" src="../../_images/multi-led-lesson-10.jpeg" /></p></li>
 </ul>
 </li>
 </ul>
-<p><img alt="connection-to-pHAT" src="../../_images/to-pHAT.jpg" /></p>
 </li>
 </ol>
+</section>
+<section id="final-wiring-diagram">
+<h2>Final Wiring Diagram<a class="headerlink" href="#final-wiring-diagram" title="Permalink to this heading">#</a></h2>
+<p><img alt="Final Wiring Diagram" src="../../_images/multi-led-lesson-14.jpeg" /></p>
 </section>
 <section id="write-a-python-3-program">
 <h2>Write a Python 3 program<a class="headerlink" href="#write-a-python-3-program" title="Permalink to this heading">#</a></h2>
 <p>Follow the instructions in the previous lesson, open the Thonny Python IDE, and copy and paste the following code into it.</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>```python
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>```
+python
 #libraries
 import RPi.GPIO as GPIO
 from time import sleep
@@ -590,6 +607,7 @@ provided code.</p>
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">Getting started</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#connecting-the-led">Connecting the LED</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#final-wiring-diagram">Final Wiring Diagram</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-a-python-3-program">Write a Python 3 program</a></li>
 </ul>
   </nav></div>
