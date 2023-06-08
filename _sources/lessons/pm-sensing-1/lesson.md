@@ -8,6 +8,7 @@ PM, sensor with the hardware provided. You will learn how to connect it to your
 Raspberry Pi 400 and the basics of how to get the sensor readings from it using
 Python 3. If you are interested in learning more about particulate matter
 sensing see [this](https://en.wikipedia.org/wiki/Particulates) page.
+    ![pm-sensor-lesson-photos](images/00-pm-sensor-lesson-photo.jpeg)
 
 ## Parts list
 
@@ -18,9 +19,7 @@ For this exercise you'll need:
 * [Breadboard](https://www.sparkfun.com/products/12002)
 * 4 [male to female jumper wires](https://www.sparkfun.com/products/9385)
 
-## Assembly
-
-### 1. Assemble the sensor
+## 1. Assemble the sensor
 
 The PM sensor has two openings on one side, the air inlet and fan air outlet.
 
@@ -37,8 +36,7 @@ A small green board with 8 pins will connect to the breadboard via a cable conne
 ![Small green board](images/03-pm-pin-and-cable.png)
 
 Take the female end (white) of the cable and insert it into the green board connector.
-
-![Small green board with cable](images/04-pm-connecting-8pin-and-cable.png)
+    ![Small green board with cable](images/04-pm-connecting-8pin-and-cable.png)
 
 Take the other female end (white) of the cable and insert it into the PM Sensor.
 
@@ -56,25 +54,32 @@ Insert the 8 pins from the small green board along a column on the breadboard as
 
 ![Breadboard and 8 pins](images/08-8pin-plugged-breadboard.png)
 
-Collect 4 male-to-female jumper wires. On the small green board, identify the labels TXD, RXD, GND, and VCC.
+* Collect 4 male-to-female jumper wires. On the small green board, identify the labels TXD, RXD, GND, and VCC.
 
-Insert the male ends of the into the the following breadboard on the same rows of the breadboard.
+* Insert the male ends of the into the the following breadboard on the same rows of the breadboard.
 
-![Breadboard](images/09-jumper-wires-plugged-breadboard.jpeg)
+![Breadboard with jumper wires](images/breadboard-closeup-pm-sensor-lesson-04-steps-.jpeg)
 
 ### 3. Connect the breadboard to the pHAT
-Connect the female end of the GND wire to GND on the pHAT. Connect the female
-end of the VCC wire to 5V on the pHAT. Connect the female end of the TXD wire
-to 15/RXI on the pHAT. Connect the female end of the RXD wire to 14/TXO on the
+* Connect the female end of the GND wire to GND on the pHAT. 
+
+    ![pHAT Extention and GND wire](images/phat-closeup-pm-sensor-lesson-01-steps-.jpeg)
+
+* Connect the female end of the VCC wire to 5V on the pHAT. 
+    ![pHAT Extention and VCC wire](images/phat-closeup-pm-sensor-lesson-02-steps-.jpeg)
+
+* Connect the female end of the RXD wire to 14/TXO on the
 pHAT.
+    ![pHAT Extention Pin 14/TXO](images/phat-closeup-pm-sensor-lesson-03-steps-.jpeg)
 
-![pHAT](images/10-jumper-wires-plugged-gpio.jpeg)
+* Connect the female end of the TXD wire to 15/RXI on the pHAT. 
+    ![pHAT Extention and VCC wire](images/phat-closeup-pm-sensor-lesson-04-steps-.jpeg)
 
-### 4. Should be done
-You should now have a complete product that looks like the following with the
-pm sensor wired to the breadboard and the breadboard wired to the pHAT.
 
-![Finished](images/11-pm-sensor-complete.jpeg)
+### 4. Final Particulate Matter Diagram
+Our complete product of the pm sensor is shown below, our PM sensor is wired to the breadboard and we use jumper wires to connect to the pHAT.
+
+![Finished](images/4pm-sensor-lesson-steps-.jpeg)
 
 ## Python 3 code
 
@@ -125,3 +130,6 @@ This code was adapted from the files found
 [here](https://github.com/pimoroni/pms5003-python/tree/master/examples). This
 repo contains the source for the pms5003 module we use to read from the sensor.
 
+
+
+[def]: images/00pm-sensor-lesson-photo.jpeg
